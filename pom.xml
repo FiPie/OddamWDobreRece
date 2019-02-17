@@ -11,7 +11,7 @@
 	<groupId>com.f.piechowiak.spring</groupId>
 	<artifactId>OddamWDobreRece</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<firstName>oddamwdobrerece01</firstName>
+	<name>oddamwdobrerece</name>
 
 	<packaging>war</packaging>
 
@@ -80,7 +80,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>oddamwdobrerece01</finalName>
+		<finalName>oddamwdobrerece</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -92,7 +92,7 @@
 				<artifactId>heroku-maven-plugin</artifactId>
 				<version>2.0.6</version>
 				<configuration>
-					<appName>oddamwdobrerece01</appName>
+					<appName>oddamwdobrerece</appName>
 					<includeTarget>false</includeTarget>
 					<includes>
 						<include>target/${project.build.finalName}.war</include>
