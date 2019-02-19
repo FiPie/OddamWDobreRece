@@ -74,6 +74,8 @@ public class AdminController {
             for (int j = 0; j < userRoleList.size(); j++) {
                 if (userRoleList.get( j ).getUser().getId() == userId){
                     userList.remove( userList.get( i ) );
+                    i--;
+
                 }
             }
         }
@@ -86,6 +88,25 @@ public class AdminController {
     @GetMapping("/adminList")
     public String prepareAdminListForm(Principal principal, Model model) {
         model.addAttribute( "AdminFormDto", new AdminFormDto() );
+
+        List<User> adminList = userRepository.findAll();
+        /*System.err.println("Wielkość listy userów: "+adminList.size());*/
+        List<UserRole> userRoleList = userRoleRepository.findAllByRoleContaining( "ROLE_USER" );
+        /*System.err.println("Wielkość listy userów z role_user: "+userRoleList.size());*/
+        for (int i = 0; i < adminList.size();i++) {
+            Long userId = adminList.get( i ).getId();
+            /*System.err.println("Obecny userId: "+userId);*/
+            for (int j = 0; j < userRoleList.size(); j++) {
+                /*System.err.println("Obecny userRoleUserId: "+userRoleList.get( j ).getUser().getId());*/
+                if (userRoleList.get( j ).getUser().getId() == userId){
+                    adminList.remove( adminList.get( i ) );
+                    i--;
+                }
+            }
+        }
+
+        session.setAttribute( "adminList", adminList );
+
         return "adminList";
     }
 

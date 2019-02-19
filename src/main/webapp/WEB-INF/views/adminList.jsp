@@ -21,5 +21,17 @@
     <jsp:include page="fragments/menuAdmin.jsp"/>
 </header>
 <h1> ADMIN DASHBOARD: ADMIN LIST </h1>
+<table>
+    <c:forEach var="admin" items="${sessionScope.adminList}">
+        <tbody>
+        <tr>
+            <th scope="row">${admin.id}</th>
+            <td scope="row">${admin.email}</td>
+            <td scope="row">${admin.firstName}</td>
+            <td scope="row">${admin.lastName}</td>
+        </tr>
+        </tbody>
+    </c:forEach>
+</table>
 </body>
 </html>
