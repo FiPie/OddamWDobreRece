@@ -11,6 +11,7 @@ public class Admin extends User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    
 
     @Override
     public Long getId() { return id; }

@@ -33,7 +33,7 @@ public class HomepageController {
 
                 String firstName = userRepository.findByEmail(userEmail).getFirstName();
                 model.addAttribute( "userFirstName", firstName );
-
+                session.setAttribute( "userFirstName", firstName );
                 session.setAttribute( "userId", userId );
             }
         }

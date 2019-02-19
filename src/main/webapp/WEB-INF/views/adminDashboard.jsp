@@ -11,9 +11,18 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>AdminDashboard</title>
+    <style>
+        <%@include file="/WEB-INF/views/css/style.css" %>
+    </style>
 </head>
 <body>
+<header>
+    <jsp:include page="fragments/menuAdmin.jsp"/>
+</header>
+
+<h1> ADMIN DASHBOARD </h1>
+
 
 </body>
 </html>

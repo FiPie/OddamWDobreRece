@@ -10,10 +10,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
+<html>
 <head>
-    <title>$Title$</title>
+    <title>Gift List</title>
+    <style>
+        <%@include file="/WEB-INF/views/css/style.css" %>
+    </style>
 </head>
 <body>
-$END$
+<header>
+    <jsp:include page="fragments/menuAdmin.jsp"/>
+</header>
+<h1> ADMIN DASHBOARD: GIFT LIST </h1>
 </body>
 </html>

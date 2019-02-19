@@ -51,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/news" ).permitAll()
                 .antMatchers( "/admin/**" ).hasRole( "ADMIN" )
                 .antMatchers( "/user/**" ).hasRole( "USER" )
+                .antMatchers( "/adminDashboard" ).hasRole( "ADMIN" )
                 .anyRequest().authenticated()
                 .and()
                 .csrf()

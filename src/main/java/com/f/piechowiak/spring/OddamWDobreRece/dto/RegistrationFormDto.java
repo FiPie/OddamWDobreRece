@@ -1,10 +1,11 @@
 package com.f.piechowiak.spring.OddamWDobreRece.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 public class RegistrationFormDto {
 
-    @NotNull
+    @NotNull @Email
     private String email;
     @NotNull
     private String firstName;
@@ -42,9 +43,7 @@ public class RegistrationFormDto {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
+    public String getLastName() { return lastName; }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;

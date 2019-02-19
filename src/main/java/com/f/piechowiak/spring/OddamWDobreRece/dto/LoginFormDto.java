@@ -1,13 +1,14 @@
 package com.f.piechowiak.spring.OddamWDobreRece.dto;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class LoginFormDto {
 
     @NotNull @Email
     private String email;
-    @NotNull
+    @NotNull @NotBlank
     private String password;
 
 
