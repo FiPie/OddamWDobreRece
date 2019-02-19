@@ -1,6 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.models;
 
 import javax.persistence.*;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name = "users_roles")
@@ -10,12 +11,21 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Column(name = "roles")
     private String role;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Override
+    public String toString() {
+        return new StringJoiner( ", ", UserRole.class.getSimpleName() + "[", "]" )
+                .add( "id=" + id )
+                .add( "role='" + role + "'" )
+                .add( "user=" + user )
+                .toString();
+    }
 
     public Long getId() {
         return id;

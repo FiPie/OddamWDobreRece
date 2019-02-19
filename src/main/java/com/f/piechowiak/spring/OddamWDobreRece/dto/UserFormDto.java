@@ -12,6 +12,8 @@ public class UserFormDto {
 
     private String password;
 
+    private boolean enabled;
+
 
     public Long getId() {
         return id;
@@ -51,5 +53,13 @@ public class UserFormDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

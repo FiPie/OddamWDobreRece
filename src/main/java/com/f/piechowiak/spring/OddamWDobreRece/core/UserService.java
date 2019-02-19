@@ -26,9 +26,12 @@ public class UserService {
 
     @Transactional
     public boolean update(UserFormDto form){
+
         User user = new User();
+
         user.setEmail( form.getEmail() );
         user.setFirstName( form.getFirstName() );
+        user.setLastName( form.getLastName() );
         String encodedPassword = passwordEncoder.encode( form.getPassword() );
         user.setPassword( encodedPassword);
         user = userRepository.save( user );

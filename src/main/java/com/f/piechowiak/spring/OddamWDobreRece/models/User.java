@@ -1,6 +1,8 @@
 package com.f.piechowiak.spring.OddamWDobreRece.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -13,14 +15,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column
     private String firstName;
+    @NotNull
     @Column
     private String lastName;
-    @Column
+    @NotNull
+    @Email
+    @Column(unique = true)
     private String email;
+    @NotNull
     @Column
     private String password;
+    @Column
+    private boolean enabled;
 
 
     public Long getId() {
@@ -63,6 +72,14 @@ public class User {
         this.password = password;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner( ", ", User.class.getSimpleName() + "[", "]" )
@@ -71,6 +88,7 @@ public class User {
                 .add( "lastName='" + lastName + "'" )
                 .add( "email='" + email + "'" )
                 .add( "password='" + password + "'" )
+                .add( "enabled=" + enabled )
                 .toString();
     }
 
