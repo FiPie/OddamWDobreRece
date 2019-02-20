@@ -15,8 +15,8 @@ public class Gift {
     @Column
     private String type;
 
-    @ManyToOne
-    private Charity charity;
+    /*@ManyToOne
+    private Charity charity;*/
 
 
     @Override
@@ -48,11 +48,4 @@ public class Gift {
         this.type = type;
     }
 
-    public Charity getCharity() {
-        return charity;
-    }
-
-    public void setCharity(Charity charity) {
-        this.charity = charity;
-    }
 }

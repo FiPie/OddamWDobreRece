@@ -26,7 +26,7 @@ public class Charity {
 
     @OneToMany
     @JoinTable(name = "charity_gift",
-            joinColumns = @JoinColumn(name = "charity_id"),
+            joinColumns = @JoinColumn(name = "type"),
             inverseJoinColumns = @JoinColumn(name = "gift_id"))
     private List<Gift> acceptedGifts;
 
