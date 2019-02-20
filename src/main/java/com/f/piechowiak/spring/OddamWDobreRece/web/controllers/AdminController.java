@@ -1,7 +1,10 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
+import com.f.piechowiak.spring.OddamWDobreRece.core.AdminService;
+import com.f.piechowiak.spring.OddamWDobreRece.core.RegistrationService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.AdminFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.LoginFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.RegistrationFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.AdminRepository;
@@ -10,10 +13,14 @@ import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -30,8 +37,15 @@ public class AdminController {
     @Autowired
     UserRoleRepository userRoleRepository;
 
+    private AdminService adminService;
+
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
+
+
     @GetMapping("/dashboard")
-    public String prepareAdminForm(Principal principal, Model model) {
+    public String prepareAdminDashboard(Principal principal, Model model) {
         model.addAttribute( "AdminFormDto", new AdminFormDto() );
 
         return "adminDashboard";
@@ -120,6 +134,30 @@ public class AdminController {
     public String prepareGiftListForm(Principal principal, Model model) {
         model.addAttribute( "AdminFormDto", new AdminFormDto() );
         return "giftList";
+    }
+
+
+
+
+    @GetMapping("/adminForm")
+    public String prepareAdminForm(Principal principal, Model model) {
+        model.addAttribute( "adminForm", new AdminFormDto() );
+
+        return "adminForm";
+    }
+
+    @PostMapping("/adminForm")
+    public String registerUser(@ModelAttribute("adminForm") @Valid AdminFormDto form, BindingResult result) {
+        if (result.hasErrors()) {
+            return "adminForm";
+        }
+        boolean success = adminService.createAdmin( form );
+        if (success) {
+            return "redirect:/admin/adminList";
+        } else {
+            result.rejectValue( "email", null, "Cos poszlo nietak przy wpisywaniu danych w formularzu tworzenia admina, sprobuj jeszcze raz:)" );
+            return "adminForm";
+        }
     }
 
 

@@ -33,5 +33,6 @@
         </tbody>
     </c:forEach>
 </table>
+<a href="/admin/adminForm" class="btn btn--medium">Dodaj Nowego Admina</a>
 </body>
 </html>

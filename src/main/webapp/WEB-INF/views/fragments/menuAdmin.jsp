@@ -32,6 +32,7 @@
                     <li><a href="/admin/dashboard">Admin Dashboard</a></li>
                     <li><a href="/admin/userList">Lista Użytkowników</a></li>
                     <li><a href="/admin/adminList">Lista Adminów</a></li>
+                    <li><a href="/admin/adminForm">Formularz Admina</a></li>
                     <li><a href="/admin/orgList">Lista Zaufanych Instytucji</a></li>
                     <li><a href="/admin/giftList">Lista Przekazanych darów</a></li>
                     <li><a href="/logout">Wyloguj</a></li>

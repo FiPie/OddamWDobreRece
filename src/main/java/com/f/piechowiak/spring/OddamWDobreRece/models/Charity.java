@@ -1,6 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -12,10 +13,12 @@ public class Charity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotNull
+    @Column
+    private String charityName;
+    @NotNull
     @Column
     private String type;
-
     @Column
     private String city;
 
@@ -41,10 +44,19 @@ public class Charity {
     public String toString() {
         return new StringJoiner( ", ", Charity.class.getSimpleName() + "[", "]" )
                 .add( "id=" + id )
+                .add( "charityName='" + charityName + "'" )
                 .add( "type='" + type + "'" )
                 .add( "city='" + city + "'" )
                 .add( "acceptedGifts=" + acceptedGifts )
                 .toString();
+    }
+
+    public String getCharityName() {
+        return charityName;
+    }
+
+    public void setCharityName(String charityName) {
+        this.charityName = charityName;
     }
 
     public Long getId() {
