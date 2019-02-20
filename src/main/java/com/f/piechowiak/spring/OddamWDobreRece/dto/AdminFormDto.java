@@ -5,6 +5,8 @@ import javax.validation.constraints.NotNull;
 
 public class AdminFormDto {
 
+
+    private Long id;
     @NotNull
     @Email
     private String email;
@@ -16,6 +18,15 @@ public class AdminFormDto {
     private String password;
     @NotNull
     private String confirmedPassword;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;

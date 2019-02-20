@@ -15,13 +15,9 @@ public class Gift {
     @Column
     private String type;
 
-    @Override
-    public String toString() {
-        return new StringJoiner( ", ", Gift.class.getSimpleName() + "[", "]" )
-                .add( "id=" + id )
-                .add( "type='" + type + "'" )
-                .toString();
-    }
+    @ManyToOne
+    private Charity charity;
+
 
     @Override
     public boolean equals(Object o) {
@@ -50,5 +46,13 @@ public class Gift {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Charity getCharity() {
+        return charity;
+    }
+
+    public void setCharity(Charity charity) {
+        this.charity = charity;
     }
 }

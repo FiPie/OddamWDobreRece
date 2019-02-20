@@ -29,7 +29,16 @@
             <td scope="row">${admin.email}</td>
             <td scope="row">${admin.firstName}</td>
             <td scope="row">${admin.lastName}</td>
+            <td scope="row">
+                <div class="form-group form-group--buttons">
+                    <%--<a href="/admin/delete" class="btn btn--small">Usuń ${admin.firstName}</a>--%>
+                    <a href="/admin/${admin.id}/confirmDelete" class="btn btn--small">Usuń ${admin.firstName}</a>
+
+                    <a href="/admin/edit" class="btn btn--small">Edytuj ${admin.firstName}</a>
+                </div>
+            </td>
         </tr>
+
         </tbody>
     </c:forEach>
 </table>

@@ -2,6 +2,7 @@ package com.f.piechowiak.spring.OddamWDobreRece.core;
 
 import com.f.piechowiak.spring.OddamWDobreRece.dto.AdminFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.RegistrationFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
@@ -41,6 +42,17 @@ public class AdminService {
         userRole.setUser( user );
         userRole.setRole( "ROLE_ADMIN" );
         userRole = userRoleRepository.save( userRole );
+
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteAdmin(AdminFormDto form){
+        User user = new User();
+        user.setId( form.getId() );
+        if (userRepository.findById( user.getId()) != null){
+            userRepository.deleteById( user.getId() );
+        }
 
         return true;
     }

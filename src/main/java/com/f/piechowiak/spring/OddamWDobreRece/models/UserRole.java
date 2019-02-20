@@ -14,7 +14,7 @@ public class UserRole {
     @Column(name = "roles")
     private String role;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(targetEntity = User.class, cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 

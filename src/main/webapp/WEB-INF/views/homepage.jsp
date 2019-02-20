@@ -18,9 +18,7 @@
     <title>Homepage</title>
     <style>
         <%@include file="/WEB-INF/views/css/style.css" %>
-        <%@include file="/WEB-INF/views/images/signature.svg" %>
     </style>
-
 </head>
 <body>
 

@@ -1,7 +1,9 @@
 package com.f.piechowiak.spring.OddamWDobreRece.core;
 
+import com.f.piechowiak.spring.OddamWDobreRece.dto.AdminFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
+import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +45,40 @@ public class UserService {
     public boolean delete(UserFormDto form){
         User user = new User();
         user.setId( form.getId() );
-        userRepository.delete( user );
+        if (userRepository.findById( user.getId()) != null){
+            userRepository.deleteById( user.getId() );
+        }
 
         return true;
     }
 
+    @Transactional
+    public boolean createAdmin(AdminFormDto form){
+        User user = new User();
+        user.setEmail( form.getEmail() );
+        user.setFirstName( form.getFirstName() );
+        user.setLastName( form.getLastName() );
+        user.setEnabled( true );
+        String encodedPassword = passwordEncoder.encode( form.getPassword() );
+        user.setPassword( encodedPassword );
+        user = userRepository.save(user);
 
+        UserRole userRole = new UserRole();
+        userRole.setUser( user );
+        userRole.setRole( "ROLE_ADMIN" );
+        userRole = userRoleRepository.save( userRole );
+
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteAdmin(AdminFormDto form){
+        User user = new User();
+        user.setId( form.getId() );
+        if (userRepository.findById( user.getId()) != null){
+            userRepository.deleteById( user.getId() );
+        }
+
+        return true;
+    }
 }

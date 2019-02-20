@@ -20,7 +20,7 @@ public class Order {
     @JoinColumn(name = "gift_id")
     private Gift gift;
 
-    @ManyToOne                      //Darczyńca
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.EAGER)    //Darczyńca
     @JoinColumn(name = "user_id")
     private User user;
 

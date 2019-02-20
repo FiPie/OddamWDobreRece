@@ -1,5 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.models;
 
+import org.hibernate.mapping.ToOne;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -22,9 +24,11 @@ public class Charity {
     @Column
     private String city;
 
-    @ManyToOne                          //Czy może to powinna być relacja ManyToMany???
-    @JoinColumn(name = "gift_id")
-    private Gift acceptedGifts;
+    @OneToMany
+    @JoinTable(name = "charity_gift",
+            joinColumns = @JoinColumn(name = "charity_id"),
+            inverseJoinColumns = @JoinColumn(name = "gift_id"))
+    private List<Gift> acceptedGifts;
 
 
     @Override
@@ -36,11 +40,6 @@ public class Charity {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash( id );
-    }
-
-    @Override
     public String toString() {
         return new StringJoiner( ", ", Charity.class.getSimpleName() + "[", "]" )
                 .add( "id=" + id )
@@ -49,6 +48,15 @@ public class Charity {
                 .add( "city='" + city + "'" )
                 .add( "acceptedGifts=" + acceptedGifts )
                 .toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash( id );
+    }
+
+    public void setAcceptedGifts(List<Gift> acceptedGifts) {
+        this.acceptedGifts = acceptedGifts;
     }
 
     public String getCharityName() {
@@ -83,11 +91,7 @@ public class Charity {
         this.city = city;
     }
 
-    public Gift getAcceptedGifts() {
+    public List<Gift> getAcceptedGifts() {
         return acceptedGifts;
-    }
-
-    public void setAcceptedGifts(Gift acceptedGifts) {
-        this.acceptedGifts = acceptedGifts;
     }
 }

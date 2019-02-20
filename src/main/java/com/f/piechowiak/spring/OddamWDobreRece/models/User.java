@@ -3,6 +3,7 @@ package com.f.piechowiak.spring.OddamWDobreRece.models;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,6 +31,14 @@ public class User {
     private String password;
     @Column
     private boolean enabled;
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL} , targetEntity = UserRole.class)
+    private List<UserRole> userRoles;
+
+    /*@OneToMany(mappedBy = "order", cascade = {CascadeType.ALL} , targetEntity = Order.class)
+    private List<Order> orders;*/
+
+
 
 
     public Long getId() {

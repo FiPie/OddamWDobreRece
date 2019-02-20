@@ -2,6 +2,7 @@ package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
 import com.f.piechowiak.spring.OddamWDobreRece.core.AdminService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.RegistrationService;
+import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.AdminFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.LoginFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.RegistrationFormDto;
@@ -14,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -36,102 +34,49 @@ public class AdminController {
     AdminRepository adminRepository;
     @Autowired
     UserRoleRepository userRoleRepository;
+    @Autowired
+    private UserService userService;
 
-    private AdminService adminService;
 
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
+    public AdminController(UserService userService) {
+        this.userService = userService;
     }
 
 
     @GetMapping("/dashboard")
-    public String prepareAdminDashboard(Principal principal, Model model) {
+    public String prepareAdminDashboard(Model model) {
         model.addAttribute( "AdminFormDto", new AdminFormDto() );
-
         return "adminDashboard";
     }
 
+
     @GetMapping("/userList")
-    public String prepareUserListForm(Principal principal, Model model) {
+    public String prepareUserListForm(Model model) {
         model.addAttribute( "AdminFormDto", new AdminFormDto() );
-
-        /*List<UserRole> userRoleList = userRoleRepository.findAllByRoleContaining( "ROLE_USER" );
-        List<User> userList = null;
-        for (UserRole userRole : userRoleList) {
-            Long userId = userRole.getUser().getId();
-            System.err.println("Current userId: "+userId);
-
-            User user = userRepository.findOneById( userId );
-            userList.add( user );
-            System.err.println("Current user: "+user.getEmail());
-        }*/
-
-        /*List<User> userList = userRepository.findAll();
-        for (User user:userList) {
-            Long userId = user.getId();
-            List<UserRole> userRoles = userRoleRepository.findAllByUserId( userId );
-            for (UserRole userRole:userRoles) {
-                System.err.println("Current user role: "+userRole.getRole());
-                    if (userRole.getRole() == "ROLE_ADMIN"){
-                        System.err.println("OBECNY USER W PĘTLI DO USUNIENCIA Z LISTY userList: "+ user.toString());
-                        userList.remove( this );
-
-                    }
-            }
-
-        }*/
-        List<User> userList = userRepository.findAll();
-        List<UserRole> userRoleList = userRoleRepository.findAllByRoleContaining( "ROLE_ADMIN" );
-
-        for (int i = 0; i < userList.size(); i++) {
-            Long userId = userList.get( i ).getId();
-            for (int j = 0; j < userRoleList.size(); j++) {
-                if (userRoleList.get( j ).getUser().getId() == userId){
-                    userList.remove( userList.get( i ) );
-                    i--;
-
-                }
-            }
-        }
-        
+        List<User> userList = userRepository.getUserList();
         session.setAttribute( "userList", userList );
-
         return "userList";
     }
 
+
     @GetMapping("/adminList")
-    public String prepareAdminListForm(Principal principal, Model model) {
+    public String prepareAdminListForm(Model model) {
         model.addAttribute( "AdminFormDto", new AdminFormDto() );
-
-        List<User> adminList = userRepository.findAll();
-        /*System.err.println("Wielkość listy userów: "+adminList.size());*/
-        List<UserRole> userRoleList = userRoleRepository.findAllByRoleContaining( "ROLE_USER" );
-        /*System.err.println("Wielkość listy userów z role_user: "+userRoleList.size());*/
-        for (int i = 0; i < adminList.size();i++) {
-            Long userId = adminList.get( i ).getId();
-            /*System.err.println("Obecny userId: "+userId);*/
-            for (int j = 0; j < userRoleList.size(); j++) {
-                /*System.err.println("Obecny userRoleUserId: "+userRoleList.get( j ).getUser().getId());*/
-                if (userRoleList.get( j ).getUser().getId() == userId){
-                    adminList.remove( adminList.get( i ) );
-                    i--;
-                }
-            }
-        }
-
+        List<User> adminList = userRepository.getAdminList();
         session.setAttribute( "adminList", adminList );
-
         return "adminList";
     }
 
+
     @GetMapping("/orgList")
-    public String prepareOrganizationListForm(Principal principal, Model model) {
+    public String prepareOrganizationListForm(Model model) {
         model.addAttribute( "AdminFormDto", new AdminFormDto() );
         return "orgList";
     }
 
+
     @GetMapping("/giftList")
-    public String prepareGiftListForm(Principal principal, Model model) {
+    public String prepareGiftListForm(Model model) {
         model.addAttribute( "AdminFormDto", new AdminFormDto() );
         return "giftList";
     }
@@ -140,25 +85,53 @@ public class AdminController {
 
 
     @GetMapping("/adminForm")
-    public String prepareAdminForm(Principal principal, Model model) {
+    public String prepareAdminForm(Model model) {
         model.addAttribute( "adminForm", new AdminFormDto() );
-
         return "adminForm";
     }
-
     @PostMapping("/adminForm")
     public String registerUser(@ModelAttribute("adminForm") @Valid AdminFormDto form, BindingResult result) {
         if (result.hasErrors()) {
-            return "adminForm";
-        }
-        boolean success = adminService.createAdmin( form );
+            return "/adminForm"; }
+        boolean success = userService.createAdmin( form );
         if (success) {
             return "redirect:/admin/adminList";
         } else {
             result.rejectValue( "email", null, "Cos poszlo nietak przy wpisywaniu danych w formularzu tworzenia admina, sprobuj jeszcze raz:)" );
-            return "adminForm";
+            return "/adminForm";
         }
     }
 
+
+
+    @GetMapping("/{id:[1-9]*[0-9]+}/confirmDelete")
+    public String confirmDelete(@PathVariable Long id, Model model) {
+        User user = userRepository.findById( id ).orElse( null );
+        if (user == null){
+            return "redirect:/adminList";
+        }
+        model.addAttribute( "toRemove", user );
+        return "/deleteAdmin";
+    }
+
+    @GetMapping("/{id:[1-9]*[0-9]+}/delete")
+    public String delete(@PathVariable Long id, Model model) {
+        User user = userRepository.findById( id ).orElse( null );
+        System.err.println("User do usunieńcia: " + user.getFirstName());
+        if (user != null) {
+            userRepository.delete(user);
+
+        }
+        return "redirect:/admin/adminList";
+    }
+
+
+    @GetMapping("/edit")
+    public String prepareEditAdminForm(Model model) {
+        model.addAttribute( "adminToEdit", new AdminFormDto() );
+
+
+        return "/editAdmin";
+    }
 
 }
