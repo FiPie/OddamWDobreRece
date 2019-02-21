@@ -19,6 +19,16 @@ public class AdminFormDto {
     @NotNull
     private String confirmedPassword;
 
+    private boolean enabled;
+
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public Long getId() {
         return id;

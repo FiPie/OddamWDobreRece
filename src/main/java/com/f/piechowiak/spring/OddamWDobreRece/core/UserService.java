@@ -70,6 +70,21 @@ public class UserService {
 
         return true;
     }
+    @Transactional
+    public boolean updateAdmin(AdminFormDto form){
+        User user = new User();
+        user.setId( form.getId() );
+        user.setEmail( form.getEmail() );
+        user.setFirstName( form.getFirstName() );
+        user.setLastName( form.getLastName() );
+        user.setEnabled( form.isEnabled() );
+        String encodedPassword = passwordEncoder.encode( form.getPassword() );
+        user.setPassword( encodedPassword );
+        user = userRepository.save(user);
+
+
+        return true;
+    }
 
     @Transactional
     public boolean deleteAdmin(AdminFormDto form){

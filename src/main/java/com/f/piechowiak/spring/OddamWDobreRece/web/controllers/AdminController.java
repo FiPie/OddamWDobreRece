@@ -108,7 +108,7 @@ public class AdminController {
     public String confirmDelete(@PathVariable Long id, Model model) {
         User user = userRepository.findById( id ).orElse( null );
         if (user == null){
-            return "redirect:/adminList";
+            return "redirect:/admin/adminList";
         }
         model.addAttribute( "toRemove", user );
         return "/deleteAdmin";
@@ -126,12 +126,32 @@ public class AdminController {
     }
 
 
-    @GetMapping("/edit")
-    public String prepareEditAdminForm(Model model) {
+    @GetMapping("/{id:[1-9]*[0-9]+}/edit")
+    public String prepareEditAdminForm(@PathVariable Long id, Model model) {
         model.addAttribute( "adminToEdit", new AdminFormDto() );
-
+        User user = userRepository.findById( id ).orElse( null );
+        if (user == null){
+            return "redirect:/adminList";
+        }
+        model.addAttribute( "toEdit", user );
 
         return "/editAdmin";
+    }
+    @PostMapping("/{id:[1-9]*[0-9]+}/edit")
+    public String saveEditAdminChanges(@ModelAttribute("adminToEdit") @Valid AdminFormDto form, BindingResult result, Model model, @PathVariable Long id){
+        if (result.hasErrors()){
+            return "/admin/adminList";
+        }
+        Long userIdToEdit = id;
+        boolean success = userService.updateAdmin( form );
+        if (success){
+            return "redirect:/admin/adminList";
+        }else {
+            result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
+            return "/"+userIdToEdit+"/edit";
+        }
+
+
     }
 
 }

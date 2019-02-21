@@ -34,7 +34,7 @@
                     <%--<a href="/admin/delete" class="btn btn--small">Usuń ${admin.firstName}</a>--%>
                     <a href="/admin/${admin.id}/confirmDelete" class="btn btn--small">Usuń ${admin.firstName}</a>
 
-                    <a href="/admin/edit" class="btn btn--small">Edytuj ${admin.firstName}</a>
+                    <a href="/admin/${admin.id}/edit" class="btn btn--small">Edytuj ${admin.firstName}</a>
                 </div>
             </td>
         </tr>
