@@ -115,7 +115,7 @@ public class AdminController {
     }
 
     @GetMapping("/{id:[1-9]*[0-9]+}/delete")
-    public String delete(@PathVariable Long id, Model model) {
+    public String delete(@PathVariable Long id) {
         User user = userRepository.findById( id ).orElse( null );
         System.err.println("User do usunieńcia: " + user.getFirstName());
         if (user != null) {
