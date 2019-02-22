@@ -47,7 +47,7 @@
         </table>
         <table>
             <tr>
-                <td><a href="/admin/${toRemove.id}/delete" class="btn btn--medium" style="margin: 10px">Usuń</a></td>
+                <td><a href="/admin/${toRemove.id}/deleteAdmin" class="btn btn--medium" style="margin: 10px">Usuń</a></td>
                 <td><a href="/admin/adminList" class="btn btn--medium" style="margin: 10px">Wstecz</a></td>
             </tr>
         </table>

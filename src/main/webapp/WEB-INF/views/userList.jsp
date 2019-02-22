@@ -21,17 +21,41 @@
     <jsp:include page="fragments/menuAdmin.jsp"/>
 </header>
 <h1> ADMIN DASHBOARD: USER LIST </h1>
-<table>
-<c:forEach var="user" items="${sessionScope.userList}">
-    <tbody>
-    <tr>
-        <th scope="row">${user.id}</th>
-        <td scope="row">${user.email}</td>
-        <td scope="row">${user.firstName}</td>
-        <td scope="row">${user.lastName}</td>
-    </tr>
-    </tbody>
-</c:forEach>
-</table>
+
+<section class="steps">
+    <h2>USERS:</h2>
+    <div class="steps--container">
+        <div class="steps--item">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <td>Email</td>
+                    <td>Imię</td>
+                    <td>Nazwisko</td>
+                </tr>
+                </thead>
+                <c:forEach var="user" items="${sessionScope.userList}">
+                    <tbody>
+                    <tr>
+                        <th scope="row">${user.id}</th>
+                        <td scope="row">${user.email}</td>
+                        <td scope="row">${user.firstName}</td>
+                        <td scope="row">${user.lastName}</td>
+                        <td scope="row">
+                            <div class="form-group form-group--buttons">
+                                <a href="/admin/${user.id}/confirmDelete"
+                                   class="btn btn--small">Usuń ${user.firstName}</a>
+
+                                <a href="/admin/${user.id}/edituser" class="btn btn--small">Edytuj ${user.firstName}</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </c:forEach>
+            </table>
+        </div>
+    </div>
+</section>
 </body>
 </html>

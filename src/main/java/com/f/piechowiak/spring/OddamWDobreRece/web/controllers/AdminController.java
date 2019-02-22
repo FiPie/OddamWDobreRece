@@ -104,7 +104,7 @@ public class AdminController {
 
 
 
-    @GetMapping("/{id:[1-9]*[0-9]+}/confirmDelete")
+    @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteAdmin")
     public String confirmDelete(@PathVariable Long id, Model model) {
         User user = userRepository.findById( id ).orElse( null );
         if (user == null){
@@ -114,7 +114,7 @@ public class AdminController {
         return "/deleteAdmin";
     }
 
-    @GetMapping("/{id:[1-9]*[0-9]+}/delete")
+    @GetMapping("/{id:[1-9]*[0-9]+}/deleteAdmin")
     public String delete(@PathVariable Long id) {
         User user = userRepository.findById( id ).orElse( null );
         System.err.println("User do usunieńcia: " + user.getFirstName());
@@ -126,7 +126,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/{id:[1-9]*[0-9]+}/edit")
+    @GetMapping("/{id:[1-9]*[0-9]+}/editAdmin")
     public String prepareEditAdminForm(@PathVariable Long id, Model model) {
         model.addAttribute( "adminToEdit", userService.findByIdAndFill( id ) );
         User user = userRepository.findById( id ).orElse( null );
@@ -137,7 +137,7 @@ public class AdminController {
 
         return "/editAdmin";
     }
-    @PostMapping("/edit")
+    @PostMapping("/editAdmin")
     public String saveEditAdminChanges(@ModelAttribute("adminToEdit") @Valid AdminFormDto form, BindingResult result, Model model){
         if (result.hasErrors()){
             return "/admin/adminList";
@@ -147,10 +147,12 @@ public class AdminController {
             return "redirect:/admin/adminList";
         }else {
             result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/"+form.getId()+"/edit";
+            return "/"+form.getId()+"/editAdmin";
         }
 
 
     }
+
+
 
 }

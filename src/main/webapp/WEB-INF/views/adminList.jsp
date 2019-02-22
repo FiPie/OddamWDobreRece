@@ -21,27 +21,43 @@
     <jsp:include page="fragments/menuAdmin.jsp"/>
 </header>
 <h1> ADMIN DASHBOARD: ADMIN LIST </h1>
-<table>
-    <c:forEach var="admin" items="${sessionScope.adminList}">
-        <tbody>
-        <tr>
-            <th scope="row">${admin.id}</th>
-            <td scope="row">${admin.email}</td>
-            <td scope="row">${admin.firstName}</td>
-            <td scope="row">${admin.lastName}</td>
-            <td scope="row">
-                <div class="form-group form-group--buttons">
-                    <%--<a href="/admin/delete" class="btn btn--small">Usuń ${admin.firstName}</a>--%>
-                    <a href="/admin/${admin.id}/confirmDelete" class="btn btn--small">Usuń ${admin.firstName}</a>
 
-                    <a href="/admin/${admin.id}/edit" class="btn btn--small">Edytuj ${admin.firstName}</a>
-                </div>
-            </td>
-        </tr>
+<section class="steps">
+    <h2>ADMINS:</h2>
+<div class="steps--container">
+    <div class="steps--item">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <td>Email</td>
+                <td>Imię</td>
+                <td>Nazwisko</td>
+            </tr>
+            </thead>
+            <c:forEach var="admin" items="${sessionScope.adminList}">
+                <tbody>
+                <tr>
+                    <th scope="row">${admin.id}</th>
+                    <td scope="row">${admin.email}</td>
+                    <td scope="row">${admin.firstName}</td>
+                    <td scope="row">${admin.lastName}</td>
+                    <td scope="row">
+                        <div class="form-group form-group--buttons">
+                            <a href="/admin/${admin.id}/confirmDeleteAdmin"
+                               class="btn btn--small">Usuń ${admin.firstName}</a>
 
-        </tbody>
-    </c:forEach>
-</table>
-<a href="/admin/adminForm" class="btn btn--medium">Dodaj Nowego Admina</a>
+                            <a href="/admin/${admin.id}/editAdmin" class="btn btn--small">Edytuj ${admin.firstName}</a>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </c:forEach>
+        </table>
+        <div class="steps--item"><a href="/admin/adminForm" class="btn btn--medium">Dodaj Nowego Admina</a></div>
+    </div>
+</div>
+</section>
 </body>
 </html>
