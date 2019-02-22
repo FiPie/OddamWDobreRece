@@ -83,7 +83,6 @@ public class UserService {
         user.setPassword( encodedPassword );
         user = userRepository.save(user);
 
-
         return true;
     }
 
@@ -99,7 +98,7 @@ public class UserService {
     }
 
 
-    public AdminFormDto findByIdAndFill(Long id){
+    public AdminFormDto findAdminByIdAndFill(Long id){
         AdminFormDto adminFormDto = new AdminFormDto();
         User user = userRepository.findById( id ).orElse( null );
 
@@ -116,7 +115,36 @@ public class UserService {
         return adminFormDto;
     }
 
+    public UserFormDto findUserByIdAndFill(Long id){
+        UserFormDto userFormDto = new UserFormDto();
+        User user = userRepository.findById( id ).orElse( null );
 
+        if (user != null){
+            userFormDto.setId( user.getId() );
+            userFormDto.setEmail( user.getEmail() );
+            userFormDto.setFirstName( user.getFirstName() );
+            userFormDto.setLastName( user.getLastName() );
+            userFormDto.setEnabled( user.isEnabled() );
+            userFormDto.setPassword( user.getPassword() );
+        }
+
+        return userFormDto;
+    }
+
+    @Transactional
+    public boolean updateUserByAdmin(UserFormDto form){
+        User user = new User();
+
+        user.setId( form.getId() );
+        user.setEmail( form.getEmail() );
+        user.setFirstName( form.getFirstName() );
+        user.setLastName( form.getLastName() );
+        user.setEnabled( form.isEnabled() );
+        user.setPassword( form.getPassword() );
+        user = userRepository.save(user);
+
+        return true;
+    }
 
 
 

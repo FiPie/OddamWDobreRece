@@ -6,6 +6,7 @@ import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.AdminFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.LoginFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.RegistrationFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.AdminRepository;
@@ -137,7 +138,7 @@ public class AdminController {
 
     @GetMapping("/{id:[1-9]*[0-9]+}/editAdmin")
     public String prepareEditAdminForm(@PathVariable Long id, Model model) {
-        model.addAttribute( "adminToEdit", userService.findByIdAndFill( id ) );
+        model.addAttribute( "adminToEdit", userService.findAdminByIdAndFill( id ) );
         User user = userRepository.findById( id ).orElse( null );
         if (user == null) {
             return "redirect:/adminList";
@@ -185,7 +186,7 @@ public class AdminController {
 
     @GetMapping("/{id:[1-9]*[0-9]+}/editUser")
     public String prepareEditUserForm(@PathVariable Long id, Model model) {
-        model.addAttribute( "userToEdit", userService.findByIdAndFill( id ) );
+        model.addAttribute( "userToEdit", userService.findUserByIdAndFill( id ) );
         User user = userRepository.findById( id ).orElse( null );
         if (user == null) {
             return "redirect:/userList";
@@ -194,11 +195,11 @@ public class AdminController {
         return "/editUser";
     }
     @PostMapping("/editUser")
-    public String saveEditUserChanges(@ModelAttribute("userToEdit") @Valid AdminFormDto form, BindingResult result, Model model) {
+    public String saveEditUserChanges(@ModelAttribute("userToEdit") @Valid UserFormDto form, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "/admin/userList";
         }
-        boolean success = userService.updateAdmin( form );
+        boolean success = userService.updateUserByAdmin( form );
         if (success) {
             return "redirect:/admin/userList";
         } else {

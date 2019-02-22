@@ -55,10 +55,9 @@
                                                     required="true"/><form:errors path="lastName"/></div>
                 <div class="form-group"><form:input path="email" type="email" placeholder="${toEdit.email}"
                                                     required="true"/><form:errors path="email"/></div>
-                <div class="form-group"><form:password path="password" placeholder="Hasło" required="true"/><form:errors
+                <div class="form-group"><form:hidden path="password"/><form:errors
                         path="password"/></div>
-                <div class="form-group"><form:password path="confirmedPassword" placeholder="Powtórz hasło"
-                                                       required="true"/><form:errors path="confirmedPassword"/></div>
+                <%--<div class="form-group"><form:password path="confirmedPassword" placeholder="Powtórz hasło"/><form:errors path="confirmedPassword"/></div>--%>
                 <div class="form-group"><form:checkbox
                         path="enabled"/>${toEdit.enabled}<form:errors path="enabled"/></div>
 
