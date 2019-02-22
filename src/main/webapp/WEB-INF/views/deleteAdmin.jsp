@@ -22,7 +22,7 @@
 </header>
 <h1> ADMIN DASHBOARD: DELETE ADMIN </h1>
 
-<h3>Czy na pewno chcesz usunąć admina? </h3>
+<h2>Czy na pewno chcesz usunąć admina? </h2>
 <section class="login-page">
     <div class="form-group">
         <table class="table table-bordered table-striped">

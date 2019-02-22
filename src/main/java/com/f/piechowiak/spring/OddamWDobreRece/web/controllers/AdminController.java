@@ -12,6 +12,7 @@ import com.f.piechowiak.spring.OddamWDobreRece.repositories.AdminRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -82,17 +83,17 @@ public class AdminController {
     }
 
 
-
-
     @GetMapping("/adminForm")
     public String prepareAdminForm(Model model) {
         model.addAttribute( "adminForm", new AdminFormDto() );
         return "adminForm";
     }
+
     @PostMapping("/adminForm")
     public String registerUser(@ModelAttribute("adminForm") @Valid AdminFormDto form, BindingResult result) {
         if (result.hasErrors()) {
-            return "/adminForm"; }
+            return "/adminForm";
+        }
         boolean success = userService.createAdmin( form );
         if (success) {
             return "redirect:/admin/adminList";
@@ -103,34 +104,42 @@ public class AdminController {
     }
 
 
-
     @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteAdmin")
-    public String confirmDelete(@PathVariable Long id, Model model) {
+    public String confirmDeleteAdmin(@PathVariable Long id, Model model) {
         User user = userRepository.findById( id ).orElse( null );
-        if (user == null){
+        if (user == null) {
             return "redirect:/admin/adminList";
         }
         model.addAttribute( "toRemove", user );
         return "/deleteAdmin";
     }
-
     @GetMapping("/{id:[1-9]*[0-9]+}/deleteAdmin")
-    public String delete(@PathVariable Long id) {
+    public String deleteAdmin(@PathVariable Long id, Principal principal) {
+        int adminListSize = userRepository.getAdminList().size();
+        if (adminListSize < 2) {
+            return "redirect:/admin/adminList";
+        }
         User user = userRepository.findById( id ).orElse( null );
-        System.err.println("User do usunieńcia: " + user.getFirstName());
-        if (user != null) {
-            userRepository.delete(user);
+        User loggedUser = userRepository.findByEmail( principal.getName() );
+        System.err.println( "User do usunieńcia: " + user.getFirstName() );
 
+        if (user != null) {
+            userRepository.delete( user );
+            if (user.equals( loggedUser )) {
+                if(session != null)
+                    session.invalidate();
+
+                return "redirect:/login";
+            }
         }
         return "redirect:/admin/adminList";
     }
-
 
     @GetMapping("/{id:[1-9]*[0-9]+}/editAdmin")
     public String prepareEditAdminForm(@PathVariable Long id, Model model) {
         model.addAttribute( "adminToEdit", userService.findByIdAndFill( id ) );
         User user = userRepository.findById( id ).orElse( null );
-        if (user == null){
+        if (user == null) {
             return "redirect:/adminList";
         }
         model.addAttribute( "toEdit", user );
@@ -138,21 +147,65 @@ public class AdminController {
         return "/editAdmin";
     }
     @PostMapping("/editAdmin")
-    public String saveEditAdminChanges(@ModelAttribute("adminToEdit") @Valid AdminFormDto form, BindingResult result, Model model){
-        if (result.hasErrors()){
+    public String saveEditAdminChanges(@ModelAttribute("adminToEdit") @Valid AdminFormDto form, BindingResult result, Model model) {
+        if (result.hasErrors()) {
             return "/admin/adminList";
         }
         boolean success = userService.updateAdmin( form );
-        if (success){
+        if (success) {
             return "redirect:/admin/adminList";
-        }else {
+        } else {
             result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/"+form.getId()+"/editAdmin";
+            return "/" + form.getId() + "/editAdmin";
         }
-
-
     }
 
+
+
+
+    @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteUser")
+    public String confirmDeleteUser(@PathVariable Long id, Model model) {
+        User user = userRepository.findById( id ).orElse( null );
+        if (user == null) {
+            return "redirect:/admin/userList";
+        }
+        model.addAttribute( "toRemove", user );
+        return "/deleteUser";
+    }
+    @GetMapping("/{id:[1-9]*[0-9]+}/deleteUser")
+    public String deleteUser(@PathVariable Long id, Principal principal) {
+        User user = userRepository.findById( id ).orElse( null );
+        User loggedUser = userRepository.findByEmail( principal.getName() );
+        System.err.println( "User do usunieńcia: " + user.getFirstName() );
+        if (user != null) {
+            userRepository.delete( user );
+        }
+        return "redirect:/admin/userList";
+    }
+
+    @GetMapping("/{id:[1-9]*[0-9]+}/editUser")
+    public String prepareEditUserForm(@PathVariable Long id, Model model) {
+        model.addAttribute( "userToEdit", userService.findByIdAndFill( id ) );
+        User user = userRepository.findById( id ).orElse( null );
+        if (user == null) {
+            return "redirect:/userList";
+        }
+        model.addAttribute( "toEdit", user );
+        return "/editUser";
+    }
+    @PostMapping("/editUser")
+    public String saveEditUserChanges(@ModelAttribute("userToEdit") @Valid AdminFormDto form, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "/admin/userList";
+        }
+        boolean success = userService.updateAdmin( form );
+        if (success) {
+            return "redirect:/admin/userList";
+        } else {
+            result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
+            return "/" + form.getId() + "/editUser";
+        }
+    }
 
 
 }

@@ -44,10 +44,10 @@
                         <td scope="row">${user.lastName}</td>
                         <td scope="row">
                             <div class="form-group form-group--buttons">
-                                <a href="/admin/${user.id}/confirmDelete"
+                                <a href="/admin/${user.id}/confirmDeleteUser"
                                    class="btn btn--small">Usuń ${user.firstName}</a>
 
-                                <a href="/admin/${user.id}/edituser" class="btn btn--small">Edytuj ${user.firstName}</a>
+                                <a href="/admin/${user.id}/editUser" class="btn btn--small">Edytuj ${user.firstName}</a>
                             </div>
                         </td>
                     </tr>
