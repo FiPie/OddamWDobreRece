@@ -23,7 +23,7 @@
 <h1> ADMIN DASHBOARD: EDIT ADMIN </h1>
 
 <section class="login-page">
-    <form:form modelAttribute="adminToEdit" method="post">
+    <form:form modelAttribute="adminToEdit" action="/admin/edit" method="post">
         <div class="form-group">
             <table class="table table-bordered table-striped">
                 <thead>
@@ -48,7 +48,7 @@
                     <td>${toEdit.enabled}</td>
                 </tr>
 
-                    <div class="form-group"><form:input alt="${toEdit.id}" path="id" placeholder="${toEdit.id}" required="true"/><form:errors path="id"/></div>
+                    <div class="form-group"><form:hidden path="id"/><form:errors path="id"/></div>
                     <div class="form-group"><form:input path="firstName" placeholder="${toEdit.firstName}" required="true"/><form:errors path="firstName"/></div>
                     <div class="form-group"><form:input path="lastName" placeholder="${toEdit.lastName}" required="true"/><form:errors path="lastName"/></div>
                     <div class="form-group"><form:input path="email" type="email" placeholder="${toEdit.email}" required="true"/><form:errors path="email"/></div>

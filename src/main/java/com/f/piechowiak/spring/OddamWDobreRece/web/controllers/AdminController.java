@@ -128,7 +128,7 @@ public class AdminController {
 
     @GetMapping("/{id:[1-9]*[0-9]+}/edit")
     public String prepareEditAdminForm(@PathVariable Long id, Model model) {
-        model.addAttribute( "adminToEdit", new AdminFormDto() );
+        model.addAttribute( "adminToEdit", userService.findByIdAndFill( id ) );
         User user = userRepository.findById( id ).orElse( null );
         if (user == null){
             return "redirect:/adminList";
@@ -137,18 +137,17 @@ public class AdminController {
 
         return "/editAdmin";
     }
-    @PostMapping("/{id:[1-9]*[0-9]+}/edit")
-    public String saveEditAdminChanges(@ModelAttribute("adminToEdit") @Valid AdminFormDto form, BindingResult result, Model model, @PathVariable Long id){
+    @PostMapping("/edit")
+    public String saveEditAdminChanges(@ModelAttribute("adminToEdit") @Valid AdminFormDto form, BindingResult result, Model model){
         if (result.hasErrors()){
             return "/admin/adminList";
         }
-        Long userIdToEdit = id;
         boolean success = userService.updateAdmin( form );
         if (success){
             return "redirect:/admin/adminList";
         }else {
             result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/"+userIdToEdit+"/edit";
+            return "/"+form.getId()+"/edit";
         }
 
 

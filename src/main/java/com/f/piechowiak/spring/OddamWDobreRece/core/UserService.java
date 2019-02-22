@@ -73,6 +73,7 @@ public class UserService {
     @Transactional
     public boolean updateAdmin(AdminFormDto form){
         User user = new User();
+
         user.setId( form.getId() );
         user.setEmail( form.getEmail() );
         user.setFirstName( form.getFirstName() );
@@ -96,4 +97,39 @@ public class UserService {
 
         return true;
     }
+
+
+    public AdminFormDto findByIdAndFill(Long id){
+        AdminFormDto adminFormDto = new AdminFormDto();
+        User user = userRepository.findById( id ).orElse( null );
+
+        if (user != null){
+            adminFormDto.setId( user.getId() );
+            adminFormDto.setEmail( user.getEmail() );
+            adminFormDto.setFirstName( user.getFirstName() );
+            adminFormDto.setLastName( user.getLastName() );
+            adminFormDto.setPassword( user.getPassword() );
+            adminFormDto.setConfirmedPassword( user.getPassword() );
+            adminFormDto.setEnabled( user.isEnabled() );
+        }
+
+        return adminFormDto;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
