@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 public class AdminFormDto {
 
-    @NotNull
+
     private Long id;
     @NotNull
     @Email

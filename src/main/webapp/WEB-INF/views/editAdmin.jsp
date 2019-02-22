@@ -23,7 +23,7 @@
 <h1> ADMIN DASHBOARD: EDIT ADMIN </h1>
 
 <section class="login-page">
-    <form:form modelAttribute="adminToEdit" action="/admin/edit" method="post">
+    <form:form modelAttribute="adminToEdit" action="/admin/editAdmin" method="post">
         <div class="form-group">
             <table class="table table-bordered table-striped">
                 <thead>
