@@ -122,7 +122,7 @@ public class AdminController {
         }
         User user = userRepository.findById( id ).orElse( null );
         User loggedUser = userRepository.findByEmail( principal.getName() );
-        System.err.println( "User do usunieńcia: " + user.getFirstName() );
+        System.err.println( "Admin do usunieńcia: " + user.getFirstName() );
 
         if (user != null) {
             userRepository.delete( user );

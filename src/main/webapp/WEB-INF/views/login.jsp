@@ -38,6 +38,10 @@
             <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
         </div>
 
+        <%--<div class="form-group">
+            <form:hidden path="enabled"/><form:errors path="enabled"/>
+        </div>--%>
+
         <div class="form-group form-group--buttons">
             <a href="#" class="btn btn--without-border">Załóż konto</a>
             <button class="btn" type="submit">Zaloguj się</button>

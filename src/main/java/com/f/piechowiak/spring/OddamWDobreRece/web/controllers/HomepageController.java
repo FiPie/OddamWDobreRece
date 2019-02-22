@@ -1,5 +1,6 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
+import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,13 @@ public class HomepageController {
                 String userEmail = principal.getName();
                 Long userId = userRepository.findByEmail( userEmail ).getId();
                 System.err.println( "Wstawilem do sesji userId: "+ userId );
+                boolean enabled = userRepository.findByEmail( userEmail ).isEnabled();
+                if (enabled == false){
+                    if(session != null)
+                        session.invalidate();
 
+                    return "redirect:/login";
+                }
                 String firstName = userRepository.findByEmail(userEmail).getFirstName();
                 model.addAttribute( "userFirstName", firstName );
                 session.setAttribute( "userFirstName", firstName );

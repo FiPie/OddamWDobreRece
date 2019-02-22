@@ -1,5 +1,6 @@
 package com.f.piechowiak.spring.OddamWDobreRece.dto;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,8 +11,15 @@ public class LoginFormDto {
     private String email;
     @NotNull @NotBlank
     private String password;
+    /*@NotNull @AssertTrue
+    private boolean enabled;
 
 
+    public boolean isEnabled() {
+        return enabled; }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled; }*/
 
     public String getEmail() {
         return email;

@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage( "/login" )
                 .usernameParameter( "email" )
+                .passwordParameter( "password" )
                 .defaultSuccessUrl( "/", true )
                 .and()
                 .authorizeRequests()
@@ -54,10 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/images/**" ).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .csrf()
-                .disable()
-                .logout()
-                .logoutUrl( "/logout" )
+                .csrf().disable()
+                .logout().logoutUrl( "/logout" )
                 .logoutSuccessUrl( "/login" );
 
     }

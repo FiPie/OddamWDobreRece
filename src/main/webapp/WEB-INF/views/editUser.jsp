@@ -59,7 +59,7 @@
                         path="password"/></div>
                 <%--<div class="form-group"><form:password path="confirmedPassword" placeholder="Powtórz hasło"/><form:errors path="confirmedPassword"/></div>--%>
                 <div class="form-group"><form:checkbox
-                        path="enabled"/>${toEdit.enabled}<form:errors path="enabled"/></div>
+                        path="enabled"/>Aktywny:${toEdit.enabled}<form:errors path="enabled"/></div>
 
                 </tbody>
             </table>
