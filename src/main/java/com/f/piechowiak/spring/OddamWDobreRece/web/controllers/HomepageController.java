@@ -32,7 +32,7 @@ public class HomepageController {
                 Long userId = userRepository.findByEmail( userEmail ).getId();
                 System.err.println( "Wstawilem do sesji userId: "+ userId );
                 boolean enabled = userRepository.findByEmail( userEmail ).isEnabled();
-                if (enabled == false){
+                if (enabled != true){
                     if(session != null)
                         session.invalidate();
 
