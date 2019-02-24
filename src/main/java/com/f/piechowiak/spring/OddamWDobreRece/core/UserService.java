@@ -22,13 +22,13 @@ public class UserService {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
 
     @Transactional
-    public boolean update(UserFormDto form){
+    public boolean update(UserFormDto form) {
 
         User user = new User();
 
@@ -36,17 +36,17 @@ public class UserService {
         user.setFirstName( form.getFirstName() );
         user.setLastName( form.getLastName() );
         String encodedPassword = passwordEncoder.encode( form.getPassword() );
-        user.setPassword( encodedPassword);
+        user.setPassword( encodedPassword );
         user = userRepository.save( user );
 
         return true;
     }
 
     @Transactional
-    public boolean delete(Long id){
+    public boolean delete(Long id) {
         User user = new User();
-        user.setId( id);
-        if (userRepository.findById( user.getId()) != null){
+        user.setId( id );
+        if (userRepository.findById( user.getId() ) != null) {
             userRepository.deleteById( user.getId() );
         }
 
@@ -54,48 +54,50 @@ public class UserService {
     }
 
     @Transactional
-    public boolean createAdmin(AdminFormDto form){
+    public boolean createAdmin(AdminFormDto form) {
         User user = new User();
-        if (!form.getPassword().equals(form.getConfirmedPassword())){
+        if (!form.getPassword().equals( form.getConfirmedPassword() )) {
             return false;
-        }else {
-        user.setEmail( form.getEmail() );
-        user.setFirstName( form.getFirstName() );
-        user.setLastName( form.getLastName() );
-        user.setEnabled( true );
-        String encodedPassword = passwordEncoder.encode( form.getPassword() );
-        user.setPassword( encodedPassword );
-        user = userRepository.save(user);
+        } else {
+            user.setEmail( form.getEmail() );
+            user.setFirstName( form.getFirstName() );
+            user.setLastName( form.getLastName() );
+            user.setEnabled( true );
+            String encodedPassword = passwordEncoder.encode( form.getPassword() );
+            user.setPassword( encodedPassword );
+            user = userRepository.save( user );
 
-        UserRole userRole = new UserRole();
-        userRole.setUser( user );
-        userRole.setRole( "ROLE_ADMIN" );
-        userRole = userRoleRepository.save( userRole );
+            UserRole userRole = new UserRole();
+            userRole.setUser( user );
+            userRole.setRole( "ROLE_ADMIN" );
+            userRole = userRoleRepository.save( userRole );
 
-        return true;}
-    }
-    @Transactional
-    public boolean changeUserPassword(UserPasswordFormDto form){
-        User user = new User();
-        if (form.getPassword()!=form.getConfirmedPassword()){
-            return false;
+            return true;
         }
-        user.setId( form.getId() );
-        user.setEmail( form.getEmail() );
-        user.setFirstName( form.getFirstName() );
-        user.setLastName( form.getLastName() );
-        user.setEnabled( form.isEnabled() );
-        String encodedPassword = passwordEncoder.encode( form.getPassword() );
-        user.setPassword( encodedPassword );
-        user = userRepository.save(user);
+    }
 
-        return true;
+    @Transactional
+    public boolean changeUserPassword(UserPasswordFormDto form) {
+        User user = new User();
+        if (!form.getPassword().equals(form.getConfirmedPassword())) {
+            return false;
+        } else {
+            user.setId( form.getId() );
+            user.setEmail( form.getEmail() );
+            user.setFirstName( form.getFirstName() );
+            user.setLastName( form.getLastName() );
+            user.setEnabled( form.isEnabled() );
+            String encodedPassword = passwordEncoder.encode( form.getPassword() );
+            user.setPassword( encodedPassword );
+            user = userRepository.save( user );
 
+            return true;
+        }
     }
 
 
     @Transactional
-    public boolean updateAdmin(AdminFormDto form){
+    public boolean updateAdmin(AdminFormDto form) {
         User user = new User();
 
         user.setId( form.getId() );
@@ -105,27 +107,27 @@ public class UserService {
         user.setEnabled( form.isEnabled() );
         String encodedPassword = passwordEncoder.encode( form.getPassword() );
         user.setPassword( encodedPassword );
-        user = userRepository.save(user);
+        user = userRepository.save( user );
 
         return true;
     }
 
     @Transactional
-    public boolean deleteAdmin(AdminFormDto form){
+    public boolean deleteAdmin(AdminFormDto form) {
         User user = new User();
         user.setId( form.getId() );
-        if (userRepository.findById( user.getId()) != null){
+        if (userRepository.findById( user.getId() ) != null) {
             userRepository.deleteById( user.getId() );
         }
 
         return true;
     }
 
-    public UserPasswordFormDto findUserByIdAndFillToEditPassword(Long id){
+    public UserPasswordFormDto findUserByIdAndFillToEditPassword(Long id) {
         UserPasswordFormDto userPasswordFormDto = new UserPasswordFormDto();
         User user = userRepository.findById( id ).orElse( null );
 
-        if (user != null){
+        if (user != null) {
             userPasswordFormDto.setId( user.getId() );
             userPasswordFormDto.setEmail( user.getEmail() );
             userPasswordFormDto.setFirstName( user.getFirstName() );
@@ -136,11 +138,11 @@ public class UserService {
         return userPasswordFormDto;
     }
 
-    public AdminFormDto findAdminByIdAndFill(Long id){
+    public AdminFormDto findAdminByIdAndFill(Long id) {
         AdminFormDto adminFormDto = new AdminFormDto();
         User user = userRepository.findById( id ).orElse( null );
 
-        if (user != null){
+        if (user != null) {
             adminFormDto.setId( user.getId() );
             adminFormDto.setEmail( user.getEmail() );
             adminFormDto.setFirstName( user.getFirstName() );
@@ -153,11 +155,11 @@ public class UserService {
         return adminFormDto;
     }
 
-    public UserFormDto findUserByIdAndFill(Long id){
+    public UserFormDto findUserByIdAndFill(Long id) {
         UserFormDto userFormDto = new UserFormDto();
         User user = userRepository.findById( id ).orElse( null );
 
-        if (user != null){
+        if (user != null) {
             userFormDto.setId( user.getId() );
             userFormDto.setEmail( user.getEmail() );
             userFormDto.setFirstName( user.getFirstName() );
@@ -170,7 +172,7 @@ public class UserService {
     }
 
     @Transactional
-    public boolean updateUserByAdmin(UserFormDto form){
+    public boolean updateUserByAdmin(UserFormDto form) {
         User user = new User();
 
         user.setId( form.getId() );
@@ -179,23 +181,25 @@ public class UserService {
         user.setLastName( form.getLastName() );
         user.setEnabled( form.isEnabled() );
         user.setPassword( form.getPassword() );
-        user = userRepository.save(user);
+        user = userRepository.save( user );
 
         return true;
     }
 
+    @Transactional
+    public boolean updateUserByUser(UserFormDto form) {
+        User user = new User();
 
+        user.setId( form.getId() );
+        user.setEmail( form.getEmail() );
+        user.setFirstName( form.getFirstName() );
+        user.setLastName( form.getLastName() );
+        user.setEnabled( form.isEnabled() );
+        user.setPassword( form.getPassword() );
+        user = userRepository.save( user );
 
-
-
-
-
-
-
-
-
-
-
+        return true;
+    }
 
 
 }

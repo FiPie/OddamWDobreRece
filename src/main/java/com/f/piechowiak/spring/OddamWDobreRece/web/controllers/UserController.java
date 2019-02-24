@@ -1,11 +1,13 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserPasswordFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,11 +57,11 @@ public class UserController {
         User user = userRepository.findByEmail( principal.getName() );
         model.addAttribute( "LoggedUser", user );
         model.addAttribute( "userToEdit", userService.findUserByIdAndFillToEditPassword( user.getId() ) );
-
         return "userChangePassword";
     }
+
     @PostMapping("/changePassword")
-    public String changeUserPassword(@ModelAttribute("userToEdit") @Valid UserPasswordFormDto form, BindingResult result){
+    public String changeUserPassword(@ModelAttribute("userToEdit") @Valid UserPasswordFormDto form, BindingResult result) {
         if (result.hasErrors()) {
             return "/user/settings";
         }
@@ -79,6 +81,7 @@ public class UserController {
         model.addAttribute( "LoggedUser", user );
         return "userDeleteAccount";
     }
+
     @GetMapping("/deleteUser")
     public String deleteUser(Principal principal) {
         User user = userRepository.findByEmail( principal.getName() );
@@ -90,6 +93,32 @@ public class UserController {
             return "redirect:/login";
         }
         return "redirect:/user/settings";
+    }
+
+    @GetMapping("/editUser")
+    public String prepareUserEditForm(Model model, Principal principal) {
+        User user = userRepository.findByEmail( principal.getName() );
+        model.addAttribute( "userToEdit", userService.findUserByIdAndFill( user.getId() ) );
+        if (user == null) {
+            return "redirect:/user/settings";
+        }
+        model.addAttribute( "toEdit", user );
+        return "userEdit";
+    }
+
+    @PostMapping("/editUser")
+    public String saveUserEdit(@ModelAttribute("userToEdit") @Valid UserFormDto form, BindingResult result) {
+        if (result.hasErrors()) {
+            return "user/settings";
+        }
+        boolean success = userService.updateUserByUser( form );
+        if (success) {
+            return "redirect:/user/dashboard";
+        } else {
+            result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
+            return "/editUser";
+        }
+
     }
 
 

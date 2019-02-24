@@ -50,7 +50,7 @@
                 <a href="/user/changePassword" class="btn btn--large">Zmień Hasło</a>
             </div>
             <div class="steps--item">
-                <a href="/user/edit" class="btn btn--large">Edytuj Swój Profil</a>
+                <a href="/user/editUser " class="btn btn--large">Edytuj Swój Profil</a>
             </div>
             <div class="steps--item">
                 <a href="/user/confirmDeleteUserAccount" class="btn btn--large">Usuń Swoje Konto</a>
