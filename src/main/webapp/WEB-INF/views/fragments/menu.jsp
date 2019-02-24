@@ -26,14 +26,18 @@
 
         <sec:authorize access="isAuthenticated()">
             <li class="logged-user">
-                Witaj ${userFirstName} <%--${sessionScope['userFirstName']}--%>
+                Witaj ${userFirstName}
                 <ul class="dropdown">
-                    <li><a href="/user">Profil</a></li>
-                    <sec:authorize access="hasRole('ROLE_ADMIN')" >
+                    <sec:authorize access="hasRole('ROLE_USER')">
+                        <li><a href="/user/dashboard">Profil</a></li>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <li><a href="/admin/dashboard">Admin</a></li>
                     </sec:authorize>
-                    <li><a href="#">Ustawienia</a></li>
-                    <li><a href="#">Moje zbiórki</a></li>
+                    <sec:authorize access="hasRole('ROLE_USER')">
+                        <li><a href="/user/edit">Ustawienia</a></li>
+                        <li><a href="/user/gifts">Moje zbiórki</a></li>
+                    </sec:authorize>
                     <li><a href="/logout">Wyloguj</a></li>
                 </ul>
             </li>

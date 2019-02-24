@@ -27,7 +27,7 @@
     <div class="slogan container container--90">
         <div class="slogan--item">
             <h1>
-                Zacznij pomagać!<br />
+                Zacznij pomagać!<br/>
                 Oddaj niechciane rzeczy w zaufane ręce
             </h1>
 
@@ -38,7 +38,6 @@
         </div>
     </div>
 </header>
-
 
 
 <section class="stats">
@@ -91,8 +90,9 @@
             <p>kurier przyjedzie w dogodnym terminie</p>
         </div>
     </div>
-
-    <a href="/register" class="btn btn--large">Załóż konto</a>
+    <sec:authorize access="!isAuthenticated()">
+        <a href="/register" class="btn btn--large">Załóż konto</a>
+    </sec:authorize>
 </section>
 
 <section class="about-us">

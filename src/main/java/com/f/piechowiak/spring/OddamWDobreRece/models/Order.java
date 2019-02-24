@@ -2,6 +2,7 @@ package com.f.piechowiak.spring.OddamWDobreRece.models;
 
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,6 +30,10 @@ public class Order {
     private Charity charity;
 
     @Column
+    private boolean giftPickedUp;   //status daru odebrany/nieodebrany
+    @Column
+    private LocalDateTime pickUpDate;   //data odbioru daru
+    @Column
     private String city;
     @Column
     private String street;
@@ -51,6 +56,8 @@ public class Order {
                 .add( "gift=" + gift )
                 .add( "user=" + user )
                 .add( "charity=" + charity )
+                .add( "giftPickedUp=" + giftPickedUp )
+                .add( "pickUpDate=" + pickUpDate )
                 .add( "city='" + city + "'" )
                 .add( "street='" + street + "'" )
                 .add( "postCode='" + postCode + "'" )
@@ -73,6 +80,14 @@ public class Order {
     public int hashCode() {
         return Objects.hash( id );
     }
+
+    public boolean isGiftPickedUp() { return giftPickedUp; }
+
+    public void setGiftPickedUp(boolean giftPickedUp) { this.giftPickedUp = giftPickedUp; }
+
+    public LocalDateTime getPickUpDate() { return pickUpDate; }
+
+    public void setPickUpDate(LocalDateTime pickUpDate) { this.pickUpDate = pickUpDate; }
 
     public Long getId() {
         return id;

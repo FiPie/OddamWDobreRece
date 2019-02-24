@@ -30,7 +30,7 @@
             <tr>
                 <td>ID</td>
                 <td>Imię</td>
-                <td>Naziwsko</td>
+                <td>Nazwisko</td>
                 <td>Email</td>
                 <td>Aktywny</td>
             </tr>

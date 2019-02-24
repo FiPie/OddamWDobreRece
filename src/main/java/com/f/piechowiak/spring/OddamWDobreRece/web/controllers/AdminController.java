@@ -46,8 +46,12 @@ public class AdminController {
 
 
     @GetMapping("/dashboard")
-    public String prepareAdminDashboard(Model model) {
-        model.addAttribute( "AdminFormDto", new AdminFormDto() );
+    public String prepareAdminDashboard(Model model, Principal principal) {
+        int numberOfUsers = userRepository.getUserList().size();
+        int numberOfAdmins = userRepository.getAdminList().size();
+        model.addAttribute( "userNumber", numberOfUsers );
+        model.addAttribute( "adminNumber", numberOfAdmins);
+
         return "adminDashboard";
     }
 

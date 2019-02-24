@@ -21,8 +21,26 @@
     <jsp:include page="fragments/menuAdmin.jsp"/>
 </header>
 
-<h1> ADMIN DASHBOARD </h1>
+<h2> ADMIN DASHBOARD </h2>
 
+
+<div class="steps--container">
+    <div class="steps--item">
+        <table class="table table-bordered table-striped">
+
+
+            <tr>
+                <td>Ilość Zarejestrowanych Użytkowników:</td>
+                <td>${userNumber}</td>
+            </tr>
+            <tr>
+                <td>Ilość Zarejestrowanych Adminów:</td>
+                <td>${adminNumber}</td>
+            </tr>
+
+        </table>
+    </div>
+</div>
 
 </body>
 </html>
