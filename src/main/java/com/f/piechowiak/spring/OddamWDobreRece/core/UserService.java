@@ -2,6 +2,7 @@ package com.f.piechowiak.spring.OddamWDobreRece.core;
 
 import com.f.piechowiak.spring.OddamWDobreRece.dto.AdminFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.UserPasswordFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
@@ -42,9 +43,9 @@ public class UserService {
     }
 
     @Transactional
-    public boolean delete(UserFormDto form){
+    public boolean delete(Long id){
         User user = new User();
-        user.setId( form.getId() );
+        user.setId( id);
         if (userRepository.findById( user.getId()) != null){
             userRepository.deleteById( user.getId() );
         }
@@ -55,6 +56,9 @@ public class UserService {
     @Transactional
     public boolean createAdmin(AdminFormDto form){
         User user = new User();
+        if (!form.getPassword().equals(form.getConfirmedPassword())){
+            return false;
+        }else {
         user.setEmail( form.getEmail() );
         user.setFirstName( form.getFirstName() );
         user.setLastName( form.getLastName() );
@@ -68,8 +72,28 @@ public class UserService {
         userRole.setRole( "ROLE_ADMIN" );
         userRole = userRoleRepository.save( userRole );
 
-        return true;
+        return true;}
     }
+    @Transactional
+    public boolean changeUserPassword(UserPasswordFormDto form){
+        User user = new User();
+        if (form.getPassword()!=form.getConfirmedPassword()){
+            return false;
+        }
+        user.setId( form.getId() );
+        user.setEmail( form.getEmail() );
+        user.setFirstName( form.getFirstName() );
+        user.setLastName( form.getLastName() );
+        user.setEnabled( form.isEnabled() );
+        String encodedPassword = passwordEncoder.encode( form.getPassword() );
+        user.setPassword( encodedPassword );
+        user = userRepository.save(user);
+
+        return true;
+
+    }
+
+
     @Transactional
     public boolean updateAdmin(AdminFormDto form){
         User user = new User();
@@ -97,6 +121,20 @@ public class UserService {
         return true;
     }
 
+    public UserPasswordFormDto findUserByIdAndFillToEditPassword(Long id){
+        UserPasswordFormDto userPasswordFormDto = new UserPasswordFormDto();
+        User user = userRepository.findById( id ).orElse( null );
+
+        if (user != null){
+            userPasswordFormDto.setId( user.getId() );
+            userPasswordFormDto.setEmail( user.getEmail() );
+            userPasswordFormDto.setFirstName( user.getFirstName() );
+            userPasswordFormDto.setLastName( user.getLastName() );
+            userPasswordFormDto.setEnabled( user.isEnabled() );
+        }
+
+        return userPasswordFormDto;
+    }
 
     public AdminFormDto findAdminByIdAndFill(Long id){
         AdminFormDto adminFormDto = new AdminFormDto();

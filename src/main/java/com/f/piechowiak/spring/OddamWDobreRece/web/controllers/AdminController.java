@@ -129,7 +129,7 @@ public class AdminController {
         System.err.println( "Admin do usunieńcia: " + user.getFirstName() );
 
         if (user != null) {
-            userRepository.delete( user );
+            userService.delete( user.getId() );
             if (user.equals( loggedUser )) {
                 if(session != null)
                     session.invalidate();
@@ -180,10 +180,9 @@ public class AdminController {
     @GetMapping("/{id:[1-9]*[0-9]+}/deleteUser")
     public String deleteUser(@PathVariable Long id, Principal principal) {
         User user = userRepository.findById( id ).orElse( null );
-        User loggedUser = userRepository.findByEmail( principal.getName() );
         System.err.println( "User do usunieńcia: " + user.getFirstName() );
         if (user != null) {
-            userRepository.delete( user );
+            userService.delete( user.getId() );
         }
         return "redirect:/admin/userList";
     }

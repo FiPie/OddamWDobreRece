@@ -3,29 +3,29 @@ package com.f.piechowiak.spring.OddamWDobreRece.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-public class RegistrationFormDto {
+public class UserPasswordFormDto {
 
-    @NotNull @Email
+    private Long id;
+    @NotNull
+    @Email
     private String email;
     @NotNull
     private String firstName;
     @NotNull
     private String lastName;
-    @NotNull
+
     private String password;
-    @NotNull
+
     private String confirmedPassword;
 
+    private boolean enabled;
 
-
-
-
-    public String getConfirmedPassword() {
-        return confirmedPassword;
+    public Long getId() {
+        return id;
     }
 
-    public void setConfirmedPassword(String confirmedPassword) {
-        this.confirmedPassword = confirmedPassword;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -44,7 +44,9 @@ public class RegistrationFormDto {
         this.firstName = firstName;
     }
 
-    public String getLastName() { return lastName; }
+    public String getLastName() {
+        return lastName;
+    }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -56,5 +58,21 @@ public class RegistrationFormDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmedPassword() {
+        return confirmedPassword;
+    }
+
+    public void setConfirmedPassword(String confirmedPassword) {
+        this.confirmedPassword = confirmedPassword;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

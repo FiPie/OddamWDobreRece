@@ -35,7 +35,7 @@
                         <li><a href="/admin/dashboard">Admin</a></li>
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_USER')">
-                        <li><a href="/user/edit">Ustawienia</a></li>
+                        <li><a href="/user/settings">Ustawienia</a></li>
                         <li><a href="/user/gifts">Moje zbiórki</a></li>
                     </sec:authorize>
                     <li><a href="/logout">Wyloguj</a></li>
