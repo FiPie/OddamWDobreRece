@@ -61,7 +61,10 @@ public class UserController {
     }
 
     @PostMapping("/changePassword")
-    public String changeUserPassword(@ModelAttribute("userToEdit") @Valid UserPasswordFormDto form, BindingResult result) {
+    public String changeUserPassword(@ModelAttribute("userToEdit") @Valid UserPasswordFormDto form, BindingResult result, Model model, Principal principal) {
+        User user = userRepository.findByEmail( principal.getName() );
+        model.addAttribute( "LoggedUser", user );
+        model.addAttribute( "userToEdit", userService.findUserByIdAndFillToEditPassword( user.getId() ) );
         if (result.hasErrors()) {
             return "/user/settings";
         }
@@ -69,8 +72,8 @@ public class UserController {
         if (success) {
             return "redirect:/user/dashboard";
         } else {
-            result.rejectValue( "password", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/user/settings";
+            result.rejectValue( "confirmedPassword", null, "Podane hasła nie są tożsame!" );
+            return "userChangePassword";
         }
     }
 
