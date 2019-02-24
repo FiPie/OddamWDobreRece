@@ -70,7 +70,7 @@ public class UserController {
             return "redirect:/user/dashboard";
         } else {
             result.rejectValue( "password", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/user/changePassword";
+            return "/user/settings";
         }
     }
 
