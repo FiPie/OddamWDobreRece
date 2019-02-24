@@ -40,8 +40,9 @@ public class RegistrationController {
             return "register";
         }
         boolean success = registrationService.register( form );
+        String emailAddress = form.getEmail();
         if (success) {
-            emailSender.sendEmail( "developertestsender@hotmail.com", "OddamWDobreRece - Utworzono konto użytkownika "+ form.getEmail(), prepareWelcomeEmail( form ) );
+            emailSender.sendEmail( emailAddress, "OddamWDobreRece - Utworzono konto użytkownika "+ form.getEmail(), prepareWelcomeEmail( form ) );
             return "redirect:/login";
         } else {
             result.rejectValue( "email", null, "Cos poszlo nietak przy wpisywaniu danych w formularzu rejestracji, sprobuj jeszcze raz:)" );
