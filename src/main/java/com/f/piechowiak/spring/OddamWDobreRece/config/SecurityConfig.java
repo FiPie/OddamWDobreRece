@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -41,7 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage( "/login" )
                 .usernameParameter( "email" )
                 .passwordParameter( "password" )
-                .defaultSuccessUrl( "/", true )
+                .successHandler(myAuthenticationSuccessHandler())               //new one
+                //.defaultSuccessUrl( "/", true )                               //old one
                 .and()
                 .authorizeRequests()
                 .antMatchers( "/register" ).permitAll()
@@ -60,5 +62,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl( "/login" );
 
     }
+    @Bean           //new one
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
+    }
+
 
 }
