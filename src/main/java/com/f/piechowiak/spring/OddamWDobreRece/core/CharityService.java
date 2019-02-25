@@ -39,4 +39,16 @@ public class CharityService {
         return true;
     }
 
+    @Transactional
+    public boolean delete(Long id) {
+        Charity org = new Charity();
+
+        org.setId( id );
+        if (charityRepository.findById( org.getId() ) != null) {
+            charityRepository.deleteById( org.getId() );
+        }
+
+        return true;
+    }
+
 }

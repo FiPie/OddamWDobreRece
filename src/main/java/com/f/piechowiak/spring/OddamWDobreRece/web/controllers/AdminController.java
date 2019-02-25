@@ -104,6 +104,23 @@ public class AdminController {
             return "/organizationForm";
         }
     }
+    @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteOrganization")
+    public String confirmDeleteOrganization(@PathVariable Long id, Model model){
+        Charity org = charityRepository.findById( id ).orElse( null );
+        if (org == null) {
+            return "redirect:/admin/orgList";
+        }
+        model.addAttribute( "toRemove", org );
+        return "deleteOrg";
+    }
+    @GetMapping("/{id:[1-9]*[0-9]+}/deleteOrg")
+    public String deleteOrganization(@PathVariable Long id) {
+        Charity org = charityRepository.findById( id ).orElse( null );
+        System.err.println( "Charity do usunieńcia: " + org.getCharityName() );
+        if (org != null) { charityService.delete( org.getId() );}
+        return "redirect:/admin/orgList";
+    }
+
 
 
 
