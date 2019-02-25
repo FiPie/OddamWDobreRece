@@ -121,6 +121,29 @@ public class AdminController {
         return "redirect:/admin/orgList";
     }
 
+    @GetMapping("/{id:[1-9]*[0-9]+}/editOrganization")
+    public String editOrganizationForm(@PathVariable Long id, Model model) {
+        model.addAttribute( "orgToEdit", charityService.findCharityByIdAndFill( id ) );
+        Charity org = charityRepository.findById( id ).orElse( null );
+        if (org == null) {
+            return "redirect:/orgList";
+        }
+        model.addAttribute( "toEdit", org );
+        return "editOrg";
+    }
+    @PostMapping("/editOrganization")
+    public String saveEditOrganizationChanges(@ModelAttribute("orgToEdit") @Valid OrgFormDto form, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "/admin/orgList";
+        }
+        boolean success = charityService.updateCharityByAdmin( form );
+        if (success) {
+            return "redirect:/admin/orgList";
+        } else {
+            result.rejectValue( "charityName", null, "Cos poszło źle, spróbuj jeszcze raz" );
+            return "/" + form.getId() + "/editOrganization";
+        }
+    }
 
 
 

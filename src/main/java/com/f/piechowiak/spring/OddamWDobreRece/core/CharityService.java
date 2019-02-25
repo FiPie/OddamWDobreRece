@@ -2,7 +2,9 @@ package com.f.piechowiak.spring.OddamWDobreRece.core;
 
 import com.f.piechowiak.spring.OddamWDobreRece.dto.AdminFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.OrgFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
+import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
@@ -49,6 +51,35 @@ public class CharityService {
         }
 
         return true;
+    }
+    @Transactional
+    public boolean updateCharityByAdmin(OrgFormDto form) {
+        Charity org = new Charity();
+
+        org.setId( form.getId() );
+        org.setCharityName( form.getCharityName() );
+        org.setCity( form.getCity() );
+        org.setType( form.getType() );
+        org.setAcceptedGifts( form.getAcceptedGifts() );
+        org = charityRepository.save( org );
+
+        return true;
+    }
+
+
+    public OrgFormDto findCharityByIdAndFill(Long id) {
+        OrgFormDto orgFormDto = new OrgFormDto();
+        Charity org = charityRepository.findById( id ).orElse( null );
+
+        if (org != null) {
+            orgFormDto.setId( org.getId() );
+            orgFormDto.setCharityName( org.getCharityName() );
+            orgFormDto.setCity( org.getCity() );
+            orgFormDto.setType( org.getType() );
+            orgFormDto.setAcceptedGifts( org.getAcceptedGifts() );
+        }
+
+        return orgFormDto;
     }
 
 }
