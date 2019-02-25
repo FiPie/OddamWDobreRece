@@ -33,6 +33,8 @@
                     <td>Email</td>
                     <td>Imię</td>
                     <td>Nazwisko</td>
+                    <td>Usunięcie</td>
+                    <td>Edycja</td>
                 </tr>
                 </thead>
                 <c:forEach var="user" items="${sessionScope.userList}">
@@ -44,9 +46,11 @@
                         <td scope="row">${user.lastName}</td>
                         <td scope="row">
                             <div class="form-group form-group--buttons">
-                                <a href="/admin/${user.id}/confirmDeleteUser"
-                                   class="btn btn--small">Usuń ${user.firstName}</a>
-
+                                <a href="/admin/${user.id}/confirmDeleteUser" class="btn btn--small">Usuń ${user.firstName}</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
                                 <a href="/admin/${user.id}/editUser" class="btn btn--small">Edytuj ${user.firstName}</a>
                             </div>
                         </td>

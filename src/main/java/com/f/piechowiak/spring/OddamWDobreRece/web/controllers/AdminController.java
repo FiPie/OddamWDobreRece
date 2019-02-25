@@ -7,9 +7,11 @@ import com.f.piechowiak.spring.OddamWDobreRece.dto.AdminFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.LoginFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.RegistrationFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.AdminRepository;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,10 @@ public class AdminController {
     @Autowired
     UserRoleRepository userRoleRepository;
     @Autowired
+    CharityRepository charityRepository;
+    @Autowired
     private UserService userService;
+
 
 
     public AdminController(UserService userService) {
@@ -59,8 +64,7 @@ public class AdminController {
 
 
     @GetMapping("/userList")
-    public String prepareUserListForm(Model model) {
-        model.addAttribute( "AdminFormDto", new AdminFormDto() );
+    public String prepareUserListForm() {
         List<User> userList = userRepository.getUserList();
         session.setAttribute( "userList", userList );
         return "userList";
@@ -68,8 +72,7 @@ public class AdminController {
 
 
     @GetMapping("/adminList")
-    public String prepareAdminListForm(Model model) {
-        model.addAttribute( "AdminFormDto", new AdminFormDto() );
+    public String prepareAdminListForm() {
         List<User> adminList = userRepository.getAdminList();
         session.setAttribute( "adminList", adminList );
         return "adminList";
@@ -78,7 +81,8 @@ public class AdminController {
 
     @GetMapping("/orgList")
     public String prepareOrganizationListForm(Model model) {
-        model.addAttribute( "AdminFormDto", new AdminFormDto() );
+        List<Charity> organizationList = charityRepository.getCharityList();
+        model.addAttribute( "organizationList", organizationList );
         return "orgList";
     }
 

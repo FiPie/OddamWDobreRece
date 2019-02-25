@@ -33,6 +33,8 @@
                     <td>Email</td>
                     <td>Imię</td>
                     <td>Nazwisko</td>
+                    <td>Usunięcie</td>
+                    <td>Edycja</td>
                 </tr>
                 </thead>
                 <c:forEach var="admin" items="${sessionScope.adminList}">
@@ -44,11 +46,12 @@
                         <td scope="row">${admin.lastName}</td>
                         <td scope="row">
                             <div class="form-group form-group--buttons">
-                                <a href="/admin/${admin.id}/confirmDeleteAdmin"
-                                   class="btn btn--small">Usuń ${admin.firstName}</a>
-
-                                <a href="/admin/${admin.id}/editAdmin"
-                                   class="btn btn--small">Edytuj ${admin.firstName}</a>
+                                <a href="/admin/${admin.id}/confirmDeleteAdmin" class="btn btn--small">Usuń ${admin.firstName}</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <a href="/admin/${admin.id}/editAdmin" class="btn btn--small">Edytuj ${admin.firstName}</a>
                             </div>
                         </td>
                     </tr>
@@ -57,7 +60,7 @@
                 </c:forEach>
             </table>
             <div class="steps--item">
-                <a href="/admin/adminForm" class="btn btn--medium">Dodaj Nowego Admina</a>
+                <a href="/admin/adminForm" class="btn btn--large">Dodaj Nowego Admina</a>
             </div>
         </div>
     </div>
