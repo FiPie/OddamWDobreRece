@@ -20,8 +20,9 @@
 <header>
     <jsp:include page="fragments/menuAdmin.jsp"/>
 </header>
-<h2> ADMIN DASHBOARD: ORGANIZATION LIST </h2>
+<h1> ADMIN DASHBOARD: ORGANIZATION LIST </h1>
 <section class="steps">
+    <h2>ORGANIZATIONS</h2>
     <div class="steps--container">
         <div class="steps--item">
             <table>
@@ -29,7 +30,7 @@
                 <tr>
                     <th>ID</th>
                     <td>Nazwa</td>
-                    <td>  </td>
+                    <td></td>
                     <td>Miasto</td>
                     <td>Rodzaj</td>
                     <td>Usunięcie</td>
@@ -41,7 +42,7 @@
                     <tr>
                         <th scope="row">${org.id}</th>
                         <td scope="row">${org.charityName}</td>
-                        <td>  </td>
+                        <td></td>
                         <td scope="row">${org.city}</td>
                         <td scope="row">${org.type}</td>
                         <td scope="row">

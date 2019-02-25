@@ -1,12 +1,10 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
 import com.f.piechowiak.spring.OddamWDobreRece.core.AdminService;
+import com.f.piechowiak.spring.OddamWDobreRece.core.CharityService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.RegistrationService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
-import com.f.piechowiak.spring.OddamWDobreRece.dto.AdminFormDto;
-import com.f.piechowiak.spring.OddamWDobreRece.dto.LoginFormDto;
-import com.f.piechowiak.spring.OddamWDobreRece.dto.RegistrationFormDto;
-import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.*;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
@@ -42,6 +40,8 @@ public class AdminController {
     CharityRepository charityRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CharityService charityService;
 
 
 
@@ -80,11 +80,31 @@ public class AdminController {
 
 
     @GetMapping("/orgList")
-    public String prepareOrganizationListForm(Model model) {
+    public String prepareOrganizationListView(Model model) {
         List<Charity> organizationList = charityRepository.getCharityList();
         model.addAttribute( "organizationList", organizationList );
         return "orgList";
     }
+
+    @GetMapping("/organizationForm")
+    public String prepareOrganizationForm(Model model){
+        model.addAttribute( "orgForm", new OrgFormDto() );
+        return "orgForm";
+    }
+    @PostMapping("/organizationForm")
+    public String createOrganization(@ModelAttribute("orgForm") @Valid OrgFormDto form, BindingResult result){
+        if (result.hasErrors()) {
+            return "/organizationForm";
+        }
+        boolean success = charityService.createOrganization( form );
+        if (success) {
+            return "redirect:/admin/orgList";
+        } else {
+            result.rejectValue( "charityName", null, "Cos poszlo nietak przy wpisywaniu danych w formularzu dodawania organizacji, sprobuj jeszcze raz:)" );
+            return "/organizationForm";
+        }
+    }
+
 
 
     @GetMapping("/giftList")
@@ -101,7 +121,7 @@ public class AdminController {
     }
 
     @PostMapping("/adminForm")
-    public String registerUser(@ModelAttribute("adminForm") @Valid AdminFormDto form, BindingResult result) {
+    public String createNewAdmin(@ModelAttribute("adminForm") @Valid AdminFormDto form, BindingResult result) {
         if (result.hasErrors()) {
             return "/adminForm";
         }
