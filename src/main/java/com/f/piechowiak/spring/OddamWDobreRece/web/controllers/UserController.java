@@ -40,6 +40,8 @@ public class UserController {
     @GetMapping("/dashboard")
     public String prepareUserDashboard(Model model, Principal principal) {
         User user = userRepository.findByEmail( principal.getName() );
+        String firstName = user.getFirstName();
+        session.setAttribute( "userFirstName", firstName );
         model.addAttribute( "LoggedUser", user );
         return "userDashboard";
     }

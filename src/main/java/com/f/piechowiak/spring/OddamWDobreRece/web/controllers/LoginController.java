@@ -21,7 +21,7 @@ public class LoginController {
     HttpSession session;
 
     @GetMapping
-    public String prepareLoginForm(Principal principal, Model model){
+    public String prepareLoginForm(Model model){
         model.addAttribute( "loginFormDto", new LoginFormDto() );
         return "login";
     }

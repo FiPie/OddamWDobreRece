@@ -47,6 +47,8 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public String prepareAdminDashboard(Model model, Principal principal) {
+        String firstName = userRepository.findByEmail(principal.getName()).getFirstName();
+        session.setAttribute( "userFirstName", firstName );
         int numberOfUsers = userRepository.getUserList().size();
         int numberOfAdmins = userRepository.getAdminList().size();
         model.addAttribute( "userNumber", numberOfUsers );
@@ -121,21 +123,21 @@ public class AdminController {
     @GetMapping("/{id:[1-9]*[0-9]+}/deleteAdmin")
     public String deleteAdmin(@PathVariable Long id, Principal principal) {
         int adminListSize = userRepository.getAdminList().size();
+        User user = userRepository.findById( id ).orElse( null );
+
         if (adminListSize < 2) {
+            System.err.println("Nie możesz usunąć "+user.getFirstName()+" ponieważ wygląda na to, że jest to ostatni Admin w serwisie!");
             return "redirect:/admin/adminList";
         }
-        User user = userRepository.findById( id ).orElse( null );
+
         User loggedUser = userRepository.findByEmail( principal.getName() );
         System.err.println( "Admin do usunieńcia: " + user.getFirstName() );
 
         if (user != null) {
-            userService.delete( user.getId() );
             if (user.equals( loggedUser )) {
-                if(session != null)
-                    session.invalidate();
-
-                return "redirect:/login";
-            }
+                System.err.println("Nie możesz usunąć sam siebie "+user.getFirstName()+"!");
+                return "redirect:/admin/adminList";}
+            else {userService.delete( user.getId() );}
         }
         return "redirect:/admin/adminList";
     }
