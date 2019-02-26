@@ -57,4 +57,9 @@ public class HomepageController {
         return "orgList";
     }
 
+    @GetMapping("/contact")
+    public String contactView(){
+        return "contact";
+    }
+
 }
