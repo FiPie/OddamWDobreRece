@@ -44,7 +44,6 @@ public class AdminController {
     private CharityService charityService;
 
 
-
     public AdminController(UserService userService) {
         this.userService = userService;
     }
@@ -52,13 +51,14 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public String prepareAdminDashboard(Model model, Principal principal) {
-        String firstName = userRepository.findByEmail(principal.getName()).getFirstName();
+        String firstName = userRepository.findByEmail( principal.getName() ).getFirstName();
         session.setAttribute( "userFirstName", firstName );
         int numberOfUsers = userRepository.getUserList().size();
         int numberOfAdmins = userRepository.getAdminList().size();
+        int numberOfOrganizations = charityRepository.getCharityList().size();
         model.addAttribute( "userNumber", numberOfUsers );
-        model.addAttribute( "adminNumber", numberOfAdmins);
-
+        model.addAttribute( "adminNumber", numberOfAdmins );
+        model.addAttribute( "orgNumber", numberOfOrganizations );
         return "adminDashboard";
     }
 
@@ -87,12 +87,13 @@ public class AdminController {
     }
 
     @GetMapping("/organizationForm")
-    public String prepareOrganizationForm(Model model){
+    public String prepareOrganizationForm(Model model) {
         model.addAttribute( "orgForm", new OrgFormDto() );
         return "orgForm";
     }
+
     @PostMapping("/organizationForm")
-    public String createOrganization(@ModelAttribute("orgForm") @Valid OrgFormDto form, BindingResult result){
+    public String createOrganization(@ModelAttribute("orgForm") @Valid OrgFormDto form, BindingResult result) {
         if (result.hasErrors()) {
             return "/organizationForm";
         }
@@ -104,8 +105,9 @@ public class AdminController {
             return "/organizationForm";
         }
     }
+
     @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteOrganization")
-    public String confirmDeleteOrganization(@PathVariable Long id, Model model){
+    public String confirmDeleteOrganization(@PathVariable Long id, Model model) {
         Charity org = charityRepository.findById( id ).orElse( null );
         if (org == null) {
             return "redirect:/admin/orgList";
@@ -113,11 +115,14 @@ public class AdminController {
         model.addAttribute( "toRemove", org );
         return "deleteOrg";
     }
+
     @GetMapping("/{id:[1-9]*[0-9]+}/deleteOrg")
     public String deleteOrganization(@PathVariable Long id) {
         Charity org = charityRepository.findById( id ).orElse( null );
         System.err.println( "Charity do usunieńcia: " + org.getCharityName() );
-        if (org != null) { charityService.delete( org.getId() );}
+        if (org != null) {
+            charityService.delete( org.getId() );
+        }
         return "redirect:/admin/orgList";
     }
 
@@ -131,6 +136,7 @@ public class AdminController {
         model.addAttribute( "toEdit", org );
         return "editOrg";
     }
+
     @PostMapping("/editOrganization")
     public String saveEditOrganizationChanges(@ModelAttribute("orgToEdit") @Valid OrgFormDto form, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -144,7 +150,6 @@ public class AdminController {
             return "/" + form.getId() + "/editOrganization";
         }
     }
-
 
 
     @GetMapping("/giftList")
@@ -184,13 +189,14 @@ public class AdminController {
         model.addAttribute( "toRemove", user );
         return "/deleteAdmin";
     }
+
     @GetMapping("/{id:[1-9]*[0-9]+}/deleteAdmin")
     public String deleteAdmin(@PathVariable Long id, Principal principal) {
         int adminListSize = userRepository.getAdminList().size();
         User user = userRepository.findById( id ).orElse( null );
 
         if (adminListSize < 2) {
-            System.err.println("Nie możesz usunąć "+user.getFirstName()+" ponieważ wygląda na to, że jest to ostatni Admin w serwisie!");
+            System.err.println( "Nie możesz usunąć " + user.getFirstName() + " ponieważ wygląda na to, że jest to ostatni Admin w serwisie!" );
             return "redirect:/admin/adminList";
         }
 
@@ -199,9 +205,11 @@ public class AdminController {
 
         if (user != null) {
             if (user.equals( loggedUser )) {
-                System.err.println("Nie możesz usunąć sam siebie "+user.getFirstName()+"!");
-                return "redirect:/admin/adminList";}
-            else {userService.delete( user.getId() );}
+                System.err.println( "Nie możesz usunąć sam siebie " + user.getFirstName() + "!" );
+                return "redirect:/admin/adminList";
+            } else {
+                userService.delete( user.getId() );
+            }
         }
         return "redirect:/admin/adminList";
     }
@@ -217,6 +225,7 @@ public class AdminController {
 
         return "/editAdmin";
     }
+
     @PostMapping("/editAdmin")
     public String saveEditAdminChanges(@ModelAttribute("adminToEdit") @Valid AdminFormDto form, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -232,8 +241,6 @@ public class AdminController {
     }
 
 
-
-
     @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteUser")
     public String confirmDeleteUser(@PathVariable Long id, Model model) {
         User user = userRepository.findById( id ).orElse( null );
@@ -243,6 +250,7 @@ public class AdminController {
         model.addAttribute( "toRemove", user );
         return "/deleteUser";
     }
+
     @GetMapping("/{id:[1-9]*[0-9]+}/deleteUser")
     public String deleteUser(@PathVariable Long id, Principal principal) {
         User user = userRepository.findById( id ).orElse( null );
@@ -263,6 +271,7 @@ public class AdminController {
         model.addAttribute( "toEdit", user );
         return "/editUser";
     }
+
     @PostMapping("/editUser")
     public String saveEditUserChanges(@ModelAttribute("userToEdit") @Valid UserFormDto form, BindingResult result, Model model) {
         if (result.hasErrors()) {

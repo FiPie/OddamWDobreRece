@@ -37,6 +37,10 @@
                 <td>Ilość Zarejestrowanych Adminów:</td>
                 <td>${adminNumber}</td>
             </tr>
+            <tr>
+                <td>Ilość Zarejestrowanych Organizacji:</td>
+                <td>${orgNumber}</td>
+            </tr>
 
         </table>
     </div>
