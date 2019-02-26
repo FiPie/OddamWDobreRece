@@ -44,7 +44,7 @@
                         <td scope="row">${org.charityName}</td>
                         <td></td>
                         <td scope="row">${org.city}</td>
-                        <td scope="row">${org.type}</td>
+                        <td scope="row">${org.charityType}</td>
                         <td scope="row">
                             <div class="form-group form-group--buttons">
                                 <a href="/admin/${org.id}/confirmDeleteOrganization" class="btn btn--small"> Usuń </a>

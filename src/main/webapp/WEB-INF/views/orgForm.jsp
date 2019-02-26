@@ -33,7 +33,7 @@
             <form:input path="city" placeholder="Podaj miasto, w którym działa organizacja" required="true"/><form:errors path="city"/>
         </div>
         <div class="form-group">
-            <form:input path="type" placeholder="Podaj rodzaj działalności organizacji" required="true"/><form:errors path="type"/>
+            <form:input path="charityType" placeholder="Podaj rodzaj działalności organizacji" required="true"/><form:errors path="charityType"/>
         </div>
 
         <form:errors path="*"/>

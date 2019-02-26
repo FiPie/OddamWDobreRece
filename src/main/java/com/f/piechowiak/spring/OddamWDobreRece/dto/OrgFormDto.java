@@ -13,7 +13,7 @@ public class OrgFormDto {
     @NotNull
     private String city;
     @NotNull
-    private String type;
+    private String charityType;
 
     private List<Gift> acceptedGifts;
 
@@ -41,12 +41,12 @@ public class OrgFormDto {
         this.city = city;
     }
 
-    public String getType() {
-        return type;
+    public String getCharityType() {
+        return charityType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCharityType(String charityType) {
+        this.charityType = charityType;
     }
 
     public List<Gift> getAcceptedGifts() {

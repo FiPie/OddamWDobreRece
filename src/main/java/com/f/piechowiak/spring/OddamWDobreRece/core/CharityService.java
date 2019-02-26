@@ -35,7 +35,7 @@ public class CharityService {
 
         org.setCharityName( form.getCharityName() );
         org.setCity( form.getCity() );
-        org.setType( form.getType() );
+        org.setCharityType( form.getCharityType() );
         org = charityRepository.save( org );
 
         return true;
@@ -59,7 +59,7 @@ public class CharityService {
         org.setId( form.getId() );
         org.setCharityName( form.getCharityName() );
         org.setCity( form.getCity() );
-        org.setType( form.getType() );
+        org.setCharityType( form.getCharityType() );
         org.setAcceptedGifts( form.getAcceptedGifts() );
         org = charityRepository.save( org );
 
@@ -75,7 +75,7 @@ public class CharityService {
             orgFormDto.setId( org.getId() );
             orgFormDto.setCharityName( org.getCharityName() );
             orgFormDto.setCity( org.getCity() );
-            orgFormDto.setType( org.getType() );
+            orgFormDto.setCharityType( org.getCharityType() );
             orgFormDto.setAcceptedGifts( org.getAcceptedGifts() );
         }
 

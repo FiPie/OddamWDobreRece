@@ -1,5 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.models;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -13,7 +15,8 @@ public class Gift {
     private Long id;
 
     @Column
-    private String type;
+    @UniqueElements
+    private String giftType;
 
     /*@ManyToOne
     private Charity charity;*/
@@ -40,12 +43,11 @@ public class Gift {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getGiftType() {
+        return giftType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setGiftType(String giftType) {
+        this.giftType = giftType;
     }
-
 }

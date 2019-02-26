@@ -20,13 +20,13 @@ public class Charity {
     private String charityName;
     @NotNull
     @Column
-    private String type;
+    private String charityType;
     @Column
     private String city;
 
-    @OneToMany
+    @ManyToMany
     @JoinTable(name = "charity_gift",
-            joinColumns = @JoinColumn(name = "type"),
+            joinColumns = @JoinColumn(name = "charity_id"),
             inverseJoinColumns = @JoinColumn(name = "gift_id"))
     private List<Gift> acceptedGifts;
 
@@ -39,20 +39,15 @@ public class Charity {
         return Objects.equals( id, charity.id );
     }
 
-    @Override
-    public String toString() {
-        return new StringJoiner( ", ", Charity.class.getSimpleName() + "[", "]" )
-                .add( "id=" + id )
-                .add( "charityName='" + charityName + "'" )
-                .add( "type='" + type + "'" )
-                .add( "city='" + city + "'" )
-                .add( "acceptedGifts=" + acceptedGifts )
-                .toString();
-    }
+
 
     @Override
     public int hashCode() {
         return Objects.hash( id );
+    }
+
+    public List<Gift> getAcceptedGifts() {
+        return acceptedGifts;
     }
 
     public void setAcceptedGifts(List<Gift> acceptedGifts) {
@@ -75,12 +70,12 @@ public class Charity {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getCharityType() {
+        return charityType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCharityType(String charityType) {
+        this.charityType = charityType;
     }
 
     public String getCity() {
@@ -89,9 +84,5 @@ public class Charity {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public List<Gift> getAcceptedGifts() {
-        return acceptedGifts;
     }
 }
