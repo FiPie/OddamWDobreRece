@@ -6,10 +6,11 @@ import com.f.piechowiak.spring.OddamWDobreRece.core.RegistrationService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.*;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
+import com.f.piechowiak.spring.OddamWDobreRece.models.Gift;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
-import com.f.piechowiak.spring.OddamWDobreRece.repositories.AdminRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.GiftReposiotry;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,11 @@ public class AdminController {
     @Autowired
     HttpSession session;
     @Autowired
-    AdminRepository adminRepository;
-    @Autowired
     UserRoleRepository userRoleRepository;
     @Autowired
     CharityRepository charityRepository;
+    @Autowired
+    GiftReposiotry giftReposiotry;
     @Autowired
     private UserService userService;
     @Autowired
@@ -130,6 +131,8 @@ public class AdminController {
     public String editOrganizationForm(@PathVariable Long id, Model model) {
         model.addAttribute( "orgToEdit", charityService.findCharityByIdAndFill( id ) );
         Charity org = charityRepository.findById( id ).orElse( null );
+        List<Gift> allGifts = giftReposiotry.findAll();
+        model.addAttribute( "giftList", allGifts );
         if (org == null) {
             return "redirect:/orgList";
         }

@@ -7,6 +7,7 @@ import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.GiftReposiotry;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,12 @@ public class CharityService {
     private UserRepository userRepository;
     @Autowired
     private CharityRepository charityRepository;
+    @Autowired
+    private GiftReposiotry giftReposiotry;
 
-    public CharityService(CharityRepository charityRepository) {
+    public CharityService(CharityRepository charityRepository, GiftReposiotry giftReposiotry) {
         this.charityRepository = charityRepository;
+        this.giftReposiotry = giftReposiotry;
     }
 
 
@@ -76,7 +80,7 @@ public class CharityService {
             orgFormDto.setCharityName( org.getCharityName() );
             orgFormDto.setCity( org.getCity() );
             orgFormDto.setCharityType( org.getCharityType() );
-            orgFormDto.setAcceptedGifts( org.getAcceptedGifts() );
+            orgFormDto.setAcceptedGifts( giftReposiotry.getAcceptedGiftsByCharityId(id) );     //new query trial
         }
 
         return orgFormDto;

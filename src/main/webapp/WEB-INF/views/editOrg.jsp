@@ -43,14 +43,21 @@
                     <td>${toEdit.charityName}</td>
                     <td>${toEdit.city}</td>
                     <td>${toEdit.charityType}</td>
-                    <td>${toEdit.acceptedGifts}</td>
+                    <td>
+                        <c:forEach items="${toEdit.acceptedGifts}" var="gift">
+                            ${gift.giftType.toString()},
+                        </c:forEach></td>
                 </tr>
 
                 <div class="form-group"><form:hidden path="id"/><form:errors path="id"/></div>
-                <div class="form-group"><form:input path="charityName" placeholder="${toEdit.charityName}" required="true"/><form:errors path="charityName"/></div>
-                <div class="form-group"><form:input path="city" placeholder="${toEdit.city}" required="true"/><form:errors path="city"/></div>
-                <div class="form-group"><form:input path="type"  placeholder="${toEdit.charityType}" required="true"/><form:errors path="type"/></div>
-                <div class="form-group"><form:select path="acceptedGifts" multiple="true" items="${toEdit.acceptedGifts}" itemLabel="type" itemValue="gift_id"/><form:errors path="acceptedGifts"/></div>
+                <div class="form-group"><form:input path="charityName" placeholder="${toEdit.charityName}"
+                                                    required="true"/><form:errors path="charityName"/></div>
+                <div class="form-group"><form:input path="city" placeholder="${toEdit.city}"
+                                                    required="true"/><form:errors path="city"/></div>
+                <div class="form-group"><form:input path="charityType" placeholder="${toEdit.charityType}"
+                                                    required="true"/><form:errors path="charityType"/></div>
+                <div class="form-group">
+                        <form:select path="acceptedGifts" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGifts"/></div>
 
                 </tbody>
             </table>
