@@ -34,7 +34,8 @@
                     <li><a href="/admin/adminList">Lista Adminów</a></li>
                     <li><a href="/admin/adminForm">Stwórz Admina</a></li>
                     <li><a href="/admin/orgList">Lista Zaufanych Instytucji</a></li>
-                    <li><a href="/admin/giftList">Lista Przekazanych darów</a></li>
+                    <li><a href="/admin/giftList">Lista Typów Darów</a></li>
+                    <li><a href="/admin/orderList">Lista Darowizn na rzecz ZI</a></li>
                     <li><a href="/logout">Wyloguj</a></li>
                 </ul>
             </li>
@@ -45,7 +46,7 @@
         <li><a href="/" class="btn btn--without-border active">Start</a></li>
         <li><a href="#" class="btn btn--without-border">O co chodzi?</a></li>
         <li><a href="/about" class="btn btn--without-border">O nas</a></li>
-        <li><a href="#" class="btn btn--without-border">Fundacje i organizacje</a></li>
+        <li><a href="/orgList" class="btn btn--without-border">Fundacje i organizacje</a></li>
         <li><a href="/contact" class="btn btn--without-border">Kontakt</a></li>
     </ul>
 

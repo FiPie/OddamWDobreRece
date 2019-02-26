@@ -9,6 +9,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title>Organization List</title>
@@ -18,9 +19,23 @@
 </head>
 <body>
 <header>
-    <jsp:include page="fragments/menuAdmin.jsp"/>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <jsp:include page="fragments/menuAdmin.jsp"/>
+    </sec:authorize>
+    <sec:authorize access="isAnonymous()">
+        <jsp:include page="fragments/menu.jsp"/>
+    </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_USER')">
+        <jsp:include page="fragments/menu.jsp"/>
+    </sec:authorize>
 </header>
-<h1> ADMIN DASHBOARD: ORGANIZATION LIST </h1>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+    <h1> ADMIN DASHBOARD: ORGANIZATION LIST </h1>
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_USER')">
+    <h1> USER DASHBOARD: ORGANIZATION LIST </h1>
+</sec:authorize>
+
 <section class="steps">
     <h2>ORGANIZATIONS</h2>
     <div class="steps--container">
@@ -33,36 +48,49 @@
                     <td></td>
                     <td>Miasto</td>
                     <td>Rodzaj</td>
-                    <td>Usunięcie</td>
-                    <td>Edycja</td>
+                    <td>Co ofiarować?</td>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <td>Usunięcie</td>
+                        <td>Edycja</td>
+                    </sec:authorize>
                 </tr>
                 </thead>
-                <c:forEach var="org" items="${organizationList}">
+                <c:forEach var="gifts" items="${organizationList}">
                     <tbody>
                     <tr>
-                        <th scope="row">${org.id}</th>
-                        <td scope="row">${org.charityName}</td>
+                        <th scope="row">${gifts.id}</th>
+                        <td scope="row">${gifts.charityName}</td>
                         <td></td>
-                        <td scope="row">${org.city}</td>
-                        <td scope="row">${org.charityType}</td>
+                        <td scope="row">${gifts.city}</td>
+                        <td scope="row">${gifts.charityType}</td>
                         <td scope="row">
-                            <div class="form-group form-group--buttons">
-                                <a href="/admin/${org.id}/confirmDeleteOrganization" class="btn btn--small"> Usuń </a>
-                            </div>
+                            <c:forEach items="${gifts.acceptedGifts}" var="gift">
+                                ${gift.giftType.toString()},
+                            </c:forEach></td>
                         </td>
-                        <td>
-                            <div>
-                                <a href="/admin/${org.id}/editOrganization" class="btn btn--small">Edytuj</a>
-                            </div>
-                        </td>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <td scope="row">
+                                <div class="form-group form-group--buttons">
+                                    <a href="/admin/${gifts.id}/confirmDeleteOrganization" class="btn btn--small">
+                                        Usuń </a>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <a href="/admin/${gifts.id}/editOrganization" class="btn btn--small">Edytuj</a>
+                                </div>
+                            </td>
+                        </sec:authorize>
                     </tr>
 
                     </tbody>
                 </c:forEach>
             </table>
-            <div class="steps--item">
-                <a href="/admin/organizationForm" class="btn btn--large">Dodaj Nową Organizację</a>
-            </div>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <div class="steps--item">
+                    <a href="/admin/organizationForm" class="btn btn--large">Dodaj Nową Organizację</a>
+                </div>
+            </sec:authorize>
         </div>
     </div>
 </section>

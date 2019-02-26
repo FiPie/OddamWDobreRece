@@ -87,6 +87,13 @@ public class AdminController {
         return "orgList";
     }
 
+    @GetMapping("/giftList")
+    public String prepareGiftListForm(Model model) {
+        List<Gift> giftList = giftReposiotry.findAll();
+        model.addAttribute( "giftList", giftList );
+        return "giftList";
+    }
+
     @GetMapping("/organizationForm")
     public String prepareOrganizationForm(Model model) {
         model.addAttribute( "orgForm", new OrgFormDto() );
@@ -152,13 +159,6 @@ public class AdminController {
             result.rejectValue( "charityName", null, "Cos poszło źle, spróbuj jeszcze raz" );
             return "/" + form.getId() + "/editOrganization";
         }
-    }
-
-
-    @GetMapping("/giftList")
-    public String prepareGiftListForm(Model model) {
-        model.addAttribute( "AdminFormDto", new AdminFormDto() );
-        return "giftList";
     }
 
 

@@ -36,7 +36,7 @@
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_USER')">
                         <li><a href="/user/settings">Ustawienia</a></li>
-                        <li><a href="/user/gifts">Moje zbiórki</a></li>
+                        <li><a href="/user/orders">Moje zbiórki</a></li>
                     </sec:authorize>
                     <li><a href="/logout">Wyloguj</a></li>
                 </ul>
@@ -50,7 +50,7 @@
         <li><a href="/" class="btn btn--without-border active">Start</a></li>
         <li><a href="#" class="btn btn--without-border">O co chodzi?</a></li>
         <li><a href="/about" class="btn btn--without-border">O nas</a></li>
-        <li><a href="#" class="btn btn--without-border">Fundacje i organizacje</a></li>
+        <li><a href="/orgList" class="btn btn--without-border">Fundacje i organizacje</a></li>
         <li><a href="/contact" class="btn btn--without-border">Kontakt</a></li>
     </ul>
 

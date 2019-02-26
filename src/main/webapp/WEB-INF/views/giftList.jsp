@@ -22,5 +22,45 @@
     <jsp:include page="fragments/menuAdmin.jsp"/>
 </header>
 <h1> ADMIN DASHBOARD: GIFT LIST </h1>
+<section class="steps">
+    <h2>GIFTS</h2>
+    <div class="steps--container">
+        <div class="steps--item">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <td>Rodzaj przekazywanej pomocy</td>
+                    <td>Usunięcie</td>
+                    <td>Edycja</td>
+                </tr>
+                </thead>
+                <c:forEach var="gifts" items="${giftList}">
+                    <tbody>
+                    <tr>
+                        <th scope="row">${gifts.id}</th>
+                        <td scope="row">${gifts.giftType}</td>
+                        <td scope="row">
+                            <div class="form-group form-group--buttons">
+                                <a href="/admin/${gifts.id}/confirmDeleteGift" class="btn btn--small"> Usuń </a>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <a href="/admin/${gifts.id}/editGift" class="btn btn--small">Edytuj</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </c:forEach>
+            </table>
+            <div class="steps--item">
+                <a href="/admin/giftForm" class="btn btn--large">Dodaj Nowy Rodzaj Darowizny</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 </body>
 </html>

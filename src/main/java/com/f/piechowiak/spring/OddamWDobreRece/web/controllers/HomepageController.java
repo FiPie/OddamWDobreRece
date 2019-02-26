@@ -1,6 +1,8 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
+import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -19,13 +22,12 @@ public class HomepageController {
     UserRepository userRepository;
     @Autowired
     HttpSession session;
+    @Autowired
+    CharityRepository charityRepository;
 
 
     @GetMapping
     public String getHomepage(Principal principal, Model model){
-
-
-
         if (principal != null){
             if (session.getAttribute( "userId" )==null){
                 String userEmail = principal.getName();
@@ -48,5 +50,11 @@ public class HomepageController {
 
     }
 
+    @GetMapping("/orgList")
+    public String publicOrgList(Model model){
+        List<Charity> organizationList = charityRepository.getCharityList();
+        model.addAttribute( "organizationList", organizationList );
+        return "orgList";
+    }
 
 }
