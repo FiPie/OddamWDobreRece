@@ -32,8 +32,9 @@
                     <th>ID</th>
                     <td>Nazwa</td>
                     <td>Miasto</td>
-                    <td>Rodzaj</td>
-                    <td>Accepted gifts</td>
+                    <td>Komu pomagamy?</td>
+                    <td>Akceptowane dary</td>
+                    <td>Rodzaj prowadzonej działalności</td>
 
                 </tr>
                 </thead>
@@ -46,7 +47,9 @@
                     <td>
                         <c:forEach items="${toEdit.acceptedGifts}" var="gift">
                             ${gift.giftType.toString()},
-                        </c:forEach></td>
+                        </c:forEach>
+                    </td>
+                    <td>${toEdit.charityStructureType}</td>
                 </tr>
 
                 <div class="form-group"><form:hidden path="id"/><form:errors path="id"/></div>
@@ -57,8 +60,11 @@
                 <div class="form-group"><form:input path="charityType" placeholder="${toEdit.charityType}"
                                                     required="true"/><form:errors path="charityType"/></div>
                 <div class="form-group">
-                        <form:select path="acceptedGifts" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGifts"/></div>
-
+                        <form:select path="acceptedGifts" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGifts"/>
+                </div>
+                <div class="form-group">
+                    <form:radiobuttons path="charityStructureType" items="${charityFormList}"/><form:errors path="charityStructureType"/>
+                </div>
                 </tbody>
             </table>
             <table>

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -97,6 +98,10 @@ public class AdminController {
     @GetMapping("/organizationForm")
     public String prepareOrganizationForm(Model model) {
         model.addAttribute( "orgForm", new OrgFormDto() );
+        List<Gift> allGifts = giftReposiotry.findAll();
+        model.addAttribute( "giftList", allGifts );
+        List<String> charityFormList = Arrays.asList( "Fundacja", "Organizacja pozarządowa", "Lokalna zbiórka" );
+        model.addAttribute( "charityFormList", charityFormList );
         return "orgForm";
     }
 
@@ -139,6 +144,8 @@ public class AdminController {
         model.addAttribute( "orgToEdit", charityService.findCharityByIdAndFill( id ) );
         Charity org = charityRepository.findById( id ).orElse( null );
         List<Gift> allGifts = giftReposiotry.findAll();
+        List<String> charityFormList = Arrays.asList( "Fundacja", "Organizacja pozarządowa", "Lokalna zbiórka" );
+        model.addAttribute( "charityFormList", charityFormList );
         model.addAttribute( "giftList", allGifts );
         if (org == null) {
             return "redirect:/orgList";
@@ -165,6 +172,7 @@ public class AdminController {
     @GetMapping("/adminForm")
     public String prepareAdminForm(Model model) {
         model.addAttribute( "adminForm", new AdminFormDto() );
+
         return "adminForm";
     }
 

@@ -20,9 +20,11 @@ public class Charity {
     private String charityName;
     @NotNull
     @Column
-    private String charityType;
+    private String charityType;                 //jakiego rodzaju pomoc jest prowadzona przez daną Zaufaną Instytucję
     @Column
     private String city;
+    @Column
+    private String charityStructureType;        //czy to Lokalna zbiórka, Fundacja czy Organizacja pozarządowa
 
     @ManyToMany
     @JoinTable(name = "charity_gift",
@@ -76,6 +78,14 @@ public class Charity {
 
     public void setCharityType(String charityType) {
         this.charityType = charityType;
+    }
+
+    public String getCharityStructureType() {
+        return charityStructureType;
+    }
+
+    public void setCharityStructureType(String charityStructureType) {
+        this.charityStructureType = charityStructureType;
     }
 
     public String getCity() {

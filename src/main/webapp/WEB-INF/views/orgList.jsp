@@ -47,37 +47,39 @@
                     <td>Nazwa</td>
                     <td></td>
                     <td>Miasto</td>
-                    <td>Rodzaj</td>
+                    <td>Komu pomagamy?</td>
                     <td>Co ofiarować?</td>
+                    <td>Rodzaj organizacji</td>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <td>Usunięcie</td>
                         <td>Edycja</td>
                     </sec:authorize>
                 </tr>
                 </thead>
-                <c:forEach var="gifts" items="${organizationList}">
+                <c:forEach var="charity" items="${organizationList}">
                     <tbody>
                     <tr>
-                        <th scope="row">${gifts.id}</th>
-                        <td scope="row">${gifts.charityName}</td>
+                        <th scope="row">${charity.id}</th>
+                        <td scope="row">${charity.charityName}</td>
                         <td></td>
-                        <td scope="row">${gifts.city}</td>
-                        <td scope="row">${gifts.charityType}</td>
+                        <td scope="row">${charity.city}</td>
+                        <td scope="row">${charity.charityType}</td>
                         <td scope="row">
-                            <c:forEach items="${gifts.acceptedGifts}" var="gift">
+                            <c:forEach items="${charity.acceptedGifts}" var="gift">
                                 ${gift.giftType.toString()},
                             </c:forEach></td>
                         </td>
+                        <td>${charity.charityStructureType}</td>
                         <sec:authorize access="hasRole('ROLE_ADMIN')">
                             <td scope="row">
                                 <div class="form-group form-group--buttons">
-                                    <a href="/admin/${gifts.id}/confirmDeleteOrganization" class="btn btn--small">
+                                    <a href="/admin/${charity.id}/confirmDeleteOrganization" class="btn btn--small">
                                         Usuń </a>
                                 </div>
                             </td>
                             <td>
                                 <div>
-                                    <a href="/admin/${gifts.id}/editOrganization" class="btn btn--small">Edytuj</a>
+                                    <a href="/admin/${charity.id}/editOrganization" class="btn btn--small">Edytuj</a>
                                 </div>
                             </td>
                         </sec:authorize>

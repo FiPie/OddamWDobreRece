@@ -17,18 +17,16 @@ public class OrgFormDto {
 
     private List<Gift> acceptedGifts;
 
+    private String charityStructureType;
+
     public Long getId() {
         return id;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public String getCharityName() {
         return charityName;
     }
-
     public void setCharityName(String charityName) {
         this.charityName = charityName;
     }
@@ -36,24 +34,16 @@ public class OrgFormDto {
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
 
-    public String getCharityType() {
-        return charityType;
-    }
+    public String getCharityType() { return charityType; }
+    public void setCharityType(String charityType) { this.charityType = charityType; }
 
-    public void setCharityType(String charityType) {
-        this.charityType = charityType;
-    }
+    public List<Gift> getAcceptedGifts() { return acceptedGifts; }
+    public void setAcceptedGifts(List<Gift> acceptedGifts) { this.acceptedGifts = acceptedGifts; }
 
-    public List<Gift> getAcceptedGifts() {
-        return acceptedGifts;
-    }
-
-    public void setAcceptedGifts(List<Gift> acceptedGifts) {
-        this.acceptedGifts = acceptedGifts;
-    }
+    public String getCharityStructureType() { return charityStructureType; }
+    public void setCharityStructureType(String charityStructureType) { this.charityStructureType = charityStructureType; }
 }
