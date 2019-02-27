@@ -33,15 +33,15 @@
             <form:input path="city" placeholder="Podaj miasto, w którym działa organizacja" required="true"/><form:errors path="city"/>
         </div>
         <div class="form-group">
-            <form:input path="charityType" placeholder="Podaj rodzaj pomocy niesionej przez organizację" required="true"/><form:errors path="charityType"/>
+            <form:input path="charityActivityType" placeholder="Podaj rodzaj pomocy niesionej przez organizację" required="true"/><form:errors path="charityActivityType"/>
         </div class="form-group">
         <div>
             <form:radiobuttons path="charityStructureType" items="${charityFormList}"/><form:errors path="charityStructureType"/>
         </div>
         <div class="form-group">
-            <form:select path="acceptedGifts" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGifts"/></div>
+            <form:select path="acceptedGiftTypes" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGiftTypes"/></div>
 
-        </tbody>
+
         <form:errors path="*"/>
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit">Dodaj Organizację</button>

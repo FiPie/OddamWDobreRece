@@ -56,7 +56,7 @@
                 </c:forEach>
             </table>
             <div class="steps--item">
-                <a href="/admin/giftForm" class="btn btn--large">Dodaj Nowy Rodzaj Darowizny</a>
+                <a href="/admin/giftTypeForm" class="btn btn--large">Dodaj Nowy Rodzaj Darowizny</a>
             </div>
         </div>
     </div>

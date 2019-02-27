@@ -3,12 +3,13 @@ package com.f.piechowiak.spring.OddamWDobreRece.models;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 @Entity
-@Table(name = "orders")
-public class Order {
+@Table(name = "donations")
+public class Donation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +18,11 @@ public class Order {
     @Column                         //ilość worków 60L
     private Long quantity;
 
-    @ManyToOne                      //Rodzaj daru
-    @JoinColumn(name = "gift_id")
-    private Gift gift;
+    @ManyToMany                     //Rodzaje przekazanych darów
+    @JoinTable(name = "donation_gift_type_id",
+    joinColumns = @JoinColumn(name = "donation_id"),
+    inverseJoinColumns = @JoinColumn(name = "gift_type_id"))
+    private List<Gift> giftList;
 
     @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.EAGER)    //Darczyńca
     @JoinColumn(name = "user_id")
@@ -42,18 +45,18 @@ public class Order {
     @Column
     private String phone;
     @Column
-    private String date;
+    private LocalDateTime statusChangeDate;         //data zminay statusu daru odebrany/nieodebrany
     @Column
-    private String hour;
+    private String hour;                            //godzina odbioru
     @Column
     private String notes;
 
     @Override
     public String toString() {
-        return new StringJoiner( ", ", Order.class.getSimpleName() + "[", "]" )
+        return new StringJoiner( ", ", Donation.class.getSimpleName() + "[", "]" )
                 .add( "id=" + id )
                 .add( "quantity=" + quantity )
-                .add( "gift=" + gift )
+                .add( "gift=" + giftList )
                 .add( "user=" + user )
                 .add( "charity=" + charity )
                 .add( "giftPickedUp=" + giftPickedUp )
@@ -62,7 +65,7 @@ public class Order {
                 .add( "street='" + street + "'" )
                 .add( "postCode='" + postCode + "'" )
                 .add( "phone='" + phone + "'" )
-                .add( "date='" + date + "'" )
+                .add( "statusChangeDate='" + statusChangeDate + "'" )
                 .add( "hour='" + hour + "'" )
                 .add( "notes='" + notes + "'" )
                 .toString();
@@ -72,8 +75,8 @@ public class Order {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return Objects.equals( id, order.id );
+        Donation donation = (Donation) o;
+        return Objects.equals( id, donation.id );
     }
 
     @Override
@@ -105,12 +108,12 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public Gift getGift() {
-        return gift;
+    public List<Gift> getGiftList() {
+        return giftList;
     }
 
-    public void setGift(Gift gift) {
-        this.gift = gift;
+    public void setGiftList(List<Gift> giftList) {
+        this.giftList = giftList;
     }
 
     public User getUser() {
@@ -161,12 +164,12 @@ public class Order {
         this.phone = phone;
     }
 
-    public String getDate() {
-        return date;
+    public LocalDateTime getStatusChangeDate() {
+        return statusChangeDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setStatusChangeDate(LocalDateTime statusChangeDate) {
+        this.statusChangeDate = statusChangeDate;
     }
 
     public String getHour() {

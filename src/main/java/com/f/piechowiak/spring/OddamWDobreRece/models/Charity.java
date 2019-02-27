@@ -1,7 +1,5 @@
 package com.f.piechowiak.spring.OddamWDobreRece.models;
 
-import org.hibernate.mapping.ToOne;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -18,19 +16,22 @@ public class Charity {
     @NotNull
     @Column
     private String charityName;
-    @NotNull
+
+    @NotNull    //to ma być @ManyToOne
     @Column
-    private String charityType;                 //jakiego rodzaju pomoc jest prowadzona przez daną Zaufaną Instytucję
+    private String charityActivityType;                 //jakiego rodzaju pomoc jest prowadzona przez daną Zaufaną Instytucję
     @Column
     private String city;
-    @Column
+
+
+    @Column     ////to ma być @ManyToOne i stowrzyć osobną tabelę
     private String charityStructureType;        //czy to Lokalna zbiórka, Fundacja czy Organizacja pozarządowa
 
     @ManyToMany
-    @JoinTable(name = "charity_gift",
+    @JoinTable(name = "charity_gift_type",
             joinColumns = @JoinColumn(name = "charity_id"),
-            inverseJoinColumns = @JoinColumn(name = "gift_id"))
-    private List<Gift> acceptedGifts;
+            inverseJoinColumns = @JoinColumn(name = "gift_type_id"))
+    private List<Gift> acceptedGiftTypes;
 
 
     @Override
@@ -48,12 +49,12 @@ public class Charity {
         return Objects.hash( id );
     }
 
-    public List<Gift> getAcceptedGifts() {
-        return acceptedGifts;
+    public List<Gift> getAcceptedGiftTypes() {
+        return acceptedGiftTypes;
     }
 
-    public void setAcceptedGifts(List<Gift> acceptedGifts) {
-        this.acceptedGifts = acceptedGifts;
+    public void setAcceptedGiftTypes(List<Gift> acceptedGiftTypes) {
+        this.acceptedGiftTypes = acceptedGiftTypes;
     }
 
     public String getCharityName() {
@@ -72,21 +73,19 @@ public class Charity {
         this.id = id;
     }
 
-    public String getCharityType() {
-        return charityType;
+    public String getCharityActivityType() {
+        return charityActivityType;
     }
 
-    public void setCharityType(String charityType) {
-        this.charityType = charityType;
+    public void setCharityActivityType(String charityActivityType) {
+        this.charityActivityType = charityActivityType;
     }
 
     public String getCharityStructureType() {
         return charityStructureType;
     }
 
-    public void setCharityStructureType(String charityStructureType) {
-        this.charityStructureType = charityStructureType;
-    }
+    public void setCharityStructureType(String charityStructureType) { this.charityStructureType = charityStructureType; }
 
     public String getCity() {
         return city;
@@ -94,5 +93,17 @@ public class Charity {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner( ", ", Charity.class.getSimpleName() + "[", "]" )
+                .add( "id=" + id )
+                .add( "charityName='" + charityName + "'" )
+                .add( "charityActivityType='" + charityActivityType + "'" )
+                .add( "city='" + city + "'" )
+                .add( "charityStructureType='" + charityStructureType + "'" )
+                .add( "acceptedGiftTypes=" + acceptedGiftTypes )
+                .toString();
     }
 }

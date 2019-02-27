@@ -13,9 +13,9 @@ public class OrgFormDto {
     @NotNull
     private String city;
     @NotNull
-    private String charityType;
+    private String charityActivityType;
 
-    private List<Gift> acceptedGifts;
+    private List<Gift> acceptedGiftTypes;
 
     private String charityStructureType;
 
@@ -38,11 +38,11 @@ public class OrgFormDto {
         this.city = city;
     }
 
-    public String getCharityType() { return charityType; }
-    public void setCharityType(String charityType) { this.charityType = charityType; }
+    public String getCharityActivityType() { return charityActivityType; }
+    public void setCharityActivityType(String charityActivityType) { this.charityActivityType = charityActivityType; }
 
-    public List<Gift> getAcceptedGifts() { return acceptedGifts; }
-    public void setAcceptedGifts(List<Gift> acceptedGifts) { this.acceptedGifts = acceptedGifts; }
+    public List<Gift> getAcceptedGiftTypes() { return acceptedGiftTypes; }
+    public void setAcceptedGiftTypes(List<Gift> acceptedGiftTypes) { this.acceptedGiftTypes = acceptedGiftTypes; }
 
     public String getCharityStructureType() { return charityStructureType; }
     public void setCharityStructureType(String charityStructureType) { this.charityStructureType = charityStructureType; }

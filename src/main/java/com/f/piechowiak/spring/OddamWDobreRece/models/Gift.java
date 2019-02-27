@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 @Entity
-@Table(name = "gifts")
+@Table(name = "gift_types")
 public class Gift {
 
     @Id
@@ -15,11 +15,8 @@ public class Gift {
     private Long id;
 
     @Column
-    @UniqueElements
     private String giftType;
 
-    /*@ManyToOne
-    private Charity charity;*/
 
 
     @Override

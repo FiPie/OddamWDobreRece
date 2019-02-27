@@ -35,8 +35,12 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL} , targetEntity = UserRole.class)
     private List<UserRole> userRoles;
 
-    /*@OneToMany(mappedBy = "order", cascade = {CascadeType.ALL} , targetEntity = Order.class)
-    private List<Order> orders;*/
+    @OneToMany(mappedBy = "user")
+    private List<Donation> userDonationsList;
+
+    private String uuid;
+    /*@OneToMany(mappedBy = "order", cascade = {CascadeType.ALL} , targetEntity = Donation.class)
+    private List<Donation> orders;*/
 
 
 
@@ -89,6 +93,18 @@ public class User {
         this.enabled = enabled;
     }
 
+    public List<UserRole> getUserRoles() { return userRoles; }
+
+    public void setUserRoles(List<UserRole> userRoles) { this.userRoles = userRoles; }
+
+    public List<Donation> getUserDonationsList() { return userDonationsList; }
+
+    public void setUserDonationsList(List<Donation> userDonationsList) { this.userDonationsList = userDonationsList; }
+
+    public String getUuid() { return uuid; }
+
+    public void setUuid(String uuid) { this.uuid = uuid; }
+
     @Override
     public String toString() {
         return new StringJoiner( ", ", User.class.getSimpleName() + "[", "]" )
@@ -98,6 +114,8 @@ public class User {
                 .add( "email='" + email + "'" )
                 .add( "password='" + password + "'" )
                 .add( "enabled=" + enabled )
+                .add( "userRoles=" + userRoles )
+                .add( "userDonationsList=" + userDonationsList )
                 .toString();
     }
 

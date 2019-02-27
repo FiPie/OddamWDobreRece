@@ -39,7 +39,7 @@
                 <td>${toRemove.id}</td>
                 <td>${toRemove.charityName}</td>
                 <td>${toRemove.city}</td>
-                <td>${toRemove.charityType}</td>
+                <td>${toRemove.charityActivityType}</td>
             </tr>
             </tbody>
         </table>

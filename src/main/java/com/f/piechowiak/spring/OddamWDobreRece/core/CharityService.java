@@ -1,11 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.core;
 
-import com.f.piechowiak.spring.OddamWDobreRece.dto.AdminFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.OrgFormDto;
-import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
-import com.f.piechowiak.spring.OddamWDobreRece.models.User;
-import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.GiftReposiotry;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
@@ -39,8 +35,8 @@ public class CharityService {
 
         org.setCharityName( form.getCharityName() );
         org.setCity( form.getCity() );
-        org.setCharityType( form.getCharityType() );
-        org.setAcceptedGifts( form.getAcceptedGifts() );
+        org.setCharityActivityType( form.getCharityActivityType() );
+        org.setAcceptedGiftTypes( form.getAcceptedGiftTypes() );
         org.setCharityStructureType( form.getCharityStructureType() );
         org = charityRepository.save( org );
 
@@ -65,8 +61,8 @@ public class CharityService {
         org.setId( form.getId() );
         org.setCharityName( form.getCharityName() );
         org.setCity( form.getCity() );
-        org.setCharityType( form.getCharityType() );
-        org.setAcceptedGifts( form.getAcceptedGifts() );
+        org.setCharityActivityType( form.getCharityActivityType() );
+        org.setAcceptedGiftTypes( form.getAcceptedGiftTypes() );
         org.setCharityStructureType( form.getCharityStructureType() );
         org = charityRepository.save( org );
 
@@ -82,9 +78,9 @@ public class CharityService {
             orgFormDto.setId( org.getId() );
             orgFormDto.setCharityName( org.getCharityName() );
             orgFormDto.setCity( org.getCity() );
-            orgFormDto.setCharityType( org.getCharityType() );
+            orgFormDto.setCharityActivityType( org.getCharityActivityType() );
             orgFormDto.setCharityStructureType( org.getCharityStructureType() );
-            orgFormDto.setAcceptedGifts( giftReposiotry.getAcceptedGiftsByCharityId(id) );     //new query trial
+            orgFormDto.setAcceptedGiftTypes( giftReposiotry.getAcceptedGiftsByCharityId(id) );     //new query trial
         }
 
         return orgFormDto;

@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface GiftReposiotry extends JpaRepository<Gift, Long> {
 
-    @Query(value = "SELECT * FROM gifts JOIN charity_gift ON gifts.id = charity_gift.gift_id WHERE charity_gift.charity_id = ?", nativeQuery = true)
+    @Query(value = "SELECT * FROM gift_types JOIN charity_gift_type ON gift_types.id = charity_gift_type.gift_type_id WHERE charity_gift_type.charity_id = ?", nativeQuery = true)
     List<Gift> getAcceptedGiftsByCharityId(Long id);
 }

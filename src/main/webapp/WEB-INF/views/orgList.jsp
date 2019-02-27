@@ -63,9 +63,9 @@
                         <td scope="row">${charity.charityName}</td>
                         <td></td>
                         <td scope="row">${charity.city}</td>
-                        <td scope="row">${charity.charityType}</td>
+                        <td scope="row">${charity.charityActivityType}</td>
                         <td scope="row">
-                            <c:forEach items="${charity.acceptedGifts}" var="gift">
+                            <c:forEach items="${charity.acceptedGiftTypes}" var="gift">
                                 ${gift.giftType.toString()},
                             </c:forEach></td>
                         </td>

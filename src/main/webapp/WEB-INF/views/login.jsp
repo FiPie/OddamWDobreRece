@@ -16,7 +16,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Login</title>
     <style><%@include file="/WEB-INF/views/css/style.css"%></style>
-    <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />--%>
 </head>
 <body>
 <header>
@@ -37,10 +36,6 @@
             <form:password path="password" required="true" placeholder="Hasło" /><form:errors path="password"/>
             <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
         </div>
-
-        <%--<div class="form-group">
-            <form:hidden path="enabled"/><form:errors path="enabled"/>
-        </div>--%>
 
         <div class="form-group form-group--buttons">
             <a href="/register" class="btn btn--without-border">Załóż konto</a>

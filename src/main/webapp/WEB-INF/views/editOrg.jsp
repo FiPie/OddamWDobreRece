@@ -43,9 +43,9 @@
                     <td>${toEdit.id}</td>
                     <td>${toEdit.charityName}</td>
                     <td>${toEdit.city}</td>
-                    <td>${toEdit.charityType}</td>
+                    <td>${toEdit.charityActivityType}</td>
                     <td>
-                        <c:forEach items="${toEdit.acceptedGifts}" var="gift">
+                        <c:forEach items="${toEdit.acceptedGiftTypes}" var="gift">
                             ${gift.giftType.toString()},
                         </c:forEach>
                     </td>
@@ -57,10 +57,10 @@
                                                     required="true"/><form:errors path="charityName"/></div>
                 <div class="form-group"><form:input path="city" placeholder="${toEdit.city}"
                                                     required="true"/><form:errors path="city"/></div>
-                <div class="form-group"><form:input path="charityType" placeholder="${toEdit.charityType}"
-                                                    required="true"/><form:errors path="charityType"/></div>
+                <div class="form-group"><form:input path="charityActivityType" placeholder="${toEdit.charityActivityType}"
+                                                    required="true"/><form:errors path="charityActivityType"/></div>
                 <div class="form-group">
-                        <form:select path="acceptedGifts" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGifts"/>
+                        <form:select path="acceptedGiftTypes" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGiftTypes"/>
                 </div>
                 <div class="form-group">
                     <form:radiobuttons path="charityStructureType" items="${charityFormList}"/><form:errors path="charityStructureType"/>

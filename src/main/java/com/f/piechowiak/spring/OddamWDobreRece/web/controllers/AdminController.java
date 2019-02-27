@@ -2,6 +2,7 @@ package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
 
 import com.f.piechowiak.spring.OddamWDobreRece.core.CharityService;
+import com.f.piechowiak.spring.OddamWDobreRece.core.GiftService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.RegistrationService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.*;
@@ -44,6 +45,8 @@ public class AdminController {
     private UserService userService;
     @Autowired
     private CharityService charityService;
+    @Autowired
+    private GiftService giftService;
 
 
     public AdminController(UserService userService) {
@@ -95,6 +98,23 @@ public class AdminController {
         return "giftList";
     }
 
+    @GetMapping("/giftTypeForm")
+    public String prepareGiftTypeForm(Model model){
+        model.addAttribute( "giftTypeForm", new GiftFormDto() );
+        return "giftForm";
+    }
+    @PostMapping("/giftTypeForm")
+    public String createGiftType(@ModelAttribute("giftTypeForm") @Valid GiftFormDto form, BindingResult result){
+        if (result.hasErrors()){ return "/giftTypeForm"; }
+        boolean success = giftService.createGiftType( form );
+        if (success){ return "redirect:/admin/giftList"; }
+        else {result.rejectValue( "giftType", null, "Cos poszło nietak przy wypełnianiu formularza" );
+        return "/giftTypeForm";}
+    }
+
+
+
+
     @GetMapping("/organizationForm")
     public String prepareOrganizationForm(Model model) {
         model.addAttribute( "orgForm", new OrgFormDto() );
@@ -104,7 +124,6 @@ public class AdminController {
         model.addAttribute( "charityFormList", charityFormList );
         return "orgForm";
     }
-
     @PostMapping("/organizationForm")
     public String createOrganization(@ModelAttribute("orgForm") @Valid OrgFormDto form, BindingResult result) {
         if (result.hasErrors()) {
@@ -144,7 +163,7 @@ public class AdminController {
         model.addAttribute( "orgToEdit", charityService.findCharityByIdAndFill( id ) );
         Charity org = charityRepository.findById( id ).orElse( null );
         List<Gift> allGifts = giftReposiotry.findAll();
-        List<String> charityFormList = Arrays.asList( "Fundacja", "Organizacja pozarządowa", "Lokalna zbiórka" );
+        List<String> charityFormList = Arrays.asList( "Fundacja", "Organizacja pozarządowa", "Lokalna zbiórka" );       //do poprawki
         model.addAttribute( "charityFormList", charityFormList );
         model.addAttribute( "giftList", allGifts );
         if (org == null) {
