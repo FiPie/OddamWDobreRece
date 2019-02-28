@@ -42,12 +42,12 @@
                         <td scope="row">${charity.giftType}</td>
                         <td scope="row">
                             <div class="form-group form-group--buttons">
-                                <a href="/admin/${charity.id}/confirmDeleteGift" class="btn btn--small"> Usuń </a>
+                                <a href="/admin/${charity.id}/confirmDeleteGiftType" class="btn btn--small"> Usuń </a>
                             </div>
                         </td>
                         <td>
                             <div>
-                                <a href="/admin/${charity.id}/editGift" class="btn btn--small">Edytuj</a>
+                                <a href="/admin/${charity.id}/editGiftType" class="btn btn--small">Edytuj</a>
                             </div>
                         </td>
                     </tr>

@@ -22,12 +22,40 @@ public class GiftService {
     @Transactional
     public boolean createGiftType(GiftFormDto form){
         Gift gift = new Gift();
-
         gift.setGiftType( form.getGiftType() );
         gift = giftReposiotry.save( gift );
-
         return true;
     }
 
+    @Transactional
+    public boolean deleteGiftType(Long id){
+        Gift gift = new Gift();
+        gift.setId( id );
+        if (giftReposiotry.findById( gift.getId() ) != null){
+            giftReposiotry.deleteById( gift.getId() );
+        }
+        return true;
+    }
+
+    @Transactional
+    public boolean updateGiftType(GiftFormDto form){
+        Gift gift = new Gift();
+
+        gift.setId( form.getId() );
+        gift.setGiftType( form.getGiftType() );
+        gift = giftReposiotry.save( gift );
+        return true;
+    }
+
+    public GiftFormDto findGiftTypeByIdAndFill(Long id){
+        GiftFormDto giftFormDto = new GiftFormDto();
+        Gift gift = giftReposiotry.findById( id ).orElse( null );
+
+        if (gift != null){
+            giftFormDto.setId( gift.getId() );
+            giftFormDto.setGiftType( gift.getGiftType() );
+        }
+        return giftFormDto;
+    }
 
 }

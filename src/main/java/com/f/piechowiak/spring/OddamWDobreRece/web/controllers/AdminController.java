@@ -97,7 +97,6 @@ public class AdminController {
         model.addAttribute( "giftList", giftList );
         return "giftList";
     }
-
     @GetMapping("/giftTypeForm")
     public String prepareGiftTypeForm(Model model){
         model.addAttribute( "giftTypeForm", new GiftFormDto() );
@@ -110,6 +109,48 @@ public class AdminController {
         if (success){ return "redirect:/admin/giftList"; }
         else {result.rejectValue( "giftType", null, "Cos poszło nietak przy wypełnianiu formularza" );
         return "/giftTypeForm";}
+    }
+    @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteGiftType")
+    public String confirmDeleteGiftType(@PathVariable Long id, Model model){
+        Gift giftTypeToDelete = giftReposiotry.findById( id ).orElse( null );
+        if (giftTypeToDelete == null){
+            return "redirect:/admin/giftList";
+        }
+        model.addAttribute( "toRemove", giftTypeToDelete );
+        return "deleteGiftType";
+    }
+    @GetMapping("{id:[1-9]*[0-9]+}/deleteGiftType")
+    public String deleteGiftType(@PathVariable Long id){
+        Gift giftTypeToDelete = giftReposiotry.findById( id ).orElse( null );
+        if (giftTypeToDelete !=null){
+            giftService.deleteGiftType( giftTypeToDelete.getId() );
+        }
+        return "redirect:/admin/giftList";
+    }
+    @GetMapping("/{id:[1-9]*[0-9]+}/editGiftType")
+    public String editGiftTypeForm(@PathVariable Long id, Model model) {
+        model.addAttribute( "giftTypeToEdit", giftService.findGiftTypeByIdAndFill( id ) );
+        Gift giftTypeToEdit = giftReposiotry.findById( id ).orElse( null );
+
+        if (giftTypeToEdit == null) {
+            return "redirect:/giftList";
+        }
+        model.addAttribute( "toEdit", giftTypeToEdit);
+        return "editGiftType";
+    }
+
+    @PostMapping("/editGiftType")
+    public String saveEditGiftTypeChanges(@ModelAttribute("giftTypeToEdit") @Valid GiftFormDto form, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "/admin/giftList";
+        }
+        boolean success = giftService.updateGiftType( form );
+        if (success) {
+            return "redirect:/admin/giftList";
+        } else {
+            result.rejectValue( "giftType", null, "Cos poszło źle, spróbuj jeszcze raz" );
+            return "/" + form.getId() + "/editGiftType";
+        }
     }
 
 

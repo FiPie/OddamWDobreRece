@@ -11,9 +11,45 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Delete Gift Type</title>
+    <style>
+        <%@include file="/WEB-INF/views/css/style.css" %>
+    </style>
 </head>
 <body>
+<header>
+    <jsp:include page="fragments/menuAdmin.jsp"/>
+</header>
+<h1> ADMIN DASHBOARD: DELETE GIFT TYPE </h1>
+
+<h2>Czy na pewno chcesz usunąć ten typ darowizn? </h2>
+<section class="login-page">
+    <div class="form-group">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>Typ darowizny</td>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>${toRemove.id}</td>
+                <td>${toRemove.giftType}</td>
+
+            </tr>
+            </tbody>
+        </table>
+        <table>
+            <tr>
+                <td><a href="/admin/${toRemove.id}/deleteGiftType" class="btn btn--medium" style="margin: 10px">Usuń</a></td>
+                <td><a href="/admin/giftList" class="btn btn--medium" style="margin: 10px">Wstecz</a></td>
+            </tr>
+        </table>
+
+    </div>
+</section>
 
 </body>
 </html>
