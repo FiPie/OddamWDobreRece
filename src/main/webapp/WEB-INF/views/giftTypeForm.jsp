@@ -11,7 +11,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Gift Form</title>
+    <title>Gift Type Form</title>
     <style>
         <%@include file="/WEB-INF/views/css/style.css" %>
     </style>
@@ -21,7 +21,7 @@
     <jsp:include page="fragments/menuAdmin.jsp"/>
 </header>
 
-<h1> ADMIN DASHBOARD: GIFT FORM </h1>
+<h1> ADMIN DASHBOARD: GIFT TYPE FORM </h1>
 
 <section class="login-page">
     <h2>Dodaj Nowy Rodzaj Darowizny/Pomocy</h2>

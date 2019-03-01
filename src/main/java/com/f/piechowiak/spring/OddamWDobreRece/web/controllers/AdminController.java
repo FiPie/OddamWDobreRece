@@ -1,6 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
 
+import com.f.piechowiak.spring.OddamWDobreRece.core.CharityActivityService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.CharityService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.GiftTypeService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
@@ -38,7 +39,7 @@ public class AdminController {
     private final UserService userService;
     private final CharityService charityService;
     private final GiftTypeService giftTypeService;
-
+    private final CharityActivityService charityActivityService;
 
 
     @Autowired
@@ -51,7 +52,8 @@ public class AdminController {
             , GiftTypeReposiotry giftTypeReposiotry
             , UserService userService
             , CharityService charityService
-            , GiftTypeService giftTypeService) {
+            , GiftTypeService giftTypeService
+            , CharityActivityService charityActivityService) {
         this.userRepository = userRepository;
         this.session = session;
         this.charityRepository = charityRepository;
@@ -61,6 +63,7 @@ public class AdminController {
         this.userService = userService;
         this.charityService = charityService;
         this.giftTypeService = giftTypeService;
+        this.charityActivityService = charityActivityService;
     }
 
 
@@ -78,8 +81,86 @@ public class AdminController {
     }
 
 
+    @GetMapping("/charityActivityList")
+    public String prepareCharityActivityList(Model model) {
+        List<CharityActivity> charityActivityList = charityActivityRepository.findAll();
+        model.addAttribute( "charityActivityList", charityActivityList );
+        return "charityActivityList";
+    }
+
+    @GetMapping("/charityActivityForm")
+    public String prepareCharityActivityForm(Model model) {
+        model.addAttribute( "charityActivityForm", new CharityActivityDto() );
+        return "charityActivityForm";
+    }
+
+    @PostMapping("/charityActivityForm")
+    public String createCharityActivity(@ModelAttribute("charityActivityForm") @Valid CharityActivityDto form, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/charityActivityForm";
+        }
+        boolean success = charityActivityService.createCharityActivity( form );
+        if (success) {
+            return "redirect:/admin/charityActivityList";
+        } else {
+            result.rejectValue( "organizationActivity", null, "Cos poszło nietak przy wypełnianiu formularza" );
+            return "/charityActivityForm";
+        }
+
+    }
+    @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteCharityActivity")
+    public String confirmDeleteCharityActivity(@PathVariable Long id, Model model) {
+        CharityActivity charityActivityToDelete = charityActivityRepository.findById( id ).orElse( null );
+        if (charityActivityToDelete == null) {
+            return "redirect:/admin/giftList";
+        }
+        model.addAttribute( "toRemove", charityActivityToDelete );
+        return "charityActivityDelete";
+    }
+
+    @GetMapping("{id:[1-9]*[0-9]+}/deleteCharityActivity")
+    public String deleteCharityActivity(@PathVariable Long id) {
+        CharityActivity charityActivityToDelete = charityActivityRepository.findById( id ).orElse( null );
+        if (charityActivityToDelete != null) {
+            charityActivityService.deleteCharityActivity( charityActivityToDelete.getId() );
+        }
+        return "redirect:/admin/charityActivityList";
+    }
+    @GetMapping("/{id:[1-9]*[0-9]+}/editCharityActivity")
+    public String editCharityActivity(@PathVariable Long id, Model model) {
+        model.addAttribute( "charityActivityToEdit", charityActivityService.findCharityActivityByIdAndFill( id ) );
+        CharityActivity charityActivityToEdit = charityActivityRepository.findById( id ).orElse( null );
+
+        if (charityActivityToEdit == null) {
+            return "redirect:/charityActivityList";
+        }
+        model.addAttribute( "toEdit", charityActivityToEdit );
+        return "charityActivityEdit";
+    }
+
+    @PostMapping("/editCharityActivity")
+    public String saveEditCharityActivityChanges(@ModelAttribute("charityActivityToEdit") @Valid CharityActivityDto form, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "/admin/charityActivityList";
+        }
+        boolean success = charityActivityService.updateCharityActivity( form );
+        if (success) {
+            return "redirect:/admin/charityActivityList";
+        } else {
+            result.rejectValue( "organizationActivity", null, "Cos poszło źle, spróbuj jeszcze raz" );
+            return "/" + form.getId() + "charityActivityEdit";
+        }
+    }
+
+
+
+
+
+
+
+
     @GetMapping("/giftTypeList")
-    public String prepareGiftListForm(Model model) {
+    public String prepareGiftTypeList(Model model) {
         List<GiftType> giftTypeList = giftTypeReposiotry.findAll();
         model.addAttribute( "giftTypeList", giftTypeList );
         return "giftTypeList";
@@ -88,7 +169,7 @@ public class AdminController {
     @GetMapping("/giftTypeForm")
     public String prepareGiftTypeForm(Model model) {
         model.addAttribute( "giftTypeForm", new GiftFormDto() );
-        return "giftForm";
+        return "giftTypeForm";
     }
 
     @PostMapping("/giftTypeForm")

@@ -25,7 +25,7 @@ public class CharityActivityService {
     }
 
     @Transactional
-    public boolean createActivityActivity(CharityActivityDto form){
+    public boolean createCharityActivity(CharityActivityDto form){
         CharityActivity charityActivity = new CharityActivity();
         charityActivity.setOrganizationActivity( form.getOrganizationActivity() );
         charityActivity = charityActivityRepository
