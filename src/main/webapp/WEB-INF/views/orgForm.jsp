@@ -36,7 +36,7 @@
             <form:input path="charityActivityType" placeholder="Podaj rodzaj pomocy niesionej przez organizację" required="true"/><form:errors path="charityActivityType"/>
         </div class="form-group">
         <div>
-            <form:radiobuttons path="charityStructureType" items="${charityFormList}"/><form:errors path="charityStructureType"/>
+            <form:radiobuttons path="charityStructureType" items="${charityTypeList}"/><form:errors path="charityStructureType"/>
         </div>
         <div class="form-group">
             <form:select path="acceptedGiftTypes" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGiftTypes"/></div>

@@ -3,19 +3,17 @@ package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
 import com.f.piechowiak.spring.OddamWDobreRece.core.CharityService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.GiftService;
-import com.f.piechowiak.spring.OddamWDobreRece.core.RegistrationService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.*;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
+import com.f.piechowiak.spring.OddamWDobreRece.models.CharityType;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Gift;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
-import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityTypeRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.GiftReposiotry;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
-import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,33 +22,47 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Autowired
+    private final
     UserRepository userRepository;
-    @Autowired
+    private final
     HttpSession session;
-    @Autowired
-    UserRoleRepository userRoleRepository;
-    @Autowired
+    private final
     CharityRepository charityRepository;
-    @Autowired
+    private final
+    CharityTypeRepository charityTypeRepository;
+    private final
     GiftReposiotry giftReposiotry;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private CharityService charityService;
-    @Autowired
-    private GiftService giftService;
+
+    private final UserService userService;
+    private final CharityService charityService;
+    private final GiftService giftService;
 
 
-    public AdminController(UserService userService) {
+
+    @Autowired
+    public AdminController(
+              UserRepository userRepository
+            , HttpSession session
+            , CharityRepository charityRepository
+            , CharityTypeRepository charityTypeRepository
+            , GiftReposiotry giftReposiotry
+            , UserService userService
+            , CharityService charityService
+            , GiftService giftService) {
+        this.userRepository = userRepository;
+        this.session = session;
+        this.charityRepository = charityRepository;
+        this.charityTypeRepository = charityTypeRepository;
+        this.giftReposiotry = giftReposiotry;
         this.userService = userService;
+        this.charityService = charityService;
+        this.giftService = giftService;
     }
 
 
@@ -60,7 +72,7 @@ public class AdminController {
         session.setAttribute( "userFirstName", firstName );
         int numberOfUsers = userRepository.getUserList().size();
         int numberOfAdmins = userRepository.getAdminList().size();
-        int numberOfOrganizations = charityRepository.getCharityList().size();
+        int numberOfOrganizations = charityRepository.findAll().size();
         model.addAttribute( "userNumber", numberOfUsers );
         model.addAttribute( "adminNumber", numberOfAdmins );
         model.addAttribute( "orgNumber", numberOfOrganizations );
@@ -68,65 +80,52 @@ public class AdminController {
     }
 
 
-    @GetMapping("/userList")
-    public String prepareUserListForm() {
-        List<User> userList = userRepository.getUserList();
-        session.setAttribute( "userList", userList );
-        return "userList";
-    }
-
-
-    @GetMapping("/adminList")
-    public String prepareAdminListForm() {
-        List<User> adminList = userRepository.getAdminList();
-        session.setAttribute( "adminList", adminList );
-        return "adminList";
-    }
-
-
-    @GetMapping("/orgList")
-    public String prepareOrganizationListView(Model model) {
-        List<Charity> organizationList = charityRepository.getCharityList();
-        model.addAttribute( "organizationList", organizationList );
-        return "orgList";
-    }
-
     @GetMapping("/giftList")
     public String prepareGiftListForm(Model model) {
         List<Gift> giftList = giftReposiotry.findAll();
         model.addAttribute( "giftList", giftList );
         return "giftList";
     }
+
     @GetMapping("/giftTypeForm")
-    public String prepareGiftTypeForm(Model model){
+    public String prepareGiftTypeForm(Model model) {
         model.addAttribute( "giftTypeForm", new GiftFormDto() );
         return "giftForm";
     }
+
     @PostMapping("/giftTypeForm")
-    public String createGiftType(@ModelAttribute("giftTypeForm") @Valid GiftFormDto form, BindingResult result){
-        if (result.hasErrors()){ return "/giftTypeForm"; }
+    public String createGiftType(@ModelAttribute("giftTypeForm") @Valid GiftFormDto form, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/giftTypeForm";
+        }
         boolean success = giftService.createGiftType( form );
-        if (success){ return "redirect:/admin/giftList"; }
-        else {result.rejectValue( "giftType", null, "Cos poszło nietak przy wypełnianiu formularza" );
-        return "/giftTypeForm";}
+        if (success) {
+            return "redirect:/admin/giftList";
+        } else {
+            result.rejectValue( "giftType", null, "Cos poszło nietak przy wypełnianiu formularza" );
+            return "/giftTypeForm";
+        }
     }
+
     @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteGiftType")
-    public String confirmDeleteGiftType(@PathVariable Long id, Model model){
+    public String confirmDeleteGiftType(@PathVariable Long id, Model model) {
         Gift giftTypeToDelete = giftReposiotry.findById( id ).orElse( null );
-        if (giftTypeToDelete == null){
+        if (giftTypeToDelete == null) {
             return "redirect:/admin/giftList";
         }
         model.addAttribute( "toRemove", giftTypeToDelete );
         return "deleteGiftType";
     }
+
     @GetMapping("{id:[1-9]*[0-9]+}/deleteGiftType")
-    public String deleteGiftType(@PathVariable Long id){
+    public String deleteGiftType(@PathVariable Long id) {
         Gift giftTypeToDelete = giftReposiotry.findById( id ).orElse( null );
-        if (giftTypeToDelete !=null){
+        if (giftTypeToDelete != null) {
             giftService.deleteGiftType( giftTypeToDelete.getId() );
         }
         return "redirect:/admin/giftList";
     }
+
     @GetMapping("/{id:[1-9]*[0-9]+}/editGiftType")
     public String editGiftTypeForm(@PathVariable Long id, Model model) {
         model.addAttribute( "giftTypeToEdit", giftService.findGiftTypeByIdAndFill( id ) );
@@ -135,7 +134,7 @@ public class AdminController {
         if (giftTypeToEdit == null) {
             return "redirect:/giftList";
         }
-        model.addAttribute( "toEdit", giftTypeToEdit);
+        model.addAttribute( "toEdit", giftTypeToEdit );
         return "editGiftType";
     }
 
@@ -154,17 +153,23 @@ public class AdminController {
     }
 
 
-
+    @GetMapping("/orgList")
+    public String prepareOrganizationListView(Model model) {
+        List<Charity> organizationList = charityRepository.findAll();
+        model.addAttribute( "organizationList", organizationList );
+        return "orgList";
+    }
 
     @GetMapping("/organizationForm")
     public String prepareOrganizationForm(Model model) {
         model.addAttribute( "orgForm", new OrgFormDto() );
         List<Gift> allGifts = giftReposiotry.findAll();
         model.addAttribute( "giftList", allGifts );
-        List<String> charityFormList = Arrays.asList( "Fundacja", "Organizacja pozarządowa", "Lokalna zbiórka" );
-        model.addAttribute( "charityFormList", charityFormList );
+        List<CharityType> charityTypeList = charityTypeRepository.findAll();
+        model.addAttribute( "charityTypeList", charityTypeList );
         return "orgForm";
     }
+
     @PostMapping("/organizationForm")
     public String createOrganization(@ModelAttribute("orgForm") @Valid OrgFormDto form, BindingResult result) {
         if (result.hasErrors()) {
@@ -204,8 +209,8 @@ public class AdminController {
         model.addAttribute( "orgToEdit", charityService.findCharityByIdAndFill( id ) );
         Charity org = charityRepository.findById( id ).orElse( null );
         List<Gift> allGifts = giftReposiotry.findAll();
-        List<String> charityFormList = Arrays.asList( "Fundacja", "Organizacja pozarządowa", "Lokalna zbiórka" );       //do poprawki
-        model.addAttribute( "charityFormList", charityFormList );
+        List<CharityType> charityTypeList = charityTypeRepository.findAll();
+        model.addAttribute( "charityTypeList", charityTypeList );
         model.addAttribute( "giftList", allGifts );
         if (org == null) {
             return "redirect:/orgList";
@@ -229,10 +234,16 @@ public class AdminController {
     }
 
 
+    @GetMapping("/adminList")
+    public String prepareAdminListForm() {
+        List<User> adminList = userRepository.getAdminList();
+        session.setAttribute( "adminList", adminList );
+        return "adminList";
+    }
+
     @GetMapping("/adminForm")
     public String prepareAdminForm(Model model) {
         model.addAttribute( "adminForm", new AdminFormDto() );
-
         return "adminForm";
     }
 
@@ -249,7 +260,6 @@ public class AdminController {
             return "/adminForm";
         }
     }
-
 
     @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteAdmin")
     public String confirmDeleteAdmin(@PathVariable Long id, Model model) {
@@ -311,6 +321,13 @@ public class AdminController {
         }
     }
 
+
+    @GetMapping("/userList")
+    public String prepareUserListForm() {
+        List<User> userList = userRepository.getUserList();
+        session.setAttribute( "userList", userList );
+        return "userList";
+    }
 
     @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteUser")
     public String confirmDeleteUser(@PathVariable Long id, Model model) {

@@ -2,7 +2,9 @@ package com.f.piechowiak.spring.OddamWDobreRece.models;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -35,7 +37,9 @@ public class Donation {
     @Column
     private boolean giftPickedUp;   //status daru odebrany/nieodebrany
     @Column
-    private LocalDateTime pickUpDate;   //data odbioru daru
+    private LocalDate pickUpDate;   //data odbioru daru
+    @Column
+    private LocalTime pickUpHour;                            //godzina odbioru
     @Column
     private String city;
     @Column
@@ -47,8 +51,6 @@ public class Donation {
     @Column
     private LocalDateTime statusChangeDate;         //data zminay statusu daru odebrany/nieodebrany
     @Column
-    private String hour;                            //godzina odbioru
-    @Column
     private String notes;
 
     @Override
@@ -56,7 +58,7 @@ public class Donation {
         return new StringJoiner( ", ", Donation.class.getSimpleName() + "[", "]" )
                 .add( "id=" + id )
                 .add( "quantity=" + quantity )
-                .add( "gift=" + giftList )
+                .add( "giftList=" + giftList )
                 .add( "user=" + user )
                 .add( "charity=" + charity )
                 .add( "giftPickedUp=" + giftPickedUp )
@@ -65,8 +67,8 @@ public class Donation {
                 .add( "street='" + street + "'" )
                 .add( "postCode='" + postCode + "'" )
                 .add( "phone='" + phone + "'" )
-                .add( "statusChangeDate='" + statusChangeDate + "'" )
-                .add( "hour='" + hour + "'" )
+                .add( "statusChangeDate=" + statusChangeDate )
+                .add( "pickUpHour=" + pickUpHour )
                 .add( "notes='" + notes + "'" )
                 .toString();
     }
@@ -84,13 +86,6 @@ public class Donation {
         return Objects.hash( id );
     }
 
-    public boolean isGiftPickedUp() { return giftPickedUp; }
-
-    public void setGiftPickedUp(boolean giftPickedUp) { this.giftPickedUp = giftPickedUp; }
-
-    public LocalDateTime getPickUpDate() { return pickUpDate; }
-
-    public void setPickUpDate(LocalDateTime pickUpDate) { this.pickUpDate = pickUpDate; }
 
     public Long getId() {
         return id;
@@ -130,6 +125,22 @@ public class Donation {
 
     public void setCharity(Charity charity) {
         this.charity = charity;
+    }
+
+    public boolean isGiftPickedUp() {
+        return giftPickedUp;
+    }
+
+    public void setGiftPickedUp(boolean giftPickedUp) {
+        this.giftPickedUp = giftPickedUp;
+    }
+
+    public LocalDate getPickUpDate() {
+        return pickUpDate;
+    }
+
+    public void setPickUpDate(LocalDate pickUpDate) {
+        this.pickUpDate = pickUpDate;
     }
 
     public String getCity() {
@@ -172,12 +183,12 @@ public class Donation {
         this.statusChangeDate = statusChangeDate;
     }
 
-    public String getHour() {
-        return hour;
+    public LocalTime getPickUpHour() {
+        return pickUpHour;
     }
 
-    public void setHour(String hour) {
-        this.hour = hour;
+    public void setPickUpHour(LocalTime pickUpHour) {
+        this.pickUpHour = pickUpHour;
     }
 
     public String getNotes() {

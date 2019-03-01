@@ -11,6 +11,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Edit Organization</title>
     <style>
         <%@include file="/WEB-INF/views/css/style.css" %>
@@ -49,7 +52,7 @@
                             ${gift.giftType.toString()},
                         </c:forEach>
                     </td>
-                    <td>${toEdit.charityStructureType}</td>
+                    <td>${toEdit.charityStructureType.organizationType}</td>
                 </tr>
 
                 <div class="form-group"><form:hidden path="id"/><form:errors path="id"/></div>
@@ -59,11 +62,17 @@
                                                     required="true"/><form:errors path="city"/></div>
                 <div class="form-group"><form:input path="charityActivityType" placeholder="${toEdit.charityActivityType}"
                                                     required="true"/><form:errors path="charityActivityType"/></div>
-                <div class="form-group">
+                <%--<div class="form-group">
                         <form:select path="acceptedGiftTypes" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGiftTypes"/>
-                </div>
+                </div>--%>
                 <div class="form-group">
-                    <form:radiobuttons path="charityStructureType" items="${charityFormList}"/><form:errors path="charityStructureType"/>
+                        <form:checkboxes delimiter="<br/>" path="acceptedGiftTypes" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGiftTypes"/>
+                </div>
+                <%--<div class="form-group">
+                        <form:select path="charityStructureType" items="${charityTypeList}" itemLabel="organizationType" itemValue="id"/><form:errors path="acceptedGiftTypes"/>
+                </div>--%>
+                <div class="form-group">
+                    <form:radiobuttons delimiter="<br/>" path="charityStructureType" items="${charityTypeList}" itemLabel="organizationType" itemValue="id"/><form:errors path="charityStructureType"/>
                 </div>
                 </tbody>
             </table>

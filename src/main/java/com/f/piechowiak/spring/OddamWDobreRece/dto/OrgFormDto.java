@@ -1,5 +1,6 @@
 package com.f.piechowiak.spring.OddamWDobreRece.dto;
 
+import com.f.piechowiak.spring.OddamWDobreRece.models.CharityType;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Gift;
 
 import javax.validation.constraints.NotNull;
@@ -17,7 +18,7 @@ public class OrgFormDto {
 
     private List<Gift> acceptedGiftTypes;
 
-    private String charityStructureType;
+    private CharityType charityStructureType;
 
     public Long getId() {
         return id;
@@ -44,6 +45,6 @@ public class OrgFormDto {
     public List<Gift> getAcceptedGiftTypes() { return acceptedGiftTypes; }
     public void setAcceptedGiftTypes(List<Gift> acceptedGiftTypes) { this.acceptedGiftTypes = acceptedGiftTypes; }
 
-    public String getCharityStructureType() { return charityStructureType; }
-    public void setCharityStructureType(String charityStructureType) { this.charityStructureType = charityStructureType; }
+    public CharityType getCharityStructureType() { return charityStructureType; }
+    public void setCharityStructureType(CharityType charityStructureType) { this.charityStructureType = charityStructureType; }
 }

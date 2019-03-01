@@ -16,16 +16,19 @@ public class Charity {
     @NotNull
     @Column
     private String charityName;
+    @Column
+    private String city;
 
     @NotNull    //to ma być @ManyToOne
     @Column
     private String charityActivityType;                 //jakiego rodzaju pomoc jest prowadzona przez daną Zaufaną Instytucję
-    @Column
-    private String city;
 
 
-    @Column     ////to ma być @ManyToOne i stowrzyć osobną tabelę
-    private String charityStructureType;        //czy to Lokalna zbiórka, Fundacja czy Organizacja pozarządowa
+    @ManyToOne     ////to ma być @ManyToOne i stowrzyć osobną tabelę
+    @JoinTable(name = "charity_structure_type",
+            joinColumns = @JoinColumn(name = "charity_id"),
+            inverseJoinColumns = @JoinColumn(name = "charity_type"))
+    private CharityType charityStructureType;        //czy to Lokalna zbiórka, Fundacja czy Organizacja pozarządowa
 
     @ManyToMany
     @JoinTable(name = "charity_gift_type",
@@ -81,11 +84,13 @@ public class Charity {
         this.charityActivityType = charityActivityType;
     }
 
-    public String getCharityStructureType() {
+    public CharityType getCharityStructureType() {
         return charityStructureType;
     }
 
-    public void setCharityStructureType(String charityStructureType) { this.charityStructureType = charityStructureType; }
+    public void setCharityStructureType(CharityType charityStructureType) {
+        this.charityStructureType = charityStructureType;
+    }
 
     public String getCity() {
         return city;
