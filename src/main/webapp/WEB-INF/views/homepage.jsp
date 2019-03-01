@@ -23,7 +23,14 @@
 <body>
 
 <header class="header--main-page">
-    <jsp:include page="fragments/menu.jsp"/>
+    <sec:authorize access="!hasRole('ROLE_ADMIN')">
+        <jsp:include page="fragments/menu.jsp"/>
+    </sec:authorize>
+
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <jsp:include page="fragments/menuAdmin.jsp"/>
+    </sec:authorize>
+
     <div class="slogan container container--90">
         <div class="slogan--item">
             <h1>

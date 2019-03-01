@@ -55,6 +55,9 @@
             <div class="steps--item">
                 <a href="/user/confirmDeleteUserAccount" class="btn btn--large">Usuń Swoje Konto</a>
             </div>
+            <div class="steps--item">
+                <a href="/user/dashboard" class="btn btn--large" style="margin: 10px">Wstecz</a>
+            </div>
         </div>
     </div>
 </section>

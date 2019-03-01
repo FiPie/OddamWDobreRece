@@ -82,7 +82,7 @@ public class AdminController {
     public String prepareGiftListForm(Model model) {
         List<GiftType> giftTypeList = giftTypeReposiotry.findAll();
         model.addAttribute( "giftTypeList", giftTypeList );
-        return "giftList";
+        return "giftTypeList";
     }
 
     @GetMapping("/giftTypeForm")
@@ -112,7 +112,7 @@ public class AdminController {
             return "redirect:/admin/giftList";
         }
         model.addAttribute( "toRemove", giftTypeToDelete );
-        return "deleteGiftType";
+        return "giftTypeDelete";
     }
 
     @GetMapping("{id:[1-9]*[0-9]+}/deleteGiftType")
@@ -133,7 +133,7 @@ public class AdminController {
             return "redirect:/giftList";
         }
         model.addAttribute( "toEdit", giftTypeToEdit );
-        return "editGiftType";
+        return "giftTypeEdit";
     }
 
     @PostMapping("/editGiftType")
@@ -146,7 +146,7 @@ public class AdminController {
             return "redirect:/admin/giftList";
         } else {
             result.rejectValue( "giftType", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/" + form.getId() + "/editGiftType";
+            return "/" + form.getId() + "giftTypeEdit";
         }
     }
 
@@ -155,7 +155,7 @@ public class AdminController {
     public String prepareOrganizationListView(Model model) {
         List<Charity> organizationList = charityRepository.findAll();
         model.addAttribute( "organizationList", organizationList );
-        return "orgList";
+        return "charityList";
     }
 
     @GetMapping("/organizationForm")
@@ -167,7 +167,7 @@ public class AdminController {
         model.addAttribute( "charityTypeList", charityTypeList );
         List<CharityActivity> charityActivityList = charityActivityRepository.findAll();
         model.addAttribute( "charityActivityList", charityActivityList );
-        return "orgForm";
+        return "charityForm";
     }
 
     @PostMapping("/organizationForm")
@@ -191,7 +191,7 @@ public class AdminController {
             return "redirect:/admin/orgList";
         }
         model.addAttribute( "toRemove", org );
-        return "deleteOrg";
+        return "charityDelete";
     }
 
     @GetMapping("/{id:[1-9]*[0-9]+}/deleteOrg")
@@ -218,7 +218,7 @@ public class AdminController {
             return "redirect:/orgList";
         }
         model.addAttribute( "toEdit", org );
-        return "editOrg";
+        return "charityEdit";
     }
 
     @PostMapping("/editOrganization")
@@ -270,7 +270,7 @@ public class AdminController {
             return "redirect:/admin/adminList";
         }
         model.addAttribute( "toRemove", user );
-        return "/deleteAdmin";
+        return "adminDelete";
     }
 
     @GetMapping("/{id:[1-9]*[0-9]+}/deleteAdmin")
@@ -306,7 +306,7 @@ public class AdminController {
         }
         model.addAttribute( "toEdit", user );
 
-        return "/editAdmin";
+        return "adminEdit";
     }
 
     @PostMapping("/editAdmin")
@@ -319,7 +319,7 @@ public class AdminController {
             return "redirect:/admin/adminList";
         } else {
             result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/" + form.getId() + "/editAdmin";
+            return "/" + form.getId() + "adminEdit";
         }
     }
 
@@ -328,7 +328,7 @@ public class AdminController {
     public String prepareUserListForm() {
         List<User> userList = userRepository.getUserList();
         session.setAttribute( "userList", userList );
-        return "userList";
+        return "adminUserList";
     }
 
     @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteUser")
@@ -338,7 +338,7 @@ public class AdminController {
             return "redirect:/admin/userList";
         }
         model.addAttribute( "toRemove", user );
-        return "/deleteUser";
+        return "adminUserDelete";
     }
 
     @GetMapping("/{id:[1-9]*[0-9]+}/deleteUser")
@@ -359,7 +359,7 @@ public class AdminController {
             return "redirect:/userList";
         }
         model.addAttribute( "toEdit", user );
-        return "/editUser";
+        return "adminUserEdit";
     }
 
     @PostMapping("/editUser")
@@ -372,7 +372,7 @@ public class AdminController {
             return "redirect:/admin/userList";
         } else {
             result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/" + form.getId() + "/editUser";
+            return "/" + form.getId() + "adminUserEdit";
         }
     }
 

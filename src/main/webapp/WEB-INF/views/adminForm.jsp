@@ -47,6 +47,9 @@
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit">Stwórz konto</button>
         </div>
+        <div class="form-group form-group--buttons">
+            <a href="/admin/adminList" class="btn">Wstecz</a>
+        </div>
     </form:form>
 </section>
 

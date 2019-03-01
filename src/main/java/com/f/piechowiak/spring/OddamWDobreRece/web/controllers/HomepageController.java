@@ -1,7 +1,6 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
-import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,7 @@ public class HomepageController {
     public String publicOrgList(Model model){
         List<Charity> organizationList = charityRepository.findAll();
         model.addAttribute( "organizationList", organizationList );
-        return "orgList";
+        return "charityList";
     }
 
     @GetMapping("/contact")

@@ -7,7 +7,6 @@ import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -121,7 +120,7 @@ public class UserController {
             return "redirect:/user/dashboard";
         } else {
             result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/editUser";
+            return "adminUserEdit";
         }
 
     }

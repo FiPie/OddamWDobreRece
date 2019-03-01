@@ -11,7 +11,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Delete User</title>
     <style>
         <%@include file="/WEB-INF/views/css/style.css" %>
     </style>
