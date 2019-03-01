@@ -27,20 +27,25 @@
     <h2>Dodaj Nową Zaufaną Organizację</h2>
     <form:form modelAttribute="orgForm" action="/admin/organizationForm" method="post">
         <div class="form-group">
-            <form:input path="charityName" placeholder="Podaj nazwę organizacji" required="true"/><form:errors path="charityName"/>
+            <form:input path="charityName" placeholder="Podaj nazwę organizacji" required="true"/><form:errors
+                path="charityName"/>
         </div>
         <div class="form-group">
-            <form:input path="city" placeholder="Podaj miasto, w którym działa organizacja" required="true"/><form:errors path="city"/>
+            <form:input path="city" placeholder="Podaj miasto, w którym działa organizacja"
+                        required="true"/><form:errors path="city"/>
         </div>
         <div class="form-group">
-            <form:input path="charityActivityType" placeholder="Podaj rodzaj pomocy niesionej przez organizację" required="true"/><form:errors path="charityActivityType"/>
+            <form:input path="charityActivityType" placeholder="Podaj rodzaj pomocy niesionej przez organizację"
+                        required="true"/><form:errors path="charityActivityType"/>
         </div class="form-group">
         <div>
-            <form:radiobuttons path="charityStructureType" items="${charityTypeList}"/><form:errors path="charityStructureType"/>
+            <form:radiobuttons path="charityStructureType" items="${charityTypeList}" itemLabel="organizationType"
+                               itemValue="id"/><form:errors path="charityStructureType"/>
         </div>
         <div class="form-group">
-            <form:select path="acceptedGiftTypes" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGiftTypes"/></div>
-
+            <form:checkboxes delimiter="<br/>" path="acceptedGiftTypes" multiple="true" items="${giftList}"
+                             itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGiftTypes"/>
+        </div>
 
         <form:errors path="*"/>
         <div class="form-group form-group--buttons">

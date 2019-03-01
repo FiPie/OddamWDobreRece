@@ -18,8 +18,6 @@ public class CharityType {
     @Column(name = "charity_type")
     private String organizationType;
 
-    @OneToMany/*(mappedBy = "charityStructureType")*/
-    private List<Charity> charities;
 
 
     public Long getId() {
@@ -38,13 +36,6 @@ public class CharityType {
         this.organizationType = organizationType;
     }
 
-    public List<Charity> getCharities() {
-        return charities;
-    }
-
-    public void setCharities(List<Charity> charities) {
-        this.charities = charities;
-    }
 
     @Override
     public boolean equals(Object o) {
