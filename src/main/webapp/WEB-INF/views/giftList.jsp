@@ -35,7 +35,7 @@
                     <td>Edycja</td>
                 </tr>
                 </thead>
-                <c:forEach var="charity" items="${giftList}">
+                <c:forEach var="charity" items="${giftTypeList}">
                     <tbody>
                     <tr>
                         <th scope="row">${charity.id}</th>

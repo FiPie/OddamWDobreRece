@@ -1,14 +1,11 @@
 package com.f.piechowiak.spring.OddamWDobreRece.models;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.StringJoiner;
 
 @Entity
 @Table(name = "gift_types")
-public class Gift {
+public class GiftType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +20,8 @@ public class Gift {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Gift gift = (Gift) o;
-        return Objects.equals( id, gift.id );
+        GiftType giftType = (GiftType) o;
+        return Objects.equals( id, giftType.id );
     }
 
     @Override

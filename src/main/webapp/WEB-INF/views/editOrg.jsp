@@ -46,10 +46,10 @@
                     <td>${toEdit.id}</td>
                     <td>${toEdit.charityName}</td>
                     <td>${toEdit.city}</td>
-                    <td>${toEdit.charityActivityType}</td>
+                    <td>${toEdit.charityActivityType.organizationActivity}</td>
                     <td>
-                        <c:forEach items="${toEdit.acceptedGiftTypes}" var="gift">
-                            ${gift.giftType.toString()},
+                        <c:forEach items="${toEdit.acceptedGiftTypes}" var="giftType">
+                            ${giftType.giftType.toString()},
                         </c:forEach>
                     </td>
                     <td>${toEdit.charityStructureType.organizationType}</td>
@@ -60,20 +60,17 @@
                                                     required="true"/><form:errors path="charityName"/></div>
                 <div class="form-group"><form:input path="city" placeholder="${toEdit.city}"
                                                     required="true"/><form:errors path="city"/></div>
-                <div class="form-group"><form:input path="charityActivityType" placeholder="${toEdit.charityActivityType}"
-                                                    required="true"/><form:errors path="charityActivityType"/></div>
-                <%--<div class="form-group">
-                        <form:select path="acceptedGiftTypes" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGiftTypes"/>
-                </div>--%>
                 <div class="form-group">
-                        <form:checkboxes delimiter="<br/>" path="acceptedGiftTypes" multiple="true" items="${giftList}" itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGiftTypes"/>
-                </div>
-                <%--<div class="form-group">
-                        <form:select path="charityStructureType" items="${charityTypeList}" itemLabel="organizationType" itemValue="id"/><form:errors path="acceptedGiftTypes"/>
-                </div>--%>
+                    <form:radiobuttons delimiter="<br/>" path="charityActivityType" items="${charityActivityList}"
+                                       itemLabel="organizationActivity"
+                                       itemValue="id"/><form:errors path="charityActivityType"/></div>
                 <div class="form-group">
-                    <form:radiobuttons delimiter="<br/>" path="charityStructureType" items="${charityTypeList}" itemLabel="organizationType" itemValue="id"/><form:errors path="charityStructureType"/>
-                </div>
+                    <form:checkboxes delimiter="<br/>" path="acceptedGiftTypes" multiple="true" items="${giftTypeList}"
+                                     itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGiftTypes"/></div>
+                <div class="form-group">
+                    <form:radiobuttons delimiter="<br/>" path="charityStructureType" items="${charityTypeList}"
+                                       itemLabel="organizationType" itemValue="id"/><form:errors
+                        path="charityStructureType"/></div>
                 </tbody>
             </table>
             <table>

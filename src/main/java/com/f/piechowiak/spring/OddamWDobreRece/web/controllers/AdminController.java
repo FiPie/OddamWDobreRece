@@ -2,17 +2,11 @@ package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
 
 import com.f.piechowiak.spring.OddamWDobreRece.core.CharityService;
-import com.f.piechowiak.spring.OddamWDobreRece.core.GiftService;
+import com.f.piechowiak.spring.OddamWDobreRece.core.GiftTypeService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.*;
-import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
-import com.f.piechowiak.spring.OddamWDobreRece.models.CharityType;
-import com.f.piechowiak.spring.OddamWDobreRece.models.Gift;
-import com.f.piechowiak.spring.OddamWDobreRece.models.User;
-import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
-import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityTypeRepository;
-import com.f.piechowiak.spring.OddamWDobreRece.repositories.GiftReposiotry;
-import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
+import com.f.piechowiak.spring.OddamWDobreRece.models.*;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,32 +31,36 @@ public class AdminController {
     private final
     CharityTypeRepository charityTypeRepository;
     private final
-    GiftReposiotry giftReposiotry;
+    CharityActivityRepository charityActivityRepository;
+    private final
+    GiftTypeReposiotry giftTypeReposiotry;
 
     private final UserService userService;
     private final CharityService charityService;
-    private final GiftService giftService;
+    private final GiftTypeService giftTypeService;
 
 
 
     @Autowired
     public AdminController(
-              UserRepository userRepository
+            UserRepository userRepository
             , HttpSession session
             , CharityRepository charityRepository
             , CharityTypeRepository charityTypeRepository
-            , GiftReposiotry giftReposiotry
+            , CharityActivityRepository charityActivityRepository
+            , GiftTypeReposiotry giftTypeReposiotry
             , UserService userService
             , CharityService charityService
-            , GiftService giftService) {
+            , GiftTypeService giftTypeService) {
         this.userRepository = userRepository;
         this.session = session;
         this.charityRepository = charityRepository;
         this.charityTypeRepository = charityTypeRepository;
-        this.giftReposiotry = giftReposiotry;
+        this.charityActivityRepository = charityActivityRepository;
+        this.giftTypeReposiotry = giftTypeReposiotry;
         this.userService = userService;
         this.charityService = charityService;
-        this.giftService = giftService;
+        this.giftTypeService = giftTypeService;
     }
 
 
@@ -80,10 +78,10 @@ public class AdminController {
     }
 
 
-    @GetMapping("/giftList")
+    @GetMapping("/giftTypeList")
     public String prepareGiftListForm(Model model) {
-        List<Gift> giftList = giftReposiotry.findAll();
-        model.addAttribute( "giftList", giftList );
+        List<GiftType> giftTypeList = giftTypeReposiotry.findAll();
+        model.addAttribute( "giftTypeList", giftTypeList );
         return "giftList";
     }
 
@@ -98,7 +96,7 @@ public class AdminController {
         if (result.hasErrors()) {
             return "/giftTypeForm";
         }
-        boolean success = giftService.createGiftType( form );
+        boolean success = giftTypeService.createGiftType( form );
         if (success) {
             return "redirect:/admin/giftList";
         } else {
@@ -109,7 +107,7 @@ public class AdminController {
 
     @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteGiftType")
     public String confirmDeleteGiftType(@PathVariable Long id, Model model) {
-        Gift giftTypeToDelete = giftReposiotry.findById( id ).orElse( null );
+        GiftType giftTypeToDelete = giftTypeReposiotry.findById( id ).orElse( null );
         if (giftTypeToDelete == null) {
             return "redirect:/admin/giftList";
         }
@@ -119,17 +117,17 @@ public class AdminController {
 
     @GetMapping("{id:[1-9]*[0-9]+}/deleteGiftType")
     public String deleteGiftType(@PathVariable Long id) {
-        Gift giftTypeToDelete = giftReposiotry.findById( id ).orElse( null );
+        GiftType giftTypeToDelete = giftTypeReposiotry.findById( id ).orElse( null );
         if (giftTypeToDelete != null) {
-            giftService.deleteGiftType( giftTypeToDelete.getId() );
+            giftTypeService.deleteGiftType( giftTypeToDelete.getId() );
         }
         return "redirect:/admin/giftList";
     }
 
     @GetMapping("/{id:[1-9]*[0-9]+}/editGiftType")
     public String editGiftTypeForm(@PathVariable Long id, Model model) {
-        model.addAttribute( "giftTypeToEdit", giftService.findGiftTypeByIdAndFill( id ) );
-        Gift giftTypeToEdit = giftReposiotry.findById( id ).orElse( null );
+        model.addAttribute( "giftTypeToEdit", giftTypeService.findGiftTypeByIdAndFill( id ) );
+        GiftType giftTypeToEdit = giftTypeReposiotry.findById( id ).orElse( null );
 
         if (giftTypeToEdit == null) {
             return "redirect:/giftList";
@@ -143,7 +141,7 @@ public class AdminController {
         if (result.hasErrors()) {
             return "/admin/giftList";
         }
-        boolean success = giftService.updateGiftType( form );
+        boolean success = giftTypeService.updateGiftType( form );
         if (success) {
             return "redirect:/admin/giftList";
         } else {
@@ -163,10 +161,12 @@ public class AdminController {
     @GetMapping("/organizationForm")
     public String prepareOrganizationForm(Model model) {
         model.addAttribute( "orgForm", new OrgFormDto() );
-        List<Gift> allGifts = giftReposiotry.findAll();
-        model.addAttribute( "giftList", allGifts );
+        List<GiftType> allGiftTypes = giftTypeReposiotry.findAll();
+        model.addAttribute( "giftTypeList", allGiftTypes );
         List<CharityType> charityTypeList = charityTypeRepository.findAll();
         model.addAttribute( "charityTypeList", charityTypeList );
+        List<CharityActivity> charityActivityList = charityActivityRepository.findAll();
+        model.addAttribute( "charityActivityList", charityActivityList );
         return "orgForm";
     }
 
@@ -208,10 +208,12 @@ public class AdminController {
     public String editOrganizationForm(@PathVariable Long id, Model model) {
         model.addAttribute( "orgToEdit", charityService.findCharityByIdAndFill( id ) );
         Charity org = charityRepository.findById( id ).orElse( null );
-        List<Gift> allGifts = giftReposiotry.findAll();
+        List<GiftType> allGiftTypes = giftTypeReposiotry.findAll();
         List<CharityType> charityTypeList = charityTypeRepository.findAll();
+        List<CharityActivity> charityActivityList = charityActivityRepository.findAll();
         model.addAttribute( "charityTypeList", charityTypeList );
-        model.addAttribute( "giftList", allGifts );
+        model.addAttribute( "giftTypeList", allGiftTypes );
+        model.addAttribute( "charityActivityList", charityActivityList );
         if (org == null) {
             return "redirect:/orgList";
         }

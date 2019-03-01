@@ -3,7 +3,7 @@ package com.f.piechowiak.spring.OddamWDobreRece.core;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.OrgFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
-import com.f.piechowiak.spring.OddamWDobreRece.repositories.GiftReposiotry;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.GiftTypeReposiotry;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +21,11 @@ public class CharityService {
     @Autowired
     private CharityRepository charityRepository;
     @Autowired
-    private GiftReposiotry giftReposiotry;
+    private GiftTypeReposiotry giftTypeReposiotry;
 
-    public CharityService(CharityRepository charityRepository, GiftReposiotry giftReposiotry) {
+    public CharityService(CharityRepository charityRepository, GiftTypeReposiotry giftTypeReposiotry) {
         this.charityRepository = charityRepository;
-        this.giftReposiotry = giftReposiotry;
+        this.giftTypeReposiotry = giftTypeReposiotry;
     }
 
 
@@ -80,7 +80,7 @@ public class CharityService {
             orgFormDto.setCity( org.getCity() );
             orgFormDto.setCharityActivityType( org.getCharityActivityType() );
             orgFormDto.setCharityStructureType( org.getCharityStructureType() );
-            orgFormDto.setAcceptedGiftTypes( giftReposiotry.getAcceptedGiftsByCharityId(id) );     //new query trial
+            orgFormDto.setAcceptedGiftTypes( giftTypeReposiotry.getAcceptedGiftsByCharityId(id) );     //new query trial
         }
 
         return orgFormDto;

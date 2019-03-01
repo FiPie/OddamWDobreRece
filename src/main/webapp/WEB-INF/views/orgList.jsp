@@ -63,10 +63,10 @@
                         <td scope="row">${charity.charityName}</td>
                         <td></td>
                         <td scope="row">${charity.city}</td>
-                        <td scope="row">${charity.charityStructureType.organizationType}</td>
+                        <td scope="row">${charity.charityActivityType.organizationActivity}</td>
                         <td scope="row">
-                            <c:forEach items="${charity.acceptedGiftTypes}" var="gift">
-                                ${gift.giftType.toString()},
+                            <c:forEach items="${charity.acceptedGiftTypes}" var="giftType">
+                                ${giftType.giftType.toString()},
                             </c:forEach></td>
                         </td>
                         <td>${charity.charityStructureType.organizationType}</td>

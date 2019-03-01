@@ -34,7 +34,7 @@
                     <li><a href="/admin/adminList">Lista Adminów</a></li>
                     <li><a href="/admin/adminForm">Stwórz Admina</a></li>
                     <li><a href="/admin/orgList">Lista Zaufanych Instytucji</a></li>
-                    <li><a href="/admin/giftList">Lista Typów Darów</a></li>
+                    <li><a href="/admin/giftTypeList">Lista Typów Darów</a></li>
                     <li><a href="/admin/orderList">Lista Darowizn na rzecz ZI</a></li>
                     <li><a href="/logout">Wyloguj</a></li>
                 </ul>

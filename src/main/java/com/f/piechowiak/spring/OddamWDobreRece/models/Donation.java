@@ -24,7 +24,7 @@ public class Donation {
     @JoinTable(name = "donation_gift_type_id",
     joinColumns = @JoinColumn(name = "donation_id"),
     inverseJoinColumns = @JoinColumn(name = "gift_type_id"))
-    private List<Gift> giftList;
+    private List<GiftType> giftTypeList;
 
     @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.EAGER)    //Darczyńca
     @JoinColumn(name = "user_id")
@@ -58,7 +58,7 @@ public class Donation {
         return new StringJoiner( ", ", Donation.class.getSimpleName() + "[", "]" )
                 .add( "id=" + id )
                 .add( "quantity=" + quantity )
-                .add( "giftList=" + giftList )
+                .add( "giftTypeList=" + giftTypeList )
                 .add( "user=" + user )
                 .add( "charity=" + charity )
                 .add( "giftPickedUp=" + giftPickedUp )
@@ -103,12 +103,12 @@ public class Donation {
         this.quantity = quantity;
     }
 
-    public List<Gift> getGiftList() {
-        return giftList;
+    public List<GiftType> getGiftTypeList() {
+        return giftTypeList;
     }
 
-    public void setGiftList(List<Gift> giftList) {
-        this.giftList = giftList;
+    public void setGiftTypeList(List<GiftType> giftTypeList) {
+        this.giftTypeList = giftTypeList;
     }
 
     public User getUser() {

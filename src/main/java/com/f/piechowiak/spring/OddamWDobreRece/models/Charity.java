@@ -19,22 +19,24 @@ public class Charity {
     @Column
     private String city;
 
-    @NotNull    //to ma być @ManyToOne
-    @Column
-    private String charityActivityType;                 //jakiego rodzaju pomoc jest prowadzona przez daną Zaufaną Instytucję
+    @ManyToOne
+    @JoinTable(name = "charity_activity_type",
+            joinColumns = @JoinColumn(name = "charity_id"),
+            inverseJoinColumns = @JoinColumn(name = "charity_activity"))
+    private CharityActivity charityActivityType;                    //jakiego rodzaju pomoc jest prowadzona przez daną Zaufaną Instytucję
 
 
-    @ManyToOne     ////to ma być @ManyToOne i stowrzyć osobną tabelę
+    @ManyToOne
     @JoinTable(name = "charity_structure_type",
             joinColumns = @JoinColumn(name = "charity_id"),
             inverseJoinColumns = @JoinColumn(name = "charity_type"))
-    private CharityType charityStructureType;        //czy to Lokalna zbiórka, Fundacja czy Organizacja pozarządowa
+    private CharityType charityStructureType;                       //czy to Lokalna zbiórka, Fundacja czy Organizacja pozarządowa
 
     @ManyToMany
     @JoinTable(name = "charity_gift_type",
             joinColumns = @JoinColumn(name = "charity_id"),
             inverseJoinColumns = @JoinColumn(name = "gift_type_id"))
-    private List<Gift> acceptedGiftTypes;
+    private List<GiftType> acceptedGiftTypes;                       //jakiego rodzaju darowizny będą poszukiwane i akceptowane przez zaufaną instytucję
 
 
     @Override
@@ -52,11 +54,11 @@ public class Charity {
         return Objects.hash( id );
     }
 
-    public List<Gift> getAcceptedGiftTypes() {
+    public List<GiftType> getAcceptedGiftTypes() {
         return acceptedGiftTypes;
     }
 
-    public void setAcceptedGiftTypes(List<Gift> acceptedGiftTypes) {
+    public void setAcceptedGiftTypes(List<GiftType> acceptedGiftTypes) {
         this.acceptedGiftTypes = acceptedGiftTypes;
     }
 
@@ -76,11 +78,11 @@ public class Charity {
         this.id = id;
     }
 
-    public String getCharityActivityType() {
+    public CharityActivity getCharityActivityType() {
         return charityActivityType;
     }
 
-    public void setCharityActivityType(String charityActivityType) {
+    public void setCharityActivityType(CharityActivity charityActivityType) {
         this.charityActivityType = charityActivityType;
     }
 

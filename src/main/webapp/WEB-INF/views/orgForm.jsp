@@ -34,16 +34,20 @@
             <form:input path="city" placeholder="Podaj miasto, w którym działa organizacja"
                         required="true"/><form:errors path="city"/>
         </div>
-        <div class="form-group">
+        <%--<div class="form-group">
             <form:input path="charityActivityType" placeholder="Podaj rodzaj pomocy niesionej przez organizację"
                         required="true"/><form:errors path="charityActivityType"/>
-        </div class="form-group">
+        </div class="form-group">--%>
         <div>
-            <form:radiobuttons path="charityStructureType" items="${charityTypeList}" itemLabel="organizationType"
+            <form:radiobuttons delimiter="<br/>" path="charityActivityType" items="${charityActivityList}" itemLabel="organizationActivity"
+                               itemValue="id"/><form:errors path="charityActivityType"/>
+        </div>
+        <div>
+            <form:radiobuttons delimiter="<br/>" path="charityStructureType" items="${charityTypeList}" itemLabel="organizationType"
                                itemValue="id"/><form:errors path="charityStructureType"/>
         </div>
         <div class="form-group">
-            <form:checkboxes delimiter="<br/>" path="acceptedGiftTypes" multiple="true" items="${giftList}"
+            <form:checkboxes delimiter="<br/>" path="acceptedGiftTypes" multiple="true" items="${giftTypeList}"
                              itemLabel="giftType" itemValue="id"/><form:errors path="acceptedGiftTypes"/>
         </div>
 
@@ -51,6 +55,10 @@
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit">Dodaj Organizację</button>
         </div>
+        <div class="form-group form-group--buttons">
+            <a href="/admin/orgList" class="btn">Wstecz</a>
+        </div>
+
     </form:form>
 </section>
 

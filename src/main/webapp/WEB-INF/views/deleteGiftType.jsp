@@ -44,7 +44,7 @@
         <table>
             <tr>
                 <td><a href="/admin/${toRemove.id}/deleteGiftType" class="btn btn--medium" style="margin: 10px">Usuń</a></td>
-                <td><a href="/admin/giftList" class="btn btn--medium" style="margin: 10px">Wstecz</a></td>
+                <td><a href="/admin/giftTypeList" class="btn btn--medium" style="margin: 10px">Wstecz</a></td>
             </tr>
         </table>
 

@@ -1,7 +1,6 @@
 package com.f.piechowiak.spring.OddamWDobreRece.repositories;
 
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
-import com.f.piechowiak.spring.OddamWDobreRece.models.Gift;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,7 +14,7 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
     List<Charity> getCharityList();
 
     /*@Query(value = "SELECT * FROM gifts JOIN charity_gift_type ON gifts.id = charity_gift_type.gift_type_id WHERE charity_gift_type.charity_id = ?", nativeQuery = true)
-    List<Gift> getAcceptedGiftsByCharityId(Long id);        //new query to get AcceptedGifts List by charity id*/
+    List<GiftType> getAcceptedGiftsByCharityId(Long id);        //new query to get AcceptedGifts List by charity id*/
 
 
 

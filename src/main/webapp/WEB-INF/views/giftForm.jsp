@@ -34,6 +34,9 @@
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit">Dodaj Rodzaj Darowizny</button>
         </div>
+        <div class="form-group form-group--buttons">
+            <a href="/admin/giftTypeList" class="btn">Wstecz</a>
+        </div>
     </form:form>
 </section>
 

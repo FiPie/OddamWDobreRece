@@ -51,7 +51,7 @@
                     <td>
                         <button class="btn" type="submit">Zatwierdź zmiany</button>
                     </td>
-                    <td><a href="/admin/giftList" class="btn btn--medium" style="margin: 10px">Wstecz</a></td>
+                    <td><a href="/admin/giftTypeList" class="btn btn--medium" style="margin: 10px">Wstecz</a></td>
                 </tr>
             </table>
 

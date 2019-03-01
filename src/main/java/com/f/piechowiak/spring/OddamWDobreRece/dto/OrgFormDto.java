@@ -1,7 +1,8 @@
 package com.f.piechowiak.spring.OddamWDobreRece.dto;
 
+import com.f.piechowiak.spring.OddamWDobreRece.models.CharityActivity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.CharityType;
-import com.f.piechowiak.spring.OddamWDobreRece.models.Gift;
+import com.f.piechowiak.spring.OddamWDobreRece.models.GiftType;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -14,9 +15,9 @@ public class OrgFormDto {
     @NotNull
     private String city;
     @NotNull
-    private String charityActivityType;
+    private CharityActivity charityActivityType;
 
-    private List<Gift> acceptedGiftTypes;
+    private List<GiftType> acceptedGiftTypes;
 
     private CharityType charityStructureType;
 
@@ -39,11 +40,16 @@ public class OrgFormDto {
         this.city = city;
     }
 
-    public String getCharityActivityType() { return charityActivityType; }
-    public void setCharityActivityType(String charityActivityType) { this.charityActivityType = charityActivityType; }
+    public CharityActivity getCharityActivityType() {
+        return charityActivityType;
+    }
 
-    public List<Gift> getAcceptedGiftTypes() { return acceptedGiftTypes; }
-    public void setAcceptedGiftTypes(List<Gift> acceptedGiftTypes) { this.acceptedGiftTypes = acceptedGiftTypes; }
+    public void setCharityActivityType(CharityActivity charityActivityType) {
+        this.charityActivityType = charityActivityType;
+    }
+
+    public List<GiftType> getAcceptedGiftTypes() { return acceptedGiftTypes; }
+    public void setAcceptedGiftTypes(List<GiftType> acceptedGiftTypes) { this.acceptedGiftTypes = acceptedGiftTypes; }
 
     public CharityType getCharityStructureType() { return charityStructureType; }
     public void setCharityStructureType(CharityType charityStructureType) { this.charityStructureType = charityStructureType; }
