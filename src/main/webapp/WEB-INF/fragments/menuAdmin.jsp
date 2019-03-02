@@ -55,5 +55,5 @@
 </nav>
 
 <style>
-    <%@include file="/WEB-INF/views/css/style.css" %>
+    <%@include file="../../css/style.css" %>
 </style>

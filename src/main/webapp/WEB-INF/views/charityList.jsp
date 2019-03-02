@@ -14,19 +14,19 @@
 <head>
     <title>Organization List</title>
     <style>
-        <%@include file="/WEB-INF/views/css/style.css" %>
+        <%@include file="../../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
     <sec:authorize access="hasRole('ROLE_ADMIN')">
-        <jsp:include page="fragments/menuAdmin.jsp"/>
+        <jsp:include page="../fragments/menuAdmin.jsp"/>
     </sec:authorize>
     <sec:authorize access="isAnonymous()">
-        <jsp:include page="fragments/menu.jsp"/>
+        <jsp:include page="../fragments/menu.jsp"/>
     </sec:authorize>
     <sec:authorize access="hasRole('ROLE_USER')">
-        <jsp:include page="fragments/menu.jsp"/>
+        <jsp:include page="../fragments/menu.jsp"/>
     </sec:authorize>
 </header>
 <sec:authorize access="hasRole('ROLE_ADMIN')">

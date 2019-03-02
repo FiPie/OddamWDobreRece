@@ -14,18 +14,18 @@
 <head>
     <title>Kontakt</title>
     <style>
-        <%@include file="/WEB-INF/views/css/style.css" %>
+        <%@include file="../../css/style.css" %>
     </style>
 </head>
 <body>
 
 <header>
     <sec:authorize access="!hasRole('ROLE_ADMIN')">
-        <jsp:include page="fragments/menu.jsp"/>
+        <jsp:include page="../fragments/menu.jsp"/>
     </sec:authorize>
 
     <sec:authorize access="hasRole('ROLE_ADMIN')">
-        <jsp:include page="fragments/menuAdmin.jsp"/>
+        <jsp:include page="../fragments/menuAdmin.jsp"/>
     </sec:authorize>
 </header>
 
@@ -49,10 +49,10 @@
 
 
 <footer>
-    <jsp:include page="fragments/footer.jsp"/>
+    <jsp:include page="../fragments/footer.jsp"/>
 </footer>
 
-<script src="js/app.js"></script>
+<script src="../../js/app.js"></script>
 
 
 </body>

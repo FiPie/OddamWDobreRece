@@ -13,12 +13,12 @@
 <head>
     <title>User Settings</title>
     <style>
-        <%@include file="/WEB-INF/views/css/style.css" %>
+        <%@include file="../../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <jsp:include page="fragments/menu.jsp"/>
+    <jsp:include page="../fragments/menu.jsp"/>
 </header>
 
 <h2> ${LoggedUser.firstName} SETTINGS </h2>

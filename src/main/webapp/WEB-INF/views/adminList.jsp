@@ -13,12 +13,12 @@
 <head>
     <title>Admin List</title>
     <style>
-        <%@include file="/WEB-INF/views/css/style.css" %>
+        <%@include file="../../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <jsp:include page="fragments/menuAdmin.jsp"/>
+    <jsp:include page="../fragments/menuAdmin.jsp"/>
 </header>
 <h1> ADMIN DASHBOARD: ADMIN LIST </h1>
 

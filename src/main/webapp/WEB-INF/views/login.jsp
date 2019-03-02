@@ -15,12 +15,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Login</title>
-    <style><%@include file="/WEB-INF/views/css/style.css"%>
+    <style><%@include file="../../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <jsp:include page="fragments/menu.jsp"/>
+    <jsp:include page="../fragments/menu.jsp"/>
 </header>
 
 <section class="login-page">
@@ -46,7 +46,7 @@
 </section>
 
 <footer>
-    <jsp:include page="fragments/footer.jsp"/>
+    <jsp:include page="../fragments/footer.jsp"/>
 </footer>
 </body>
 </html>

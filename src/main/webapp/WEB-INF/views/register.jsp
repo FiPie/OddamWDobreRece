@@ -16,13 +16,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Register</title>
     <style>
-        <%@include file="/WEB-INF/views/css/style.css" %>
+        <%@include file="../../css/style.css" %>
     </style>
     <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />--%>
 </head>
 <body>
 <header>
-    <jsp:include page="fragments/menu.jsp"/>
+    <jsp:include page="../fragments/menu.jsp"/>
 </header>
 
 
@@ -56,7 +56,7 @@
 
 
 <footer>
-    <jsp:include page="fragments/footer.jsp"/>
+    <jsp:include page="../fragments/footer.jsp"/>
 </footer>
 
 </body>
