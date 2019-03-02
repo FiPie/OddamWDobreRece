@@ -30,16 +30,24 @@
 
 
             <tr>
-                <td>Ilość Zarejestrowanych Użytkowników:</td>
+                <td>Liczba Zarejestrowanych Użytkowników:</td>
                 <td>${userNumber}</td>
             </tr>
             <tr>
-                <td>Ilość Zarejestrowanych Adminów:</td>
+                <td>Liczba Zarejestrowanych Adminów:</td>
                 <td>${adminNumber}</td>
             </tr>
             <tr>
-                <td>Ilość Zarejestrowanych Organizacji:</td>
+                <td>Liczba Zarejestrowanych Zaufanych Instytucji (ZI):</td>
                 <td>${orgNumber}</td>
+            </tr>
+            <tr>
+                <td>Ilość Rodzajów Grup Docelowych Pomocy prowadzonej przez ZI:</td>
+                <td>${orgActivityNumber}</td>
+            </tr>
+            <tr>
+                <td>Liczba Różnych Form Działalności ZI:</td>
+                <td>${orgTypeNumber}</td>
             </tr>
 
         </table>

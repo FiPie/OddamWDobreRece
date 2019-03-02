@@ -12,7 +12,7 @@
 <html>
 <html>
 <head>
-    <title>Gift List</title>
+    <title>Gift Type List</title>
     <style>
         <%@include file="/WEB-INF/views/css/style.css" %>
     </style>
@@ -59,7 +59,7 @@
                 <a href="/admin/giftTypeForm" class="btn btn--large">Dodaj Nowy Rodzaj Darowizny</a>
             </div>
             <div class="steps--item">
-                <a href="/admin/giftTypeList" class="btn btn--large">Wstecz</a>
+                <a href="/admin/dashboard" class="btn btn--large">Wstecz</a>
             </div>
         </div>
     </div>

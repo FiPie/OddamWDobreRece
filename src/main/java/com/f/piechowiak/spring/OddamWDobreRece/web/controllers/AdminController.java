@@ -1,10 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
 
-import com.f.piechowiak.spring.OddamWDobreRece.core.CharityActivityService;
-import com.f.piechowiak.spring.OddamWDobreRece.core.CharityService;
-import com.f.piechowiak.spring.OddamWDobreRece.core.GiftTypeService;
-import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
+import com.f.piechowiak.spring.OddamWDobreRece.core.*;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.*;
 import com.f.piechowiak.spring.OddamWDobreRece.models.*;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.*;
@@ -40,6 +37,7 @@ public class AdminController {
     private final CharityService charityService;
     private final GiftTypeService giftTypeService;
     private final CharityActivityService charityActivityService;
+    private final CharityTypeService charityTypeService;
 
 
     @Autowired
@@ -53,7 +51,7 @@ public class AdminController {
             , UserService userService
             , CharityService charityService
             , GiftTypeService giftTypeService
-            , CharityActivityService charityActivityService) {
+            , CharityActivityService charityActivityService, CharityTypeService charityTypeService) {
         this.userRepository = userRepository;
         this.session = session;
         this.charityRepository = charityRepository;
@@ -64,6 +62,7 @@ public class AdminController {
         this.charityService = charityService;
         this.giftTypeService = giftTypeService;
         this.charityActivityService = charityActivityService;
+        this.charityTypeService = charityTypeService;
     }
 
 
@@ -74,11 +73,96 @@ public class AdminController {
         int numberOfUsers = userRepository.getUserList().size();
         int numberOfAdmins = userRepository.getAdminList().size();
         int numberOfOrganizations = charityRepository.findAll().size();
+        int numberOfOrganizationActivities = charityActivityRepository.findAll().size();
+        int numberOfOrganizationTypes = charityTypeRepository.findAll().size();
         model.addAttribute( "userNumber", numberOfUsers );
         model.addAttribute( "adminNumber", numberOfAdmins );
         model.addAttribute( "orgNumber", numberOfOrganizations );
+        model.addAttribute( "orgActivityNumber", numberOfOrganizationActivities );
+        model.addAttribute( "orgTypeNumber", numberOfOrganizationTypes );
+
+
         return "adminDashboard";
     }
+
+
+
+
+
+    @GetMapping("/charityTypeList")
+    public String prepareCharityTypeList(Model model) {
+        List<CharityType> charityTypeList = charityTypeRepository.findAll();
+        model.addAttribute( "charityTypeList", charityTypeList );
+        return "charityTypeList";
+    }
+
+    @GetMapping("/charityTypeForm")
+    public String prepareCharityTypeForm(Model model) {
+        model.addAttribute( "charityTypeForm", new CharityTypeDto() );
+        return "charityTypeForm";
+    }
+
+    @PostMapping("/charityTypeForm")
+    public String createCharityType(@ModelAttribute("charityTypeForm") @Valid CharityTypeDto form, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/charityTypeForm";
+        }
+        boolean success = charityTypeService.createCharityType( form );
+        if (success) {
+            return "redirect:/admin/charityTypeList";
+        } else {
+            result.rejectValue( "organizationType", null, "Cos poszło nietak przy wypełnianiu formularza" );
+            return "/charityTypeForm";
+        }
+
+    }
+    @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteCharityType")
+    public String confirmDeleteCharityType(@PathVariable Long id, Model model) {
+        CharityType charityTypeToDelete = charityTypeRepository.findById( id ).orElse( null );
+        if (charityTypeToDelete == null) {
+            return "redirect:/admin/charityTypeList";
+        }
+        model.addAttribute( "toRemove", charityTypeToDelete );
+        return "charityTypeDelete";
+    }
+
+    @GetMapping("{id:[1-9]*[0-9]+}/deleteCharityType")
+    public String deleteCharityType(@PathVariable Long id) {
+        CharityType charityTypeToDelete = charityTypeRepository.findById( id ).orElse( null );
+        if (charityTypeToDelete != null) {
+            charityTypeService.deleteCharityType( charityTypeToDelete.getId() );
+        }
+        return "redirect:/admin/charityTypeList";
+    }
+    @GetMapping("/{id:[1-9]*[0-9]+}/editCharityType")
+    public String editCharityType(@PathVariable Long id, Model model) {
+        model.addAttribute( "charityTypeToEdit", charityTypeService.findCharityTypeByIdAndFill( id ) );
+        CharityType charityTypeToEdit = charityTypeRepository.findById( id ).orElse( null );
+
+        if (charityTypeToEdit == null) {
+            return "redirect:/charityTypeList";
+        }
+        model.addAttribute( "toEdit", charityTypeToEdit );
+        return "charityTypeEdit";
+    }
+
+    @PostMapping("/editCharityType")
+    public String saveEditCharityTypeChanges(@ModelAttribute("charityTypeToEdit") @Valid CharityTypeDto form, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "/admin/charityTypeList";
+        }
+        boolean success = charityTypeService.updateCharityType( form );
+        if (success) {
+            return "redirect:/admin/charityTypeList";
+        } else {
+            result.rejectValue( "organizationType", null, "Cos poszło źle, spróbuj jeszcze raz" );
+            return "/" + form.getId() + "charityTypeEdit";
+        }
+    }
+
+
+
+
 
 
     @GetMapping("/charityActivityList")
@@ -112,7 +196,7 @@ public class AdminController {
     public String confirmDeleteCharityActivity(@PathVariable Long id, Model model) {
         CharityActivity charityActivityToDelete = charityActivityRepository.findById( id ).orElse( null );
         if (charityActivityToDelete == null) {
-            return "redirect:/admin/giftList";
+            return "redirect:/admin/charityActivityList";
         }
         model.addAttribute( "toRemove", charityActivityToDelete );
         return "charityActivityDelete";

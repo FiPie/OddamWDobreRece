@@ -62,6 +62,9 @@
             <div class="steps--item">
                 <a href="/admin/adminForm" class="btn btn--large">Dodaj Nowego Admina</a>
             </div>
+            <div class="steps--item">
+                <a href="/admin/dashboard" class="btn btn--large">Wstecz</a>
+            </div>
         </div>
     </div>
 </section>

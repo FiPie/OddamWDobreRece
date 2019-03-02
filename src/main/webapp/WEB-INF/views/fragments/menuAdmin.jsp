@@ -32,7 +32,7 @@
                     <li><a href="/admin/dashboard">Admin Dashboard</a></li>
                     <li><a href="/admin/userList">Lista Użytkowników</a></li>
                     <li><a href="/admin/adminList">Lista Adminów</a></li>
-                    <li><a href="/admin/adminForm">Stwórz Admina</a></li>
+                    <li><a href="/admin/adminForm">Dodaj Admina</a></li>
                     <li><a href="/admin/orgList">Lista Zaufanych Instytucji(ZI)</a></li>
                     <li><a href="/admin/giftTypeList">Lista Typów Darów</a></li>
                     <li><a href="/admin/charityActivityList">Lista Typów Beneficjentów ZI</a></li>

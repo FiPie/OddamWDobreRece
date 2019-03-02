@@ -22,7 +22,7 @@
 </header>
 <h1> ADMIN DASHBOARD: CHARITY ACTIVITY LIST </h1>
 <section class="steps">
-    <h2>GIFTS</h2>
+    <h2>CHARITY ACTIVITIES</h2>
     <div class="steps--container">
         <div class="steps--item">
             <table>

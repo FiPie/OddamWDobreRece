@@ -92,6 +92,9 @@
                 <div class="steps--item">
                     <a href="/admin/organizationForm" class="btn btn--large">Dodaj Nową Organizację</a>
                 </div>
+                <div class="steps--item">
+                    <a href="/admin/dashboard" class="btn btn--large">Wstecz</a>
+                </div>
             </sec:authorize>
         </div>
     </div>
