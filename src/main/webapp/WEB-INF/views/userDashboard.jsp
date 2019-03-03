@@ -19,6 +19,7 @@
 <body>
 <header>
     <jsp:include page="../fragments/menu.jsp"/>
+
 </header>
 
 <h2> ${LoggedUser.firstName} DASHBOARD </h2>
@@ -68,5 +69,8 @@
     </div>
 </section>
 
+<footer>
+    <jsp:include page="../fragments/footer.jsp"/>
+</footer>
 </body>
 </html>

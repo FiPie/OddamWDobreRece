@@ -7,7 +7,7 @@ import com.f.piechowiak.spring.OddamWDobreRece.models.GiftType;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class OrgFormDto {
+public class CharityFormDto {
 
     private Long id;
     @NotNull

@@ -325,7 +325,7 @@ public class AdminController {
 
     @GetMapping("/organizationForm")
     public String prepareOrganizationForm(Model model) {
-        model.addAttribute( "orgForm", new OrgFormDto() );
+        model.addAttribute( "orgForm", new CharityFormDto() );
         List<GiftType> allGiftTypes = giftTypeReposiotry.findAll();
         model.addAttribute( "giftTypeList", allGiftTypes );
         List<CharityType> charityTypeList = charityTypeRepository.findAll();
@@ -336,7 +336,7 @@ public class AdminController {
     }
 
     @PostMapping("/organizationForm")
-    public String createOrganization(@ModelAttribute("orgForm") @Valid OrgFormDto form, BindingResult result) {
+    public String createOrganization(@ModelAttribute("orgForm") @Valid CharityFormDto form, BindingResult result) {
         if (result.hasErrors()) {
             return "/organizationForm";
         }
@@ -387,7 +387,7 @@ public class AdminController {
     }
 
     @PostMapping("/editOrganization")
-    public String saveEditOrganizationChanges(@ModelAttribute("orgToEdit") @Valid OrgFormDto form, BindingResult result, Model model) {
+    public String saveEditOrganizationChanges(@ModelAttribute("orgToEdit") @Valid CharityFormDto form, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "/admin/orgList";
         }

@@ -37,7 +37,7 @@
                     <li><a href="/admin/giftTypeList">Lista Typów Darów</a></li>
                     <li><a href="/admin/charityActivityList">Lista Typów Beneficjentów ZI</a></li>
                     <li><a href="/admin/charityTypeList">Lista Form Działalności ZI</a></li>
-                    <li><a href="/admin/orderList">Lista Darowizn na rzecz ZI</a></li>
+                    <li><a href="/admin/donations">Lista Darowizn na rzecz ZI</a></li>
                     <li><a href="/logout">Wyloguj</a></li>
                 </ul>
             </li>

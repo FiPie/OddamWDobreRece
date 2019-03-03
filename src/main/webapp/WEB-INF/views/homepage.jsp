@@ -39,7 +39,9 @@
             </h1>
 
             <ul class="slogan--buttons">
-                <li><a href="#" class="btn btn--large">Oddaj rzeczy</a></li>
+                <sec:authorize access="hasRole('ROLE_USER')"><li><a href="/user/donations/formStep1" class="btn btn--large">Oddaj rzeczy</a></li></sec:authorize>
+                <sec:authorize access="hasRole('ROLE_ADMIN')"><li><a href="/admin/donations" class="btn btn--large">Oddaj rzeczy</a></li></sec:authorize>
+                <sec:authorize access="isAnonymous()"><li><a href="/login" class="btn btn--large">Oddaj rzeczy</a></li></sec:authorize>
                 <li><a href="#" class="btn btn--large">Zorganizuj zbiórkę</a></li>
             </ul>
         </div>

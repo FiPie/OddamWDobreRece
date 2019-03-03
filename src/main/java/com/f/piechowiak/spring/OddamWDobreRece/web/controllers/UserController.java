@@ -4,6 +4,7 @@ import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserPasswordFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.DonationRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class UserController {
     HttpSession session;
     @Autowired
     UserRoleRepository userRoleRepository;
+    @Autowired
+    DonationRepository donationRepository;
     @Autowired
     private UserService userService;
 
