@@ -332,6 +332,7 @@ public class AdminController {
         model.addAttribute( "charityTypeList", charityTypeList );
         List<CharityActivity> charityActivityList = charityActivityRepository.findAll();
         model.addAttribute( "charityActivityList", charityActivityList );
+
         return "charityForm";
     }
 
