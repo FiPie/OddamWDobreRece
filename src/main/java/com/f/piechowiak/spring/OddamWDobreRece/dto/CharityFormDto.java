@@ -10,11 +10,11 @@ import java.util.List;
 public class CharityFormDto {
 
     private Long id;
-    @NotNull
+
     private String charityName;
-    @NotNull
+
     private String city;
-    @NotNull
+
     private CharityActivity charityActivityType;
 
     private List<GiftType> acceptedGiftTypes;

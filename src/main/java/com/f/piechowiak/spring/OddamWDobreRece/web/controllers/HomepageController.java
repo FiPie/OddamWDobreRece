@@ -53,7 +53,7 @@ public class HomepageController {
     public String publicOrgList(Model model){
         List<Charity> organizationList = charityRepository.findAll();
         model.addAttribute( "organizationList", organizationList );
-        return "charityList";
+        return "charity/charityList";
     }
 
     @GetMapping("/contact")

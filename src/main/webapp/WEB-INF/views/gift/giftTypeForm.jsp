@@ -13,12 +13,12 @@
 <head>
     <title>Gift Type Form</title>
     <style>
-        <%@include file="../../css/style.css" %>
+        <%@include file="../../../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <jsp:include page="../fragments/menuAdmin.jsp"/>
+    <jsp:include page="../../fragments/menuAdmin.jsp"/>
 </header>
 
 <h1> ADMIN DASHBOARD: GIFT TYPE FORM </h1>

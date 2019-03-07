@@ -16,12 +16,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Edit Organization</title>
     <style>
-        <%@include file="../../css/style.css" %>
+        <%@include file="../../../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <jsp:include page="../fragments/menuAdmin.jsp"/>
+    <jsp:include page="../../fragments/menuAdmin.jsp"/>
 </header>
 <h1> ADMIN DASHBOARD: EDIT Organization </h1>
 

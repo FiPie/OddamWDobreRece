@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: filippie
-  Date: 24.02.19
-  Time: 11:04
+  Date: 02.03.19
+  Time: 07:24
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,44 +11,40 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Delete User Account</title>
+    <title>Charity Type Delete</title>
     <style>
-        <%@include file="../../css/style.css" %>
+        <%@include file="../../../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <jsp:include page="../fragments/menu.jsp"/>
+    <jsp:include page="../../fragments/menuAdmin.jsp"/>
 </header>
+<h1> ADMIN DASHBOARD: DELETE CHARITY TYPE </h1>
 
-<h2> CZY NA PEWNO CHCESZ USUNĄĆ KONTO ${LoggedUser.email} ? </h2>
-
+<h2>Czy na pewno chcesz usunąć tą formę działalności ZI? </h2>
 <section class="login-page">
     <div class="form-group">
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
                 <td>ID</td>
-                <td>Imię</td>
-                <td>Naziwsko</td>
-                <td>Email</td>
-                <td>Aktywny</td>
+                <td>Forma Działalności ZI</td>
+
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>${LoggedUser.id}</td>
-                <td>${LoggedUser.firstName}</td>
-                <td>${LoggedUser.lastName}</td>
-                <td>${LoggedUser.email}</td>
-                <td>${LoggedUser.enabled}</td>
+                <td>${toRemove.id}</td>
+                <td>${toRemove.organizationType}</td>
+
             </tr>
             </tbody>
         </table>
         <table>
             <tr>
-                <td><a href="/user/deleteUser" class="btn btn--medium" style="margin: 10px">Usuń</a></td>
-                <td><a href="/user/settings" class="btn btn--medium" style="margin: 10px">Wstecz</a></td>
+                <td><a href="/admin/${toRemove.id}/deleteCharityType" class="btn btn--medium" style="margin: 10px">Usuń</a></td>
+                <td><a href="/admin/charityTypeList" class="btn btn--medium" style="margin: 10px">Wstecz</a></td>
             </tr>
         </table>
 

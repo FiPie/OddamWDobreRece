@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: filippie
-  Date: 02.03.19
-  Time: 07:24
+  Date: 25.02.19
+  Time: 11:44
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,40 +11,42 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Charity Type Delete</title>
+    <title>Delete Organization</title>
     <style>
-        <%@include file="../../css/style.css" %>
+        <%@include file="../../../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <jsp:include page="../fragments/menuAdmin.jsp"/>
+    <jsp:include page="../../fragments/menuAdmin.jsp"/>
 </header>
-<h1> ADMIN DASHBOARD: DELETE CHARITY TYPE </h1>
+<h1> ADMIN DASHBOARD: DELETE ORGANIZATION </h1>
 
-<h2>Czy na pewno chcesz usunąć tą formę działalności ZI? </h2>
+<h2>Czy na pewno chcesz usunąć tą organizację? </h2>
 <section class="login-page">
     <div class="form-group">
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
                 <td>ID</td>
-                <td>Forma Działalności ZI</td>
-
+                <td>Nazwa</td>
+                <td>Miasto</td>
+                <td>Rodzaj</td>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>${toRemove.id}</td>
-                <td>${toRemove.organizationType}</td>
-
+                <td>${toRemove.charityName}</td>
+                <td>${toRemove.city}</td>
+                <td>${toRemove.charityActivityType.organizationActivity}</td>
             </tr>
             </tbody>
         </table>
         <table>
             <tr>
-                <td><a href="/admin/${toRemove.id}/deleteCharityType" class="btn btn--medium" style="margin: 10px">Usuń</a></td>
-                <td><a href="/admin/charityTypeList" class="btn btn--medium" style="margin: 10px">Wstecz</a></td>
+                <td><a href="/admin/${toRemove.id}/deleteOrg" class="btn btn--medium" style="margin: 10px">Usuń</a></td>
+                <td><a href="/admin/orgList" class="btn btn--medium" style="margin: 10px">Wstecz</a></td>
             </tr>
         </table>
 

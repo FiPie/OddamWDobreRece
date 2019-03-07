@@ -2,8 +2,10 @@ package com.f.piechowiak.spring.OddamWDobreRece.core;
 
 import com.f.piechowiak.spring.OddamWDobreRece.dto.CharityFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.DonationDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.GiftFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Donation;
+import com.f.piechowiak.spring.OddamWDobreRece.models.GiftType;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.DonationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -101,5 +103,25 @@ public class DonationService {
 
         return donationDto;
      }
+
+    public DonationDto fillPartiallyDonationDto(DonationDto form){
+        DonationDto donationDtoToFill = new DonationDto();
+
+        if (form.getQuantity()!=null){donationDtoToFill.setQuantity( form.getQuantity() );}
+
+        if (form.getGiftTypeList()!=null){donationDtoToFill.setGiftTypeList( form.getGiftTypeList() );}
+        if (form.getUser()!=null){donationDtoToFill.setUser( form.getUser() );}
+        if (form.getCharity()!=null){donationDtoToFill.setCharity( form.getCharity() );}
+        if (form.getPickUpDate()!=null){donationDtoToFill.setPickUpDate( form.getPickUpDate() );}
+        if (form.getPickUpHour()!=null){donationDtoToFill.setPickUpHour( form.getPickUpHour() );}
+        if (form.getCity()!=null){donationDtoToFill.setCity( form.getCity() );}
+        if (form.getStreet()!=null){donationDtoToFill.setStreet( form.getStreet() );}
+        if (form.getPostCode()!=null){donationDtoToFill.setPostCode( form.getPostCode() );}
+        if (form.getPhone()!=null){donationDtoToFill.setPhone( form.getPhone() );}
+        if (form.getNotes()!=null){donationDtoToFill.setNotes( form.getNotes() );}
+
+
+        return donationDtoToFill;
+    }
 
 }

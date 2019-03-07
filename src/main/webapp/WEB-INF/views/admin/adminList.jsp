@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: filippie
-  Date: 02.03.19
-  Time: 07:25
+  Date: 19.02.19
+  Time: 12:20
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,42 +11,47 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Charity Type List</title>
+    <title>Admin List</title>
     <style>
-        <%@include file="../../css/style.css" %>
+        <%@include file="../../../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <jsp:include page="../fragments/menuAdmin.jsp"/>
+    <jsp:include page="../../fragments/menuAdmin.jsp"/>
 </header>
-<h1> ADMIN DASHBOARD: CHARITY TYPE LIST </h1>
+<h1> ADMIN DASHBOARD: ADMIN LIST </h1>
+
 <section class="steps">
-    <h2>CHARITY TYPES</h2>
+    <h2>ADMINS:</h2>
     <div class="steps--container">
         <div class="steps--item">
             <table>
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <td>Forma Działalności ZI</td>
+                    <td>Email</td>
+                    <td>Imię</td>
+                    <td>Nazwisko</td>
                     <td>Usunięcie</td>
                     <td>Edycja</td>
                 </tr>
                 </thead>
-                <c:forEach var="type" items="${charityTypeList}">
+                <c:forEach var="admin" items="${sessionScope.adminList}">
                     <tbody>
                     <tr>
-                        <th scope="row">${type.id}</th>
-                        <td scope="row">${type.organizationType}</td>
+                        <th scope="row">${admin.id}</th>
+                        <td scope="row">${admin.email}</td>
+                        <td scope="row">${admin.firstName}</td>
+                        <td scope="row">${admin.lastName}</td>
                         <td scope="row">
                             <div class="form-group form-group--buttons">
-                                <a href="/admin/${type.id}/confirmDeleteCharityType" class="btn btn--small"> Usuń </a>
+                                <a href="/admin/${admin.id}/confirmDeleteAdmin" class="btn btn--small">Usuń ${admin.firstName}</a>
                             </div>
                         </td>
                         <td>
                             <div>
-                                <a href="/admin/${type.id}/editCharityType" class="btn btn--small">Edytuj</a>
+                                <a href="/admin/${admin.id}/editAdmin" class="btn btn--small">Edytuj ${admin.firstName}</a>
                             </div>
                         </td>
                     </tr>
@@ -55,7 +60,7 @@
                 </c:forEach>
             </table>
             <div class="steps--item">
-                <a href="/admin/charityTypeForm" class="btn btn--large">Dodaj Nowy Rodzaj Formy Działalności Organizacji Charytatywnej</a>
+                <a href="/admin/adminForm" class="btn btn--large">Dodaj Nowego Admina</a>
             </div>
             <div class="steps--item">
                 <a href="/admin/dashboard" class="btn btn--large">Wstecz</a>
@@ -63,6 +68,5 @@
         </div>
     </div>
 </section>
-
 </body>
 </html>

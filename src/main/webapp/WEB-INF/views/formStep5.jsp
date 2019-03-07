@@ -80,7 +80,7 @@
 
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>5</span>/5</div>
-        <form:form modelAttribute="donationForm" action="user/donations/formStep5" method="post">
+        <form:form modelAttribute="donationForm" method="post">
             <!-- STEP 5 -->
             <div data-step="5" class="active">
                 <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
@@ -89,22 +89,22 @@
                     <div class="form-section--column">
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
-                            <label> Ulica <input type="text" name="address"/> </label>
+                            <label> Ulica <form:input type="text" name="address" path="street"/> </label>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label> Miasto <input type="text" name="city"/> </label>
+                            <label> Miasto <form:input  type="text" name="city" path="city"/> </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
-                                Kod pocztowy <input type="text" name="postcode"/>
+                                Kod pocztowy <form:input type="text" name="postcode" path="postCode"/>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
-                                Numer telefonu <input type="phone" name="phone"/>
+                                Numer telefonu <form:input type="phone" name="phone" path="phone"/>
                             </label>
                         </div>
                     </div>
@@ -112,25 +112,24 @@
                     <div class="form-section--column">
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
-                            <label> Data <input type="date" name="data"/> </label>
+                            <label> Data <form:input type="date" name="data" path="pickUpDate"/> </label>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label> Godzina <input type="time" name="time"/> </label>
+                            <label> Godzina <form:input type="time" name="time" path="pickUpHour"/> </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 Uwagi dla kuriera
-                                <textarea name="more_info" rows="5"></textarea>
+                                <form:textarea name="more_info" rows="5" path="notes"></form:textarea>
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="button" class="btn next-step">Dalej</button>
-                    <a href="/user/donations/formStep6">Step 6</a>
+                    <a href="${pageContext.request.contextPath}/user/donations/formStep4" class="btn prev-step">Wstecz</a>
+                    <button type="submit" class="btn next-step">Dalej</button>
                 </div>
             </div>
         </form:form>

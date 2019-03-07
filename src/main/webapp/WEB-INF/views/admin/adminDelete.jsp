@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: filippie
-  Date: 22.02.19
-  Time: 08:00
+  Date: 20.02.19
+  Time: 13:08
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,18 +11,18 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Delete User</title>
+    <title>Delete Admin</title>
     <style>
-        <%@include file="../../css/style.css" %>
+        <%@include file="../../../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <jsp:include page="../fragments/menuAdmin.jsp"/>
+    <jsp:include page="../../fragments/menuAdmin.jsp"/>
 </header>
-<h1> ADMIN DASHBOARD: DELETE USER </h1>
+<h1> ADMIN DASHBOARD: DELETE ADMIN </h1>
 
-<h2>Czy na pewno chcesz usunąć usera? </h2>
+<h2>Czy na pewno chcesz usunąć admina? </h2>
 <section class="login-page">
     <div class="form-group">
         <table class="table table-bordered table-striped">
@@ -30,7 +30,7 @@
             <tr>
                 <td>ID</td>
                 <td>Imię</td>
-                <td>Nazwisko</td>
+                <td>Naziwsko</td>
                 <td>Email</td>
                 <td>Aktywny</td>
             </tr>
@@ -47,8 +47,8 @@
         </table>
         <table>
             <tr>
-                <td><a href="/admin/${toRemove.id}/deleteUser" class="btn btn--medium" style="margin: 10px">Usuń</a></td>
-                <td><a href="/admin/userList" class="btn btn--medium" style="margin: 10px">Wstecz</a></td>
+                <td><a href="/admin/${toRemove.id}/deleteAdmin" class="btn btn--medium" style="margin: 10px">Usuń</a></td>
+                <td><a href="/admin/adminList" class="btn btn--medium" style="margin: 10px">Wstecz</a></td>
             </tr>
         </table>
 

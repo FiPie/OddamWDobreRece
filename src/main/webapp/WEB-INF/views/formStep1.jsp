@@ -82,13 +82,15 @@
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/5</div>
 
-        <form:form modelAttribute="donationForm" action="user/donations/formStep1" method="post">
+        <form:form modelAttribute="donationForm" method="post">
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
-                <form:checkboxes delimiter="<br/>" path="giftTypeList" multiple="true" items="${giftTypeList}"
-                                 itemLabel="giftType" itemValue="id"/><form:errors path="giftTypeList"/>
-                <div class="form-group form-group--checkbox">
+
+                    <form:checkboxes delimiter="<br/>" path="giftTypeList" multiple="true" items="${giftTypeList}"
+                                     itemLabel="giftType" itemValue="id"/><form:errors path="giftTypeList"/>
+
+                <%--<div class="form-group form-group--checkbox">
                     <label>
                         <input
                                 type="checkbox"
@@ -100,47 +102,10 @@
                         >ubrania, które nadają się do ponownego użycia</span
                         >
                     </label>
-                </div>
-
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input
-                                type="checkbox"
-                                name="products[]"
-                                value="clothes-useless"
-                        />
-                        <span class="checkbox"></span>
-                        <span class="description">ubrania, do wyrzucenia</span>
-                    </label>
-                </div>
-
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="checkbox" name="products[]" value="toys"/>
-                        <span class="checkbox"></span>
-                        <span class="description">zabawki</span>
-                    </label>
-                </div>
-
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="checkbox" name="products[]" value="books"/>
-                        <span class="checkbox"></span>
-                        <span class="description">książki</span>
-                    </label>
-                </div>
-
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="checkbox" name="products[]" value="other"/>
-                        <span class="checkbox"></span>
-                        <span class="description">inne</span>
-                    </label>
-                </div>
-
+                </div>--%>
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn next-step">Dalej</button>
-                    <button><a href="/user/donations/formStep2">Step 2</a></button>
+                    <button type="submit" class="btn next-step">Dalej</button>
+                        <%--<button><a href="/user/donations/formStep2">Step 2</a></button>--%>
                 </div>
             </div>
 

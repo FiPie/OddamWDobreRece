@@ -13,12 +13,12 @@
 <head>
     <title>Charity Type Edit</title>
     <style>
-        <%@include file="../../css/style.css" %>
+        <%@include file="../../../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <jsp:include page="../fragments/menuAdmin.jsp"/>
+    <jsp:include page="../../fragments/menuAdmin.jsp"/>
 </header>
 <h1> ADMIN DASHBOARD: EDIT CHARITY TYPE </h1>
 

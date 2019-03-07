@@ -13,12 +13,12 @@
 <head>
     <title>User Dashboard</title>
     <style>
-        <%@include file="../../css/style.css" %>
+        <%@include file="../../../css/style.css" %>
     </style>
 </head>
 <body>
 <header>
-    <jsp:include page="../fragments/menu.jsp"/>
+    <jsp:include page="../../fragments/menu.jsp"/>
 
 </header>
 
@@ -70,7 +70,7 @@
 </section>
 
 <footer>
-    <jsp:include page="../fragments/footer.jsp"/>
+    <jsp:include page="../../fragments/footer.jsp"/>
 </footer>
 </body>
 </html>

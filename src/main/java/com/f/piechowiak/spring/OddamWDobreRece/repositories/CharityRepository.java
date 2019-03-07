@@ -1,10 +1,14 @@
 package com.f.piechowiak.spring.OddamWDobreRece.repositories;
 
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
+import com.f.piechowiak.spring.OddamWDobreRece.models.CharityActivity;
+import com.f.piechowiak.spring.OddamWDobreRece.models.GiftType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -16,11 +20,36 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
     @Query(value = "SELECT DISTINCT city FROM charities ORDER BY city", nativeQuery = true)
     List<String> getCityList();
 
-    /*@Query(value = "SELECT * FROM gifts JOIN charity_gift_type ON gifts.id = charity_gift_type.gift_type_id WHERE charity_gift_type.charity_id = ?", nativeQuery = true)
-    List<GiftType> getAcceptedGiftsByCharityId(Long id);        //new query to get AcceptedGifts List by charity id*/
+    @Query(value = "SELECT * FROM charities JOIN charity_activity_type ON charity_id=charity_activity_type.charity_id WHERE charity_activity_type.charity_activity=? AND charities.city=?", nativeQuery = true)
+    List<Charity> getCharityListByCityAndCharityActivityType(Long charityActivity, String city);
 
-    //SELECT DISTINCT colorName FROM mytable ORDER BY colorName
+    @Query(value = "SELECT * FROM charities WHERE charities.city = ?", nativeQuery = true)
+    List<Charity> getCharityListByCity(String city);
 
-    /*@Query(value = "SELECT * FROM users JOIN users_roles ON users.id=users_roles.user_id WHERE users_roles.roles='ROLE_USER'", nativeQuery = true)
-    List<User> getUserList();*/
+    @Query(value = "SELECT * FROM charities c WHERE c.charity_name LIKE'%'+?+'%'", nativeQuery = true)
+    List<Charity> getCharityListByCharityName(String charityName);
+
+    @Query(value = "SELECT charity.id from charity_activity_type WHERE charity_activity_type.charity_activity = charity_activities.id IN (?)", nativeQuery = true)
+    List<Long> findAllCharityIdsMatchingActivityTypes(List<CharityActivity> ids);
+
+    @Query(value = "SELECT * from charities WHERE charity.id IN (?)", nativeQuery = true)
+    List<Charity> findAllCharitiesByIdList(List<Long> ids);
+
+
+
+
+
+    List<Charity> findAllByIdIn(List<Long> ids);        //działa ale nie służy;)
+
+
+    List<Charity> findAllByCharityActivityType_IdInAndAcceptedGiftTypesIn(List<Long> ids, List<GiftType> gifts);    //Ta działa!
+
+    List<Charity> findByCharityActivityType_IdInAndAcceptedGiftTypesInAndCityIs(List<Long> ids, List<GiftType> gifts, String city);    //działa!
+    List<Charity> findDistinctByCharityActivityType_IdInAndAcceptedGiftTypesInAndCityIs(List<Long> ids, List<GiftType> gifts, String city);    //działa!
+
+
+
+//    Rozszerzyc DonationDto o dane do search baru
+
+
 }

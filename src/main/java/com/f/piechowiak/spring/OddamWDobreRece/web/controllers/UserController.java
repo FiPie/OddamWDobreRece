@@ -45,14 +45,14 @@ public class UserController {
         String firstName = user.getFirstName();
         session.setAttribute( "userFirstName", firstName );
         model.addAttribute( "LoggedUser", user );
-        return "userDashboard";
+        return "user/userDashboard";
     }
 
     @GetMapping("/settings")
     public String prepareUserSettingsPage(Model model, Principal principal) {
         User user = userRepository.findByEmail( principal.getName() );
         model.addAttribute( "LoggedUser", user );
-        return "userSettings";
+        return "user/userSettings";
     }
 
 
@@ -61,7 +61,7 @@ public class UserController {
         User user = userRepository.findByEmail( principal.getName() );
         model.addAttribute( "LoggedUser", user );
         model.addAttribute( "userToEdit", userService.findUserByIdAndFillToEditPassword( user.getId() ) );
-        return "userChangePassword";
+        return "user/userChangePassword";
     }
 
     @PostMapping("/changePassword")
@@ -77,7 +77,7 @@ public class UserController {
             return "redirect:/user/dashboard";
         } else {
             result.rejectValue( "confirmedPassword", null, "Podane hasła nie są tożsame!" );
-            return "userChangePassword";
+            return "user/userChangePassword";
         }
     }
 
@@ -86,7 +86,7 @@ public class UserController {
     public String confirmDeleteUserAccount(Model model, Principal principal) {
         User user = userRepository.findByEmail( principal.getName() );
         model.addAttribute( "LoggedUser", user );
-        return "userDeleteAccount";
+        return "user/userDeleteAccount";
     }
 
     @GetMapping("/deleteUser")
@@ -110,7 +110,7 @@ public class UserController {
             return "redirect:/user/settings";
         }
         model.addAttribute( "toEdit", user );
-        return "userEdit";
+        return "user/userEdit";
     }
 
     @PostMapping("/editUser")
@@ -123,7 +123,7 @@ public class UserController {
             return "redirect:/user/dashboard";
         } else {
             result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "adminUserEdit";
+            return "admin/adminUserEdit";
         }
 
     }

@@ -82,7 +82,7 @@ public class AdminController {
         model.addAttribute( "orgTypeNumber", numberOfOrganizationTypes );
 
 
-        return "adminDashboard";
+        return "admin/adminDashboard";
     }
 
 
@@ -93,26 +93,26 @@ public class AdminController {
     public String prepareCharityTypeList(Model model) {
         List<CharityType> charityTypeList = charityTypeRepository.findAll();
         model.addAttribute( "charityTypeList", charityTypeList );
-        return "charityTypeList";
+        return "charity/charityTypeList";
     }
 
     @GetMapping("/charityTypeForm")
     public String prepareCharityTypeForm(Model model) {
         model.addAttribute( "charityTypeForm", new CharityTypeDto() );
-        return "charityTypeForm";
+        return "charity/charityTypeForm";
     }
 
     @PostMapping("/charityTypeForm")
     public String createCharityType(@ModelAttribute("charityTypeForm") @Valid CharityTypeDto form, BindingResult result) {
         if (result.hasErrors()) {
-            return "/charityTypeForm";
+            return "charity/charityTypeForm";
         }
         boolean success = charityTypeService.createCharityType( form );
         if (success) {
             return "redirect:/admin/charityTypeList";
         } else {
             result.rejectValue( "organizationType", null, "Cos poszło nietak przy wypełnianiu formularza" );
-            return "/charityTypeForm";
+            return "charity/charityTypeForm";
         }
 
     }
@@ -123,7 +123,7 @@ public class AdminController {
             return "redirect:/admin/charityTypeList";
         }
         model.addAttribute( "toRemove", charityTypeToDelete );
-        return "charityTypeDelete";
+        return "charity/charityTypeDelete";
     }
 
     @GetMapping("{id:[1-9]*[0-9]+}/deleteCharityType")
@@ -143,7 +143,7 @@ public class AdminController {
             return "redirect:/charityTypeList";
         }
         model.addAttribute( "toEdit", charityTypeToEdit );
-        return "charityTypeEdit";
+        return "charity/charityTypeEdit";
     }
 
     @PostMapping("/editCharityType")
@@ -156,7 +156,7 @@ public class AdminController {
             return "redirect:/admin/charityTypeList";
         } else {
             result.rejectValue( "organizationType", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/" + form.getId() + "charityTypeEdit";
+            return "/" + form.getId() + "charity/charityTypeEdit";
         }
     }
 
@@ -169,26 +169,26 @@ public class AdminController {
     public String prepareCharityActivityList(Model model) {
         List<CharityActivity> charityActivityList = charityActivityRepository.findAll();
         model.addAttribute( "charityActivityList", charityActivityList );
-        return "charityActivityList";
+        return "charity/charityActivityList";
     }
 
     @GetMapping("/charityActivityForm")
     public String prepareCharityActivityForm(Model model) {
         model.addAttribute( "charityActivityForm", new CharityActivityDto() );
-        return "charityActivityForm";
+        return "charity/charityActivityForm";
     }
 
     @PostMapping("/charityActivityForm")
     public String createCharityActivity(@ModelAttribute("charityActivityForm") @Valid CharityActivityDto form, BindingResult result) {
         if (result.hasErrors()) {
-            return "/charityActivityForm";
+            return "charity/charityActivityForm";
         }
         boolean success = charityActivityService.createCharityActivity( form );
         if (success) {
             return "redirect:/admin/charityActivityList";
         } else {
             result.rejectValue( "organizationActivity", null, "Cos poszło nietak przy wypełnianiu formularza" );
-            return "/charityActivityForm";
+            return "charity/charityActivityForm";
         }
 
     }
@@ -199,7 +199,7 @@ public class AdminController {
             return "redirect:/admin/charityActivityList";
         }
         model.addAttribute( "toRemove", charityActivityToDelete );
-        return "charityActivityDelete";
+        return "charity/charityActivityDelete";
     }
 
     @GetMapping("{id:[1-9]*[0-9]+}/deleteCharityActivity")
@@ -219,7 +219,7 @@ public class AdminController {
             return "redirect:/charityActivityList";
         }
         model.addAttribute( "toEdit", charityActivityToEdit );
-        return "charityActivityEdit";
+        return "charity/charityActivityEdit";
     }
 
     @PostMapping("/editCharityActivity")
@@ -232,7 +232,7 @@ public class AdminController {
             return "redirect:/admin/charityActivityList";
         } else {
             result.rejectValue( "organizationActivity", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/" + form.getId() + "charityActivityEdit";
+            return "/" + form.getId() + "charity/charityActivityEdit";
         }
     }
 
@@ -247,26 +247,26 @@ public class AdminController {
     public String prepareGiftTypeList(Model model) {
         List<GiftType> giftTypeList = giftTypeReposiotry.findAll();
         model.addAttribute( "giftTypeList", giftTypeList );
-        return "giftTypeList";
+        return "gift/giftTypeList";
     }
 
     @GetMapping("/giftTypeForm")
     public String prepareGiftTypeForm(Model model) {
         model.addAttribute( "giftTypeForm", new GiftFormDto() );
-        return "giftTypeForm";
+        return "gift/giftTypeForm";
     }
 
     @PostMapping("/giftTypeForm")
     public String createGiftType(@ModelAttribute("giftTypeForm") @Valid GiftFormDto form, BindingResult result) {
         if (result.hasErrors()) {
-            return "/giftTypeForm";
+            return "gift/giftTypeForm";
         }
         boolean success = giftTypeService.createGiftType( form );
         if (success) {
             return "redirect:/admin/giftList";
         } else {
             result.rejectValue( "giftType", null, "Cos poszło nietak przy wypełnianiu formularza" );
-            return "/giftTypeForm";
+            return "gift/giftTypeForm";
         }
     }
 
@@ -277,7 +277,7 @@ public class AdminController {
             return "redirect:/admin/giftList";
         }
         model.addAttribute( "toRemove", giftTypeToDelete );
-        return "giftTypeDelete";
+        return "gift/giftTypeDelete";
     }
 
     @GetMapping("{id:[1-9]*[0-9]+}/deleteGiftType")
@@ -298,7 +298,7 @@ public class AdminController {
             return "redirect:/giftList";
         }
         model.addAttribute( "toEdit", giftTypeToEdit );
-        return "giftTypeEdit";
+        return "gift/giftTypeEdit";
     }
 
     @PostMapping("/editGiftType")
@@ -311,7 +311,7 @@ public class AdminController {
             return "redirect:/admin/giftList";
         } else {
             result.rejectValue( "giftType", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/" + form.getId() + "giftTypeEdit";
+            return "/" + form.getId() + "gift/giftTypeEdit";
         }
     }
 
@@ -320,7 +320,7 @@ public class AdminController {
     public String prepareOrganizationListView(Model model) {
         List<Charity> organizationList = charityRepository.findAll();
         model.addAttribute( "organizationList", organizationList );
-        return "charityList";
+        return "charity/charityList";
     }
 
     @GetMapping("/organizationForm")
@@ -333,7 +333,7 @@ public class AdminController {
         List<CharityActivity> charityActivityList = charityActivityRepository.findAll();
         model.addAttribute( "charityActivityList", charityActivityList );
 
-        return "charityForm";
+        return "charity/charityForm";
     }
 
     @PostMapping("/organizationForm")
@@ -357,7 +357,7 @@ public class AdminController {
             return "redirect:/admin/orgList";
         }
         model.addAttribute( "toRemove", org );
-        return "charityDelete";
+        return "charity/charityDelete";
     }
 
     @GetMapping("/{id:[1-9]*[0-9]+}/deleteOrg")
@@ -384,7 +384,7 @@ public class AdminController {
             return "redirect:/orgList";
         }
         model.addAttribute( "toEdit", org );
-        return "charityEdit";
+        return "charity/charityEdit";
     }
 
     @PostMapping("/editOrganization")
@@ -406,26 +406,26 @@ public class AdminController {
     public String prepareAdminListForm() {
         List<User> adminList = userRepository.getAdminList();
         session.setAttribute( "adminList", adminList );
-        return "adminList";
+        return "admin/adminList";
     }
 
     @GetMapping("/adminForm")
     public String prepareAdminForm(Model model) {
         model.addAttribute( "adminForm", new AdminFormDto() );
-        return "adminForm";
+        return "admin/adminForm";
     }
 
     @PostMapping("/adminForm")
     public String createNewAdmin(@ModelAttribute("adminForm") @Valid AdminFormDto form, BindingResult result) {
         if (result.hasErrors()) {
-            return "/adminForm";
+            return "admin/adminForm";
         }
         boolean success = userService.createAdmin( form );
         if (success) {
             return "redirect:/admin/adminList";
         } else {
             result.rejectValue( "email", null, "Cos poszlo nietak przy wpisywaniu danych w formularzu tworzenia admina, sprobuj jeszcze raz:)" );
-            return "/adminForm";
+            return "admin/adminForm";
         }
     }
 
@@ -436,7 +436,7 @@ public class AdminController {
             return "redirect:/admin/adminList";
         }
         model.addAttribute( "toRemove", user );
-        return "adminDelete";
+        return "admin/adminDelete";
     }
 
     @GetMapping("/{id:[1-9]*[0-9]+}/deleteAdmin")
@@ -472,7 +472,7 @@ public class AdminController {
         }
         model.addAttribute( "toEdit", user );
 
-        return "adminEdit";
+        return "admin/adminEdit";
     }
 
     @PostMapping("/editAdmin")
@@ -485,7 +485,7 @@ public class AdminController {
             return "redirect:/admin/adminList";
         } else {
             result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/" + form.getId() + "adminEdit";
+            return "/" + form.getId() + "admin/adminEdit";
         }
     }
 
@@ -494,7 +494,7 @@ public class AdminController {
     public String prepareUserListForm() {
         List<User> userList = userRepository.getUserList();
         session.setAttribute( "userList", userList );
-        return "adminUserList";
+        return "admin/adminUserList";
     }
 
     @GetMapping("/{id:[1-9]*[0-9]+}/confirmDeleteUser")
@@ -504,7 +504,7 @@ public class AdminController {
             return "redirect:/admin/userList";
         }
         model.addAttribute( "toRemove", user );
-        return "adminUserDelete";
+        return "admin/adminUserDelete";
     }
 
     @GetMapping("/{id:[1-9]*[0-9]+}/deleteUser")
@@ -525,7 +525,7 @@ public class AdminController {
             return "redirect:/userList";
         }
         model.addAttribute( "toEdit", user );
-        return "adminUserEdit";
+        return "admin/adminUserEdit";
     }
 
     @PostMapping("/editUser")
@@ -538,7 +538,7 @@ public class AdminController {
             return "redirect:/admin/userList";
         } else {
             result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/" + form.getId() + "adminUserEdit";
+            return "/" + form.getId() + "admin/adminUserEdit";
         }
     }
 

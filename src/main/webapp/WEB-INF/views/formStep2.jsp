@@ -67,7 +67,7 @@
 
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>2</span>/5</div>
-        <form:form modelAttribute="donationForm" action="user/donations/formStep2" method="post">
+        <form:form modelAttribute="donationForm" method="post">
             <!-- STEP 2 -->
             <div data-step="2" class="active">
                 <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
@@ -75,16 +75,16 @@
                 <div class="form-group form-group--inline">
                     <label>
                         Liczba 60l worków:
-                        <form:input path="quantity" type="number" required="true" min="1"/><form:errors
+                        <form:input path="quantity" placeholder="${sessionScope.quantitySelected}" value="${sessionScope.quantitySelected}" required="true" type="number" min="1"/><form:errors
                             path="quantity"/>
-                        <input type="number" name="bags" step="1" min="1"/>
+                        <%--<input type="number" name="bags" step="1" min="1"/>
                     </label>
-                </div>
+                </div>--%>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="button" class="btn next-step">Dalej</button>
-                    <a href="/user/donations/formStep3">Step 3</a>
+                    <a href="${pageContext.request.contextPath}/user/donations/formStep1" class="btn prev-step">Wstecz</a>
+                    <button type="submit" class="btn next-step">Dalej</button>
+                    <%--<a href="/user/donations/formStep3">Step 3</a>--%>
 
                 </div>
             </div>

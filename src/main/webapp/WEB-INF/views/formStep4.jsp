@@ -68,12 +68,14 @@
 
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>4</span>/5</div>
-        <form:form modelAttribute="donationForm" action="user/donations/formStep4" method="post">
+        <form:form modelAttribute="donationForm" method="post">
             <!-- STEP 4 -->
             <div data-step="4" class="active">
-                <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+                <h3>Wybierz organizację, której chcesz pomóc:</h3>
 
-                <div class="form-group form-group--checkbox">
+                <form:radiobuttons path="charity" delimiter="</br>" items="${selectedCharities}" itemLabel="charityName" itemValue="id"/><form:errors path="charity"/>
+
+                <%--<div class="form-group form-group--checkbox">
                     <label>
                         <input type="radio" name="organization" value="old"/>
                         <span class="checkbox radio"></span>
@@ -99,12 +101,12 @@
                   </div>
                 </span>
                     </label>
-                </div>
+                </div>--%>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="button" class="btn next-step">Dalej</button>
-                    <a href="/user/donations/formStep5">Step 5</a>
+                    <a href="${pageContext.request.contextPath}/user/donations/formStep3" class="btn prev-step">Wstecz</a>
+                    <button type="submit" class="btn next-step">Dalej</button>
+
                 </div>
             </div>
         </form:form>
