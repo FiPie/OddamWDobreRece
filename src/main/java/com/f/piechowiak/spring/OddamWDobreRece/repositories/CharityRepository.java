@@ -36,14 +36,8 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
     List<Charity> findAllCharitiesByIdList(List<Long> ids);
 
 
-
-
-
     List<Charity> findAllByIdIn(List<Long> ids);        //działa ale nie służy;)
-
-
     List<Charity> findAllByCharityActivityType_IdInAndAcceptedGiftTypesIn(List<Long> ids, List<GiftType> gifts);    //Ta działa!
-
     List<Charity> findByCharityActivityType_IdInAndAcceptedGiftTypesInAndCityIs(List<Long> ids, List<GiftType> gifts, String city);    //działa!
     List<Charity> findDistinctByCharityActivityType_IdInAndAcceptedGiftTypesInAndCityIs(List<Long> ids, List<GiftType> gifts, String city);    //działa!
 

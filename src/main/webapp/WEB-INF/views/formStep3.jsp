@@ -66,13 +66,13 @@
 
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>3</span>/5</div>
-        <form:form modelAttribute="charityForm" method="post">
+        <form:form modelAttribute="donationForm" method="post">
             <!-- STEP 3 -->
             <div data-step="3" class="active">
                 <h3>Lokalizacja:</h3>
 
                 <div class="form-group form-group--dropdown">
-                    <form:select path="city" items="${cityList}"/><form:errors path="city"/>
+                    <form:select path="selectedCharityCity" items="${cityList}"/><form:errors path="selectedCharityCity"/>
                     <%--<select name="localization">
                         <option value="0">- wybierz -</option>
                         <option value="warsaw">Warszawa</option>
@@ -85,7 +85,7 @@
                 <div class="form-section">
                     <h4>Komu chcesz pomóc?</h4>
                     <div class="form-section--checkboxes">
-                        <form:checkboxes path="charityActivityList" items="${charityActivityList}" itemValue="id" itemLabel="organizationActivity"/><form:errors path="charityActivityList"/>
+                        <form:checkboxes path="selectedCharityActivityList" items="${charityActivityList}" itemValue="id" itemLabel="organizationActivity"/><form:errors path="selectedCharityActivityList"/>
 
                         <%--<div class="form-group form-group--checkbox">
                             <label>
@@ -99,7 +99,7 @@
                 <div class="form-section">
                     <h4>Wpisz nazwę konkretnej organizacji (opcjonalnie)</h4>
                     <div class="form-group">
-                        <form:textarea rows="4" path="charityName"/><form:errors path="charityName"/>
+                        <form:textarea rows="4" path="selectedCharityName"/><form:errors path="selectedCharityName"/>
                         <%--<textarea rows="4" name="organization_search"></textarea>--%>
                     </div>
                 </div>

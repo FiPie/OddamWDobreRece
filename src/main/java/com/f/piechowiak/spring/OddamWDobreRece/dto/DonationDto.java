@@ -1,6 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.dto;
 
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
+import com.f.piechowiak.spring.OddamWDobreRece.models.CharityActivity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.GiftType;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 
@@ -17,14 +18,49 @@ public class DonationDto {
     private User user;                          //Benefaktor
     private Charity charity;                    //Beneficjent
     private boolean giftPickedUp;               //status daru odebrany/nieodebrany
-    private LocalDate pickUpDate;               //data odbioru daru
-    private LocalTime pickUpHour;               //godzina odbioru
-    private String city;
-    private String street;
-    private String postCode;
-    private String phone;
+    private LocalDate pickUpDate;               //data odbioru darowizny
+    private LocalTime pickUpHour;               //godzina odbioru darowizny
+    private String city;                        //adres odbioru darowizny (miasto)
+    private String street;                      //adres odbioru darowizny (ulica)
+    private String postCode;                    //adres odbioru darowizny (kod pocztowy)
+    private String phone;                       //numer telefonu kontaktowego z userem
     private LocalDateTime statusChangeDate;     //data zminay statusu daru odebrany/nieodebrany
-    private String notes;
+    private String notes;                       //nota opcjonalna, uwagi dla kuriera/obiorcy darowizny
+
+
+
+    //auxiliary search data (won't persist)
+
+    private String selectedCharityCity;
+    private List<CharityActivity> selectedCharityActivityList;
+    private String selectedCharityName;
+
+    public String getSelectedCharityCity() {
+        return selectedCharityCity;
+    }
+
+    public void setSelectedCharityCity(String selectedCharityCity) {
+        this.selectedCharityCity = selectedCharityCity;
+    }
+
+    public List<CharityActivity> getSelectedCharityActivityList() {
+        return selectedCharityActivityList;
+    }
+
+    public void setSelectedCharityActivityList(List<CharityActivity> selectedCharityActivityList) {
+        this.selectedCharityActivityList = selectedCharityActivityList;
+    }
+
+    public String getSelectedCharityName() {
+        return selectedCharityName;
+    }
+
+    public void setSelectedCharityName(String selectedCharityName) {
+        this.selectedCharityName = selectedCharityName;
+    }
+
+    //end of auxiliary data
+
 
 
     public Long getId() {
