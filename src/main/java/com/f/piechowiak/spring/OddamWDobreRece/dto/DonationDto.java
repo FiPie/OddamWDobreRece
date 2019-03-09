@@ -4,6 +4,9 @@ import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.CharityActivity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.GiftType;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
+import org.apache.tomcat.jni.Time;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,7 +21,9 @@ public class DonationDto {
     private User user;                          //Benefaktor
     private Charity charity;                    //Beneficjent
     private boolean giftPickedUp;               //status daru odebrany/nieodebrany
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate pickUpDate;               //data odbioru darowizny
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime pickUpHour;               //godzina odbioru darowizny
     private String city;                        //adres odbioru darowizny (miasto)
     private String street;                      //adres odbioru darowizny (ulica)

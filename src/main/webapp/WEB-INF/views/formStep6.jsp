@@ -56,7 +56,7 @@
 
 
     <div class="form--steps-container">
-        <form:form modelAttribute="donationForm" action="user/donations/formStep6" method="post">
+        <form:form modelAttribute="donationForm" method="post">
             <!-- STEP 6 -->
             <div data-step="6" class="active">
                 <h3>Podsumowanie Twojej darowizny</h3>
@@ -67,15 +67,19 @@
                         <ul>
                             <li>
                                 <span class="icon icon-bag"></span>
-                                <span class="summary--text"
-                                >4 worki ubrań w dobrym stanie dla dzieci</span
-                                >
+                                <span class="summary--text">
+                                        ${sessionScope.quantitySelected} worki
+                                            <c:forEach var="gifts" items="${sessionScope.giftTypesSelected}">
+                                                <span>${gifts.giftType},</span>
+                                            </c:forEach>
+
+                                </span>
                             </li>
 
                             <li>
                                 <span class="icon icon-hand"></span>
                                 <span class="summary--text"
-                                >Dla fundacji "Mam marzenie" w Warszawie</span
+                                >Dla: ${sessionScope.selectedCharity.charityName}</span
                                 >
                             </li>
                         </ul>
@@ -85,28 +89,29 @@
                         <div class="form-section--column">
                             <h4>Adres odbioru:</h4>
                             <ul>
-                                <li>Prosta 51</li>
-                                <li>Warszawa</li>
-                                <li>99-098</li>
-                                <li>123 456 789</li>
+                                <li>${donationForm.street} </li>
+                                <li>${donationForm.city}</li>
+                                <li>${donationForm.postCode}</li>
+                                <li>${donationForm.phone}</li>
                             </ul>
                         </div>
 
                         <div class="form-section--column">
                             <h4>Termin odbioru:</h4>
                             <ul>
-                                <li>13/12/2018</li>
-                                <li>15:40</li>
-                                <li>Brak uwag</li>
+                                <li>${donationForm.pickUpDate}</li>
+                                <li>${donationForm.pickUpHour}</li>
+                                <li>${donationForm.notes}</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <a href="${pageContext.request.contextPath}/user/donations/formStep5"
+                       class="btn prev-step">Wstecz</a>
                     <button type="submit" class="btn">Potwierdzam</button>
-                    <a href="/user/donations/formStep7">Step 7</a>
+
                 </div>
             </div>
         </form:form>

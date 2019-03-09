@@ -1,10 +1,14 @@
 package com.f.piechowiak.spring.OddamWDobreRece.models;
 
 
+import org.apache.tomcat.jni.Time;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -37,9 +41,11 @@ public class Donation {
     @Column
     private boolean giftPickedUp;   //status daru odebrany/nieodebrany
     @Column
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate pickUpDate;   //data odbioru daru
     @Column
-    private LocalTime pickUpHour;                            //godzina odbioru
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime pickUpHour;   //godzina odbioru
     @Column
     private String city;
     @Column
@@ -143,6 +149,14 @@ public class Donation {
         this.pickUpDate = pickUpDate;
     }
 
+    public LocalTime getPickUpHour() {
+        return pickUpHour;
+    }
+
+    public void setPickUpHour(LocalTime pickUpHour) {
+        this.pickUpHour = pickUpHour;
+    }
+
     public String getCity() {
         return city;
     }
@@ -183,13 +197,7 @@ public class Donation {
         this.statusChangeDate = statusChangeDate;
     }
 
-    public LocalTime getPickUpHour() {
-        return pickUpHour;
-    }
 
-    public void setPickUpHour(LocalTime pickUpHour) {
-        this.pickUpHour = pickUpHour;
-    }
 
     public String getNotes() {
         return notes;

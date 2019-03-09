@@ -7,6 +7,7 @@ import com.f.piechowiak.spring.OddamWDobreRece.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -210,12 +211,34 @@ public class DonationFormController {
     /*STEP 6*/
     @GetMapping("/formStep6")
     public String prepareDonationForm6(Model model, Principal principal) {
-        DonationDto finalDto = (DonationDto) session.getAttribute( "donationForm" );
-        model.addAttribute( "finalDto", finalDto );
+        DonationDto finalDto = (DonationDto) session.getAttribute( "form5" );
+        model.addAttribute( "donationForm", finalDto );
+        //System.err.println(" SelectedGiftTypes : " + session.getAttribute( "giftTypesSelected" ).toString());
+        // model.addAttribute( "giftTypeList", giftTypeList );
+
 
 
         return "formStep6";
     }
+    @PostMapping("/formStep6")
+    public  String formStep6 (@ModelAttribute("donationForm") @Valid DonationDto form, BindingResult result, Model model, Principal principal)
+    {
+
+
+        if (result.hasErrors()) {
+            return "/formStep6";
+        }
+        boolean success = donationService.createDonation( form );
+        if (success) {
+            return "redirect:/user/donation/formStep7";
+        } else {
+            result.rejectValue( "charityName", null, "Cos poszlo nietak, sprobuj jeszcze raz:)" );
+            return "/formStep6";
+
+        }
+
+    }
+
 
     /*STEP 7*/
     @GetMapping("/formStep7")
