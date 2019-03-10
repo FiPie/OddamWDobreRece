@@ -109,6 +109,9 @@
 
                 <div>
                     <form:hidden path="quantity" value="${quantity}" /><form:errors path="quantity"/>
+                    <%--<c:forEach items="${giftTypeList}" var="giftType">
+                        <form:hidden path="giftTypeList" value="${giftType.id}"
+                    </c:forEach>--%>
                     <form:hidden path="giftTypeList" value="${giftTypeList}"/><form:errors path="giftTypeList"/>
                     <form:hidden path="user" value="${donatingUser}"/><form:errors path="user"/>
                     <form:hidden path="charity" value="${charity}" /><form:errors path="charity"/>
