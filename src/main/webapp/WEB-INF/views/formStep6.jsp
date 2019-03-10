@@ -68,7 +68,7 @@
                             <li>
                                 <span class="icon icon-bag"></span>
                                 <span class="summary--text">
-                                        ${sessionScope.quantitySelected} worki
+                                        ${sessionScope['quantitySelected']} worki
                                             <c:forEach var="gifts" items="${sessionScope.giftTypesSelected}">
                                                 <span>${gifts.giftType},</span>
                                             </c:forEach>
@@ -89,22 +89,36 @@
                         <div class="form-section--column">
                             <h4>Adres odbioru:</h4>
                             <ul>
-                                <li>${donationForm.street} </li>
-                                <li>${donationForm.city}</li>
-                                <li>${donationForm.postCode}</li>
-                                <li>${donationForm.phone}</li>
+                                <li>${form5.street} </li>
+                                <li>${form5.city}</li>
+                                <li>${form5.postCode}</li>
+                                <li>${form5.phone}</li>
                             </ul>
                         </div>
 
                         <div class="form-section--column">
                             <h4>Termin odbioru:</h4>
                             <ul>
-                                <li>${donationForm.pickUpDate}</li>
-                                <li>${donationForm.pickUpHour}</li>
-                                <li>${donationForm.notes}</li>
+                                <li>${form5.pickUpDate}</li>
+                                <li>${form5.pickUpHour}</li>
+                                <li>${form5.notes}</li>
                             </ul>
                         </div>
                     </div>
+                </div>
+
+                <div>
+                    <form:hidden path="quantity" value="${quantity}" /><form:errors path="quantity"/>
+                    <form:hidden path="giftTypeList" value="${giftTypeList}"/><form:errors path="giftTypeList"/>
+                    <form:hidden path="user" value="${donatingUser}"/><form:errors path="user"/>
+                    <form:hidden path="charity" value="${charity}" /><form:errors path="charity"/>
+                    <form:hidden path="pickUpDate" value="${form5.pickUpDate}" /><form:errors path="pickUpDate"/>
+                    <form:hidden path="pickUpHour" value="${form5.pickUpHour}" /><form:errors path="pickUpHour"/>
+                    <form:hidden path="city" value="${form5.city}" /><form:errors path="city"/>
+                    <form:hidden path="street" value="${form5.street}" /><form:errors path="street"/>
+                    <form:hidden path="postCode" value="${form5.postCode}" /><form:errors path="postCode"/>
+                    <form:hidden path="phone" value="${form5.phone}" /><form:errors path="phone"/>
+                    <form:hidden path="notes" value="${form5.notes}" /><form:errors path="notes"/>
                 </div>
 
                 <div class="form-group form-group--buttons">
@@ -114,6 +128,7 @@
 
                 </div>
             </div>
+
         </form:form>
     </div>
 

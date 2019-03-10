@@ -32,8 +32,8 @@ public class User {
     @Column
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL} , targetEntity = UserRole.class)
-    private List<UserRole> userRoles;
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL} , targetEntity = UserRole.class)
+    private UserRole userRoles;
 
     @OneToMany(mappedBy = "user")
     private List<Donation> userDonationsList;
@@ -93,9 +93,13 @@ public class User {
         this.enabled = enabled;
     }
 
-    public List<UserRole> getUserRoles() { return userRoles; }
+    public UserRole getUserRoles() {
+        return userRoles;
+    }
 
-    public void setUserRoles(List<UserRole> userRoles) { this.userRoles = userRoles; }
+    public void setUserRoles(UserRole userRoles) {
+        this.userRoles = userRoles;
+    }
 
     public List<Donation> getUserDonationsList() { return userDonationsList; }
 
@@ -114,7 +118,6 @@ public class User {
                 .add( "email='" + email + "'" )
                 .add( "password='" + password + "'" )
                 .add( "enabled=" + enabled )
-                .add( "userRoles=" + userRoles )
                 .add( "userDonationsList=" + userDonationsList )
                 .toString();
     }

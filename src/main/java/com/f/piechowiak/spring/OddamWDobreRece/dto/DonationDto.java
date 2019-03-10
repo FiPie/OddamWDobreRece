@@ -40,29 +40,12 @@ public class DonationDto {
     private List<CharityActivity> selectedCharityActivityList;
     private String selectedCharityName;
 
-    public String getSelectedCharityCity() {
-        return selectedCharityCity;
-    }
-
-    public void setSelectedCharityCity(String selectedCharityCity) {
-        this.selectedCharityCity = selectedCharityCity;
-    }
-
-    public List<CharityActivity> getSelectedCharityActivityList() {
-        return selectedCharityActivityList;
-    }
-
-    public void setSelectedCharityActivityList(List<CharityActivity> selectedCharityActivityList) {
-        this.selectedCharityActivityList = selectedCharityActivityList;
-    }
-
-    public String getSelectedCharityName() {
-        return selectedCharityName;
-    }
-
-    public void setSelectedCharityName(String selectedCharityName) {
-        this.selectedCharityName = selectedCharityName;
-    }
+    public String getSelectedCharityCity() { return selectedCharityCity; }
+    public void setSelectedCharityCity(String selectedCharityCity) { this.selectedCharityCity = selectedCharityCity; }
+    public List<CharityActivity> getSelectedCharityActivityList() { return selectedCharityActivityList; }
+    public void setSelectedCharityActivityList(List<CharityActivity> selectedCharityActivityList) { this.selectedCharityActivityList = selectedCharityActivityList; }
+    public String getSelectedCharityName() { return selectedCharityName; }
+    public void setSelectedCharityName(String selectedCharityName) { this.selectedCharityName = selectedCharityName; }
 
     //end of auxiliary data
 

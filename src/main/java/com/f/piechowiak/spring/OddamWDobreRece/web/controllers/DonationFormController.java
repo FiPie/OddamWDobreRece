@@ -71,6 +71,11 @@ public class DonationFormController {
         List<GiftType> allGiftTypes = giftTypeReposiotry.findAll();
         model.addAttribute( "giftTypeList", allGiftTypes );
         model.addAttribute( "donationForm", new DonationDto() );
+
+        User donatingUser = userRepository.findByEmail( principal.getName() );
+        model.addAttribute( "donatingUser", donatingUser );
+        System.err.println( "User donator : " + donatingUser );
+
         return "formStep1";
     }
 
@@ -188,7 +193,7 @@ public class DonationFormController {
 
         Charity selectedCharity = form.getCharity();
         session.setAttribute( "selectedCharity", selectedCharity );
-        System.err.println("Selected Charity : "+selectedCharity.toString());
+        System.err.println( "Selected Charity : " + selectedCharity.toString() );
 
         return "redirect:/user/donations/formStep5";
     }
@@ -211,18 +216,31 @@ public class DonationFormController {
     /*STEP 6*/
     @GetMapping("/formStep6")
     public String prepareDonationForm6(Model model, Principal principal) {
-        DonationDto finalDto = (DonationDto) session.getAttribute( "form5" );
-        model.addAttribute( "donationForm", finalDto );
-        //System.err.println(" SelectedGiftTypes : " + session.getAttribute( "giftTypesSelected" ).toString());
-        // model.addAttribute( "giftTypeList", giftTypeList );
+        DonationDto form5 = (DonationDto) session.getAttribute( "form5" );
+        DonationDto form4 = (DonationDto) session.getAttribute( "form4" );
+        DonationDto form2 = (DonationDto) session.getAttribute( "form2" );
+        DonationDto form1 = (DonationDto) session.getAttribute( "form1" );
+
+        Charity charity = form4.getCharity();
+        List<GiftType> giftTypeList = form1.getGiftTypeList();
+        User donatingUser = userRepository.findByEmail( principal.getName() );
+        Long quantity = form2.getQuantity();
+
+        model.addAttribute( "donationForm", new DonationDto() );
+        model.addAttribute( "form5", form5 );
+        model.addAttribute( "charity", charity );
+        model.addAttribute( "giftTypeList", giftTypeList );
+        model.addAttribute( "donatingUser", donatingUser );
+        model.addAttribute( "quantity", quantity );
 
 
+        System.err.println("GiftTypeList from form1 :" + giftTypeList);
 
         return "formStep6";
     }
+
     @PostMapping("/formStep6")
-    public  String formStep6 (@ModelAttribute("donationForm") @Valid DonationDto form, BindingResult result, Model model, Principal principal)
-    {
+    public String formStep6(@ModelAttribute("donationForm")@Valid DonationDto form, BindingResult result) {
 
 
         if (result.hasErrors()) {

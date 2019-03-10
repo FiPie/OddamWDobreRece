@@ -46,7 +46,7 @@ public class UserService {
     public boolean delete(Long id) {
         User user = new User();
         user.setId( id );
-        if (userRepository.findById( user.getId() ) != null) {
+        if (userRepository.findById( user.getId() ).isPresent()) {          //zmiana z != null
             userRepository.deleteById( user.getId() );
         }
 
@@ -116,7 +116,7 @@ public class UserService {
     public boolean deleteAdmin(AdminFormDto form) {
         User user = new User();
         user.setId( form.getId() );
-        if (userRepository.findById( user.getId() ) != null) {
+        if (userRepository.findById( user.getId() ).isPresent()) {          //zmiana z != null
             userRepository.deleteById( user.getId() );
         }
 
