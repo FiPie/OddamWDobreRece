@@ -2,6 +2,7 @@ package com.f.piechowiak.spring.OddamWDobreRece.models;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 @Entity
 @Table(name = "gift_types")
@@ -14,7 +15,13 @@ public class GiftType {
     @Column
     private String giftType;
 
-
+    @Override
+    public String toString() {
+        return new StringJoiner( ", ", GiftType.class.getSimpleName() + "[", "]" )
+                .add( "id=" + id )
+                .add( "giftType='" + giftType + "'" )
+                .toString();
+    }
 
     @Override
     public boolean equals(Object o) {
