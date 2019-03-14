@@ -24,13 +24,13 @@ public class Donation {
     @Column                         //ilość worków 60L
     private Long quantity;
 
-    @ManyToMany                     //Rodzaje przekazanych darów
+    @ManyToMany (cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.EAGER)                    //Rodzaje przekazanych darów
     @JoinTable(name = "donation_gift_type_id",
     joinColumns = @JoinColumn(name = "donation_id"),
     inverseJoinColumns = @JoinColumn(name = "gift_type_id"))
     private List<GiftType> giftTypeList;
 
-    @ManyToOne /*(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.EAGER)*/    //Darczyńca
+    @ManyToOne (cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.EAGER)    //Darczyńca
     @JoinColumn(name = "user_id")
     private User user;
 

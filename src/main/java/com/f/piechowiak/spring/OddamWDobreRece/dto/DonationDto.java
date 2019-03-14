@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConf
 import org.springframework.format.annotation.DateTimeFormat;
 
 
+import javax.validation.constraints.Future;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -27,6 +28,7 @@ public class DonationDto {
 
     private boolean giftPickedUp;               //status daru odebrany/nieodebrany
     @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Future
     private LocalDate pickUpDate;               //data odbioru darowizny
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime pickUpHour;               //godzina odbioru darowizny

@@ -5,6 +5,8 @@ import com.f.piechowiak.spring.OddamWDobreRece.core.DonationService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.GiftTypeService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.DonationDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.RegistrationFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.email.EmailSender;
 import com.f.piechowiak.spring.OddamWDobreRece.models.*;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/user/donations")             //to be checked if correct
@@ -53,10 +54,11 @@ public class DonationFormController {
     UserService userService;
     final
     CharityService charityService;
-
+    final
+    EmailSender emailSender;
 
     @Autowired
-    public DonationFormController(UserRepository userRepository, HttpSession session, UserRoleRepository userRoleRepository, DonationRepository donationRepository, CharityRepository charityRepository, CharityTypeRepository charityTypeRepository, CharityActivityRepository charityActivityRepository, GiftTypeReposiotry giftTypeReposiotry, DonationService donationService, GiftTypeService giftTypeService, UserService userService, CharityService charityService) {
+    public DonationFormController(UserRepository userRepository, HttpSession session, UserRoleRepository userRoleRepository, DonationRepository donationRepository, CharityRepository charityRepository, CharityTypeRepository charityTypeRepository, CharityActivityRepository charityActivityRepository, GiftTypeReposiotry giftTypeReposiotry, DonationService donationService, GiftTypeService giftTypeService, UserService userService, CharityService charityService, EmailSender emailSender) {
         this.userRepository = userRepository;
         this.session = session;
         this.userRoleRepository = userRoleRepository;
@@ -69,6 +71,7 @@ public class DonationFormController {
         this.giftTypeService = giftTypeService;
         this.userService = userService;
         this.charityService = charityService;
+        this.emailSender = emailSender;
     }
 
 
@@ -276,7 +279,8 @@ public class DonationFormController {
         }
         boolean success = donationService.createDonation( form );
         if (success) {
-            return "redirect:/user/donation/formStep7";
+            emailSender.sendEmail( form.getUser().getEmail(), "OddamWDobreRece - Informacje nt. odbioru dokonanej darowizny "+ form.getUser().getEmail(), prepareEmail( form ) );
+            return "redirect:/user/donations/formStep7";
         } else {
             result.rejectValue( "charityName", null, "Cos poszlo nietak, sprobuj jeszcze raz:)" );
             return "/formStep6";
@@ -291,7 +295,32 @@ public class DonationFormController {
     public String prepareDonationForm7() {
 
 
-        return "/formStep7";
+        return "formStep7";
+    }
+
+    private String prepareEmail(@ModelAttribute("donationDto") @Valid DonationDto form){
+        StringBuilder sb = new StringBuilder(  );
+        sb.append( "Witaj <b>" )
+                .append( form.getUser().getFirstName() ).append( " " )
+                .append( form.getUser().getLastName() )
+                .append( "</b>, <br><br>" )
+                .append( "Poniżej znajdziesz szczegóły odbioru Twojej darowizny: " )
+                .append( "Kurier OddamWDobreRece odbierze od Ciebie : " ).append( "<br>" )
+                .append( form.getQuantity() ).append( " worków 60l " )
+                .append( "W dniu : " ).append( form.getPickUpDate() )
+                .append( ", o godzinie : " ).append( form.getPickUpHour() ).append( "<br>" )
+                .append( "Pod adresem : " ).append( "<br>" )
+                .append( "Ul." ).append( form.getStreet() ).append( "<br>" )
+                .append( form.getCity() ).append( " , Kod Pocztowy: " ).append( form.getPostCode() ).append( "<br>" )
+                .append( "Kurier ma Twój numer telefoniczny : " ).append( form.getPhone() ).append( "<br>" )
+                .append( "Twoje ewentualne uwagi dla kuriera : " ).append( form.getNotes() ).append( "<br>" )
+                .append( "Gdybyś miał/a jakiekolwiek problemy z użytkowaniem naszego portalu skontaktuj się z nami!" ).append( "<br>" )
+                .append( "http://localhost:5000/contact" ).append( "<br>" )
+                .append( "Pozdrawiamy :)" ).append( "<br>" )
+                .append( "Zespół OddamWDobreRece.pl" );
+
+        return sb.toString();
+
     }
 
 }
