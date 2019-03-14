@@ -118,7 +118,9 @@ public class User {
                 .add( "email='" + email + "'" )
                 .add( "password='" + password + "'" )
                 .add( "enabled=" + enabled )
+                .add( "userRoles=" + userRoles )
                 .add( "userDonationsList=" + userDonationsList )
+                .add( "uuid='" + uuid + "'" )
                 .toString();
     }
 

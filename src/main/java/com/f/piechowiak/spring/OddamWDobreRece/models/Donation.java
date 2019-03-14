@@ -65,7 +65,7 @@ public class Donation {
                 .add( "id=" + id )
                 .add( "quantity=" + quantity )
                 .add( "giftTypeList=" + giftTypeList )
-                .add( "user=" + user )
+                /*.add( "user=" + user )*/          //wiesza się z jakiegoś powodu...
                 .add( "charity=" + charity )
                 .add( "giftPickedUp=" + giftPickedUp )
                 .add( "pickUpDate=" + pickUpDate )

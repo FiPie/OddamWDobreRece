@@ -1,6 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 @Entity
@@ -23,8 +24,21 @@ public class UserRole {
         return new StringJoiner( ", ", UserRole.class.getSimpleName() + "[", "]" )
                 .add( "id=" + id )
                 .add( "role='" + role + "'" )
-                .add( "user=" + user )
+                /*.add( "user=" + user )*/        //wiesza się z jakiegoś powodu...
                 .toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserRole userRole = (UserRole) o;
+        return Objects.equals( id, userRole.id );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash( id );
     }
 
     public Long getId() {

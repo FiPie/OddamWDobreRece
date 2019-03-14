@@ -109,12 +109,12 @@
 
                 <div>
                     <form:hidden path="quantity" value="${quantity}" /><form:errors path="quantity"/>
-                    <%--<c:forEach items="${giftTypeList}" var="giftType">
-                        <form:hidden path="giftTypeList" value="${giftType.id}"
-                    </c:forEach>--%>
-                    <form:hidden path="giftTypeList" value="${giftTypeList}"/><form:errors path="giftTypeList"/>
-                    <form:hidden path="user" value="${donatingUser}"/><form:errors path="user"/>
-                    <form:hidden path="charity" value="${charity}" /><form:errors path="charity"/>
+                    <c:forEach items="${giftTypeList}" var="giftType">
+                        <form:hidden path="giftTypeList" value="${giftType.longValue()}"/>
+                    </c:forEach>
+                    <%--<form:hidden path="giftTypeList"  items="${giftTypeList}"/><form:errors path="giftTypeList"/>--%>
+                    <form:hidden path="user" value="${donatingUser.id}"/><form:errors path="user"/>
+                    <form:hidden path="charity" value="${charity.id}" /><form:errors path="charity"/>
                     <form:hidden path="pickUpDate" value="${form5.pickUpDate}" /><form:errors path="pickUpDate"/>
                     <form:hidden path="pickUpHour" value="${form5.pickUpHour}" /><form:errors path="pickUpHour"/>
                     <form:hidden path="city" value="${form5.city}" /><form:errors path="city"/>

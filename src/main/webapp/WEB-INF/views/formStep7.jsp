@@ -53,11 +53,8 @@
 </header>
 
 <section class="form--steps">
-
-
     <div class="form--steps-container">
-        <form:form modelAttribute="donationForm" action="user/donations/formStep6" method="post">
-
+        <form>
             <!-- STEP 7 -->
             <div data-step="7" class="active">
                 <h2>
@@ -65,7 +62,7 @@
                     informacje o odbiorze.
                 </h2>
             </div>
-        </form:form>
+        </form>
     </div>
 
 </section>

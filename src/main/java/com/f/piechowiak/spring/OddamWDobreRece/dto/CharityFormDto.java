@@ -4,21 +4,16 @@ import com.f.piechowiak.spring.OddamWDobreRece.models.CharityActivity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.CharityType;
 import com.f.piechowiak.spring.OddamWDobreRece.models.GiftType;
 
-import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 public class CharityFormDto {
 
     private Long id;
-
     private String charityName;
-
     private String city;
-
     private CharityActivity charityActivityType;
-
     private List<GiftType> acceptedGiftTypes;
-
     private CharityType charityStructureType;
 
     public Long getId() {

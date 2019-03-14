@@ -4,7 +4,9 @@ import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.CharityActivity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.GiftType;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
-import org.apache.tomcat.jni.Time;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.servlet.error.DefaultErrorViewResolver;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -17,9 +19,12 @@ public class DonationDto {
 
     private Long id;
     private Long quantity;                      //ilość worków 60L
+
+
     private List<GiftType> giftTypeList;        //Rodzaje przekazanych darów
     private User user;                          //Benefaktor
     private Charity charity;                    //Beneficjent
+
     private boolean giftPickedUp;               //status daru odebrany/nieodebrany
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate pickUpDate;               //data odbioru darowizny
@@ -54,7 +59,6 @@ public class DonationDto {
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -62,7 +66,6 @@ public class DonationDto {
     public Long getQuantity() {
         return quantity;
     }
-
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
@@ -70,7 +73,6 @@ public class DonationDto {
     public List<GiftType> getGiftTypeList() {
         return giftTypeList;
     }
-
     public void setGiftTypeList(List<GiftType> giftTypeList) {
         this.giftTypeList = giftTypeList;
     }
@@ -78,7 +80,6 @@ public class DonationDto {
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -86,7 +87,6 @@ public class DonationDto {
     public Charity getCharity() {
         return charity;
     }
-
     public void setCharity(Charity charity) {
         this.charity = charity;
     }
@@ -94,7 +94,6 @@ public class DonationDto {
     public boolean isGiftPickedUp() {
         return giftPickedUp;
     }
-
     public void setGiftPickedUp(boolean giftPickedUp) {
         this.giftPickedUp = giftPickedUp;
     }
@@ -102,7 +101,6 @@ public class DonationDto {
     public LocalDate getPickUpDate() {
         return pickUpDate;
     }
-
     public void setPickUpDate(LocalDate pickUpDate) {
         this.pickUpDate = pickUpDate;
     }
@@ -110,7 +108,6 @@ public class DonationDto {
     public LocalTime getPickUpHour() {
         return pickUpHour;
     }
-
     public void setPickUpHour(LocalTime pickUpHour) {
         this.pickUpHour = pickUpHour;
     }
@@ -118,7 +115,6 @@ public class DonationDto {
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
@@ -126,7 +122,6 @@ public class DonationDto {
     public String getStreet() {
         return street;
     }
-
     public void setStreet(String street) {
         this.street = street;
     }
@@ -134,7 +129,6 @@ public class DonationDto {
     public String getPostCode() {
         return postCode;
     }
-
     public void setPostCode(String postCode) {
         this.postCode = postCode;
     }
@@ -142,7 +136,6 @@ public class DonationDto {
     public String getPhone() {
         return phone;
     }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -150,7 +143,6 @@ public class DonationDto {
     public LocalDateTime getStatusChangeDate() {
         return statusChangeDate;
     }
-
     public void setStatusChangeDate(LocalDateTime statusChangeDate) {
         this.statusChangeDate = statusChangeDate;
     }
@@ -158,7 +150,6 @@ public class DonationDto {
     public String getNotes() {
         return notes;
     }
-
     public void setNotes(String notes) {
         this.notes = notes;
     }

@@ -1,6 +1,9 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
+import com.f.piechowiak.spring.OddamWDobreRece.core.CharityService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.DonationService;
+import com.f.piechowiak.spring.OddamWDobreRece.core.GiftTypeService;
+import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.DonationDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.*;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.*;
@@ -20,33 +23,40 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/user/donations")             //to be checked if correct
 public class DonationFormController {
 
-    @Autowired
+    final
     UserRepository userRepository;
-    @Autowired
+    final
     HttpSession session;
-    @Autowired
+    final
     UserRoleRepository userRoleRepository;
-    @Autowired
+    final
     DonationRepository donationRepository;
-    @Autowired
+    final
     CharityRepository charityRepository;
-    @Autowired
+    final
     CharityTypeRepository charityTypeRepository;
-    @Autowired
+    final
     CharityActivityRepository charityActivityRepository;
-    @Autowired
+    final
     GiftTypeReposiotry giftTypeReposiotry;
-    @Autowired
+    final
     DonationService donationService;
+    final
+    GiftTypeService giftTypeService;
+    final
+    UserService userService;
+    final
+    CharityService charityService;
 
 
     @Autowired
-    public DonationFormController() {
+    public DonationFormController(UserRepository userRepository, HttpSession session, UserRoleRepository userRoleRepository, DonationRepository donationRepository, CharityRepository charityRepository, CharityTypeRepository charityTypeRepository, CharityActivityRepository charityActivityRepository, GiftTypeReposiotry giftTypeReposiotry, DonationService donationService, GiftTypeService giftTypeService, UserService userService, CharityService charityService) {
         this.userRepository = userRepository;
         this.session = session;
         this.userRoleRepository = userRoleRepository;
@@ -55,6 +65,10 @@ public class DonationFormController {
         this.charityTypeRepository = charityTypeRepository;
         this.charityActivityRepository = charityActivityRepository;
         this.giftTypeReposiotry = giftTypeReposiotry;
+        this.donationService = donationService;
+        this.giftTypeService = giftTypeService;
+        this.userService = userService;
+        this.charityService = charityService;
     }
 
 
@@ -222,28 +236,42 @@ public class DonationFormController {
         DonationDto form1 = (DonationDto) session.getAttribute( "form1" );
 
         Charity charity = form4.getCharity();
+        List<Long> longList=new ArrayList<>(  );
         List<GiftType> giftTypeList = form1.getGiftTypeList();
+        for (GiftType giftType : giftTypeList
+             ) {
+                longList.add(giftType.getId());
+        }
+
+
         User donatingUser = userRepository.findByEmail( principal.getName() );
         Long quantity = form2.getQuantity();
 
         model.addAttribute( "donationForm", new DonationDto() );
         model.addAttribute( "form5", form5 );
+        model.addAttribute( "form1", form1 );
+        model.addAttribute( "form4", form4 );
+        model.addAttribute( "form2", form2 );
+
+
         model.addAttribute( "charity", charity );
-        model.addAttribute( "giftTypeList", giftTypeList );
+        model.addAttribute( "giftTypeList", longList );
         model.addAttribute( "donatingUser", donatingUser );
         model.addAttribute( "quantity", quantity );
 
 
-        System.err.println("GiftTypeList from form1 :" + giftTypeList);
+        System.err.println( "GiftTypeList from form1 :" + giftTypeList );
+        System.err.println( "GiftTypeList from form1 :" + longList );
 
         return "formStep6";
     }
 
     @PostMapping("/formStep6")
-    public String formStep6(@ModelAttribute("donationForm")@Valid DonationDto form, BindingResult result) {
+    public String formStep6(@ModelAttribute("donationForm") @Valid DonationDto form, BindingResult result) {
 
 
         if (result.hasErrors()) {
+
             return "/formStep6";
         }
         boolean success = donationService.createDonation( form );
@@ -260,9 +288,10 @@ public class DonationFormController {
 
     /*STEP 7*/
     @GetMapping("/formStep7")
-    public String prepareDonationForm7(Model model, Principal principal) {
+    public String prepareDonationForm7() {
 
-        return "formStep7";
+
+        return "/formStep7";
     }
 
 }

@@ -6,7 +6,10 @@ import com.f.piechowiak.spring.OddamWDobreRece.dto.GiftFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Donation;
 import com.f.piechowiak.spring.OddamWDobreRece.models.GiftType;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.DonationRepository;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.GiftTypeReposiotry;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +21,13 @@ public class DonationService {
 
     @Autowired
     DonationRepository donationRepository;
-
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    CharityRepository charityRepository;
+    @Autowired
+    GiftTypeReposiotry giftTypeReposiotry;
+    @Autowired
     public DonationService(DonationRepository donationRepository) {
         this.donationRepository = donationRepository;
     }
@@ -39,9 +48,8 @@ public class DonationService {
         donation.setStreet( form.getStreet() );
         donation.setPostCode( form.getPostCode() );
         donation.setPhone( form.getPhone() );
-        donation.setStatusChangeDate( form.getStatusChangeDate() );
         donation.setNotes( form.getNotes() );
-        donation = donationRepository.save( donation );
+        donationRepository.save( donation );
 
         return true;
     }
