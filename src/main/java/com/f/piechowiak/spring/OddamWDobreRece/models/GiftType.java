@@ -15,6 +15,8 @@ public class GiftType {
     @Column
     private String giftType;
 
+
+
     @Override
     public String toString() {
         return new StringJoiner( ", ", GiftType.class.getSimpleName() + "[", "]" )

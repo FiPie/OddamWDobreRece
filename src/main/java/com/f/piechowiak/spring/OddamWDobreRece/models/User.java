@@ -35,7 +35,7 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL} , targetEntity = UserRole.class)
     private UserRole userRoles;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, targetEntity = Donation.class)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL},fetch = FetchType.EAGER, targetEntity = Donation.class)
     private List<Donation> userDonationsList;
 
     private String uuid;
