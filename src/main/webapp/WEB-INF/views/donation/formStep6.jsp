@@ -15,12 +15,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Form Step 6</title>
-    <link rel="stylesheet" href="../../css/style.css"/>
+    <link rel="stylesheet" href="../../../css/style.css"/>
 </head>
 <body>
 <header class="header--form-page">
     <sec:authorize access="hasRole('ROLE_USER')">
-        <jsp:include page="../fragments/menu.jsp"/>
+        <jsp:include page="../../fragments/menu.jsp"/>
     </sec:authorize>
 
 
@@ -139,7 +139,7 @@
 
 
 <footer>
-    <jsp:include page="../fragments/footer.jsp"/>
+    <jsp:include page="../../fragments/footer.jsp"/>
 </footer>
 
 

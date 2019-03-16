@@ -16,12 +16,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Document</title>
 
-    <link rel="stylesheet" href="../../css/style.css"/>
+    <link rel="stylesheet" href="../../../css/style.css"/>
 </head>
 <body>
 <header class="header--form-page">
     <sec:authorize access="hasRole('ROLE_USER')">
-        <jsp:include page="../fragments/menu.jsp"/>
+        <jsp:include page="../../fragments/menu.jsp"/>
     </sec:authorize>
 
 
@@ -114,7 +114,7 @@
 </section>
 
 <footer>
-    <jsp:include page="../fragments/footer.jsp"/>
+    <jsp:include page="../../fragments/footer.jsp"/>
     <%--<div class="contact">
         <h2>Skontaktuj się z nami</h2>
         <h3>Formularz kontaktowy</h3>

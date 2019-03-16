@@ -5,7 +5,6 @@ import com.f.piechowiak.spring.OddamWDobreRece.core.DonationService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.GiftTypeService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.DonationDto;
-import com.f.piechowiak.spring.OddamWDobreRece.dto.RegistrationFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.email.EmailSender;
 import com.f.piechowiak.spring.OddamWDobreRece.models.*;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.*;
@@ -93,7 +92,7 @@ public class DonationFormController {
         model.addAttribute( "donatingUser", donatingUser );
         System.err.println( "User donator : " + donatingUser );
 
-        return "formStep1";
+        return "donation/formStep1";
     }
 
     @PostMapping("/formStep1")
@@ -119,7 +118,7 @@ public class DonationFormController {
 
         model.addAttribute( "donationForm", new DonationDto() );
         System.err.println( "GiftTypeList from session : " + session.getAttribute( "giftTypesSelected" ).getClass().getTypeName() );
-        return "formStep2";
+        return "donation/formStep2";
     }
 
     @PostMapping("/formStep2")
@@ -148,7 +147,7 @@ public class DonationFormController {
         List<Charity> charityList = charityRepository.findAll();
         model.addAttribute( "charityList", charityList );
 
-        return "formStep3";
+        return "donation/formStep3";
     }
 
     @PostMapping("/formStep3")
@@ -200,7 +199,7 @@ public class DonationFormController {
         model.addAttribute( "selectedCharities", charityListContainingAllCategories );
         model.addAttribute( "donationForm", new DonationDto() );
 
-        return "formStep4";
+        return "donation/formStep4";
     }
 
     @PostMapping("/formStep4")
@@ -219,7 +218,7 @@ public class DonationFormController {
     @GetMapping("/formStep5")
     public String prepareDonationForm5(Model model, Principal principal) {
         model.addAttribute( "donationForm", new DonationDto() );
-        return "formStep5";
+        return "donation/formStep5";
     }
 
     @PostMapping("/formStep5")
@@ -266,7 +265,7 @@ public class DonationFormController {
         System.err.println( "GiftTypeList from form1 :" + giftTypeList );
         System.err.println( "GiftTypeList from form1 :" + longList );
 
-        return "formStep6";
+        return "donation/formStep6";
     }
 
     @PostMapping("/formStep6")
@@ -275,7 +274,7 @@ public class DonationFormController {
 
         if (result.hasErrors()) {
 
-            return "/formStep6";
+            return "donation/formStep6";
         }
         boolean success = donationService.createDonation( form );
         if (success) {
@@ -283,7 +282,7 @@ public class DonationFormController {
             return "redirect:/user/donations/formStep7";
         } else {
             result.rejectValue( "charityName", null, "Cos poszlo nietak, sprobuj jeszcze raz:)" );
-            return "/formStep6";
+            return "donation/formStep6";
 
         }
 
@@ -295,7 +294,7 @@ public class DonationFormController {
     public String prepareDonationForm7() {
 
 
-        return "formStep7";
+        return "donation/formStep7";
     }
 
     private String prepareEmail(@ModelAttribute("donationDto") @Valid DonationDto form){
