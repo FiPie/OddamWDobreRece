@@ -24,7 +24,7 @@ public class Donation {
     @Column                         //ilość worków 60L
     private Long quantity;
 
-    @ManyToMany /*(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)*/                    //Rodzaje przekazanych darów
+    @ManyToMany /*(cascade = {CascadeType.ALL},*/ (fetch = FetchType.EAGER)                    //Rodzaje przekazanych darów
     @JoinTable( name = "donation_gift_type_id",
     joinColumns = @JoinColumn( name = "donation_id"),
     inverseJoinColumns = @JoinColumn( name = "gift_type_id"))

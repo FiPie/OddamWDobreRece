@@ -164,8 +164,8 @@ public class DonationFormController {
     @GetMapping("/formStep4")
     public String prepareDonationForm4(Model model) {
 
-        DonationDto form3 = (DonationDto) session.getAttribute( "form3" );
         DonationDto form1 = (DonationDto) session.getAttribute( "form1" );
+        DonationDto form3 = (DonationDto) session.getAttribute( "form3" );
 
         String city = form3.getSelectedCharityCity();
         System.err.println( "city: " + city );
