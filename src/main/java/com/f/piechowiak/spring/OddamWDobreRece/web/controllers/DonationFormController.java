@@ -97,8 +97,7 @@ public class DonationFormController {
 
     @PostMapping("/formStep1")
     public String formStep1(@ModelAttribute("donationForm") @Valid DonationDto form, Model model) {
-        /*DonationDto donationDtoToForward = donationService.fillPartiallyDonationDto( form );
-        model.addAttribute( "donationForm", donationDtoToForward );*/
+
 
         List<GiftType> giftTypesSelected = form.getGiftTypeList();
         session.setAttribute( "giftTypesSelected", giftTypesSelected );
