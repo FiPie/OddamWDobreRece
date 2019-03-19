@@ -1,17 +1,29 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
+import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.RegistrationFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.email.EmailSender;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
+import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/")
@@ -23,6 +35,10 @@ public class HomepageController {
     HttpSession session;
     @Autowired
     CharityRepository charityRepository;
+    @Autowired
+    UserService userService;
+    @Autowired
+    EmailSender emailSender;
 
 
     @GetMapping
@@ -59,6 +75,57 @@ public class HomepageController {
     @GetMapping("/contact")
     public String contactView(){
         return "contact";
+    }
+
+    @GetMapping("/forgotPassword")
+    public String forgotPasswordPage (Model model){
+
+        model.addAttribute( "passwordReset", new UserFormDto() );
+        return "forgotPassword";
+    }
+
+    @PostMapping("/forgotPassword")
+    public String forgotPasswordForm (@ModelAttribute ("passwordReset") @Valid UserFormDto form, BindingResult result){
+        if (result.hasErrors()) {
+            return "forgotPassword";
+        }
+        User user =  userService.findUserByEmail(form.getEmail());
+        String emailAddress = form.getEmail();
+        if (user != null) {
+            String token = UUID.randomUUID().toString();
+            userService.createPasswordResetTokenForUser(user, token);
+            emailSender.sendEmail( emailAddress, "OddamWDobreRece - Reset Hasła "+ form.getEmail(), constructResetTokenEmail(  user, token ) );
+            return "redirect:/login";
+        } else {
+            result.rejectValue( "email", null, "Cos poszlo nietak przy wpisywaniu danych w formularzu rejestracji, sprobuj jeszcze raz:)" );
+            return "forgotPassword";
+        }
+    }
+
+    /*private SimpleMailMessage constructResetTokenEmail(
+            String contextPath, Locale locale, String token, User user) {
+        String url = contextPath + "/user/changePassword?id=" +
+                user.getId() + "&token=" + token;
+        String message = messages.getMessage("message.resetPassword",
+                null, locale);
+        return constructEmail("Reset Password", message + " \r\n" + url, user);
+    }*/
+
+    private String constructResetTokenEmail(User user, String token){
+        StringBuilder sb = new StringBuilder(  );
+        sb.append( "Witaj <b>" )
+                .append( user.getEmail() )
+                .append( "</b>, <br><br>" )
+                .append( "Czy zapomniałeś swojego hasła i chcesz je teraz zrestartować? " )
+                .append( "OddamWDobreRece umożliwi Tobie zmianę hasła w kilu prostych krokach." ).append( "<br>" )
+                .append( "Jeśli to nie Ty wysłałeś prośbę o zmianę hasła zignoruj ninejszą wiadomość. " ).append( "<br>" )
+                .append( "Możesz skorzystać z poniższego linka i przejść bezpośrednio do strony resetu hasła!" ).append( "<br>" )
+                .append( "http://localhost:5000/login" ).append( "<br>" )
+                .append( "Pozdrawiamy :)" ).append( "<br>" )
+                .append( "Zespół OddamWDobreRece.pl" );
+
+        return sb.toString();
+
     }
 
 }

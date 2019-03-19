@@ -3,8 +3,10 @@ package com.f.piechowiak.spring.OddamWDobreRece.core;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.AdminFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserPasswordFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.models.PasswordResetToken;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.models.UserRole;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.PasswordResetTokenRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRoleRepository userRoleRepository;
+    @Autowired
+    private PasswordResetTokenRepository passwordTokenRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -200,6 +204,18 @@ public class UserService {
 
         return true;
     }
+
+
+    public User findUserByEmail(final String email) {
+        return userRepository.findByEmail(email);
+    }
+
+
+    public void createPasswordResetTokenForUser(final User user, final String token) {
+        final PasswordResetToken myToken = new PasswordResetToken(token, user);
+        passwordTokenRepository.save(myToken);
+    }
+
 
 
 }
