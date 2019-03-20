@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
@@ -85,7 +86,7 @@ public class HomepageController {
     }
 
     @PostMapping("/forgotPassword")
-    public String forgotPasswordForm (@ModelAttribute ("passwordReset") @Valid UserFormDto form, BindingResult result){
+    public String forgotPasswordForm (@ModelAttribute ("passwordReset") @Valid UserFormDto form, BindingResult result, HttpServletRequest request){
         if (result.hasErrors()) {
             return "forgotPassword";
         }
@@ -94,10 +95,10 @@ public class HomepageController {
         if (user != null) {
             String token = UUID.randomUUID().toString();
             userService.createPasswordResetTokenForUser(user, token);
-            emailSender.sendEmail( emailAddress, "OddamWDobreRece - Reset Hasła "+ form.getEmail(), constructResetTokenEmail(  user, token ) );
+            emailSender.sendEmail( emailAddress, "OddamWDobreRece - Reset Hasła "+ form.getEmail(), constructResetTokenEmail( getAppUrl(request), user, token ) );
             return "redirect:/login";
         } else {
-            result.rejectValue( "email", null, "Cos poszlo nietak przy wpisywaniu danych w formularzu rejestracji, sprobuj jeszcze raz:)" );
+            result.rejectValue( "email", null, "Cos poszlo nietak przy wpisywaniu Twojego adresu email, sprobuj jeszcze raz:)" );
             return "forgotPassword";
         }
     }
@@ -111,21 +112,26 @@ public class HomepageController {
         return constructEmail("Reset Password", message + " \r\n" + url, user);
     }*/
 
-    private String constructResetTokenEmail(User user, String token){
+    private String constructResetTokenEmail(String contextPath, User user, String token){
         StringBuilder sb = new StringBuilder(  );
         sb.append( "Witaj <b>" )
-                .append( user.getEmail() )
+                .append( user.getFirstName() )
                 .append( "</b>, <br><br>" )
                 .append( "Czy zapomniałeś swojego hasła i chcesz je teraz zrestartować? " )
                 .append( "OddamWDobreRece umożliwi Tobie zmianę hasła w kilu prostych krokach." ).append( "<br>" )
                 .append( "Jeśli to nie Ty wysłałeś prośbę o zmianę hasła zignoruj ninejszą wiadomość. " ).append( "<br>" )
                 .append( "Możesz skorzystać z poniższego linka i przejść bezpośrednio do strony resetu hasła!" ).append( "<br>" )
-                .append( "http://localhost:5000/login" ).append( "<br>" )
+                .append( contextPath ).append( "/user/changePassword?id=" ).append( user.getId() ).append( "&token=" ).append( token )
+                .append( "<br>" )
                 .append( "Pozdrawiamy :)" ).append( "<br>" )
                 .append( "Zespół OddamWDobreRece.pl" );
 
         return sb.toString();
 
+    }
+
+    private String getAppUrl(HttpServletRequest request) {
+        return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
 
 }
