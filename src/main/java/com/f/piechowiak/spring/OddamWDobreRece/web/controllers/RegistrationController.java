@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -35,14 +36,14 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String registerUser(@ModelAttribute("registrationForm") @Valid RegistrationFormDto form, BindingResult result) {
+    public String registerUser(@ModelAttribute("registrationForm") @Valid RegistrationFormDto form, BindingResult result, HttpServletRequest request) {
         if (result.hasErrors()) {
             return "register";
         }
         boolean success = registrationService.register( form );
         String emailAddress = form.getEmail();
         if (success) {
-            emailSender.sendEmail( emailAddress, "OddamWDobreRece - Utworzono konto użytkownika "+ form.getEmail(), prepareWelcomeEmail( form ) );
+            emailSender.sendEmail( emailAddress, "OddamWDobreRece - Utworzono konto użytkownika "+ form.getEmail(), prepareWelcomeEmail( form, getAppUrl(request) ) );
             return "redirect:/login";
         } else {
             result.rejectValue( "email", null, "Cos poszlo nietak przy wpisywaniu danych w formularzu rejestracji, sprobuj jeszcze raz:)" );
@@ -50,17 +51,17 @@ public class RegistrationController {
         }
     }
 
-    private String prepareWelcomeEmail(@ModelAttribute("registrationForm") @Valid RegistrationFormDto form){
+    private String prepareWelcomeEmail(@ModelAttribute("registrationForm") @Valid RegistrationFormDto form, String contextPath){
         StringBuilder sb = new StringBuilder(  );
         sb.append( "Witaj <b>" )
-                .append( form.getFirstName()).append( " " )
-                .append( form.getLastName())
+                .append( form.getFirstName() ).append( " " )
+                .append( form.getLastName() )
                 .append( "</b>, <br><br>" )
                 .append( "Utworzyliśmy dla Ciebie konto w aplikacji: " )
                 .append( "OddamWDobreRece" ).append( "<br>" )
                 .append( "Twój login to: " ).append( form.getEmail() ).append( "<br>" )
                 .append( "Możesz skorzystać z poniższego linka i przejść bezpośrednio do strony logowania!" ).append( "<br>" )
-                .append( "http://localhost:5000/login" ).append( "<br>" )
+                .append( contextPath ).append( "/login" ).append( "<br>" )
                 .append( "Pozdrawiamy :)" ).append( "<br>" )
                 .append( "Zespół OddamWDobreRece.pl" );
 
@@ -68,6 +69,8 @@ public class RegistrationController {
 
     }
 
-
+    private String getAppUrl(HttpServletRequest request) {
+        return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+    }
 
 }

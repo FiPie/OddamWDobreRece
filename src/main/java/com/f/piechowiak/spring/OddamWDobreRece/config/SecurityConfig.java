@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/register" ).permitAll()
                 .antMatchers( "/login" ).anonymous()
                 .antMatchers( "/*" ).permitAll()
+                .antMatchers( "/user/updatePassword*\",\"/user/savePassword*\",\"/updatePassword*" ).hasAuthority( "CHANGE_PASSWORD_PRIVILEGE" )
                 .antMatchers( "/about" ).permitAll()
                 .antMatchers( "/contact" ).permitAll()
                 .antMatchers( "/news" ).permitAll()

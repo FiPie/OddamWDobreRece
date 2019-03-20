@@ -1,6 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.models;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -18,6 +19,10 @@ public class UserRole {
     @OneToOne(targetEntity = User.class, cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToMany
+    @JoinTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
+    private Collection<Privilege> privileges;
 
     @Override
     public String toString() {
@@ -63,5 +68,13 @@ public class UserRole {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Collection<Privilege> getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(final Collection<Privilege> privileges) {
+        this.privileges = privileges;
     }
 }

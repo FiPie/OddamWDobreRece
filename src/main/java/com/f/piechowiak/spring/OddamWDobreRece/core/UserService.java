@@ -1,6 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.core;
 
 import com.f.piechowiak.spring.OddamWDobreRece.dto.AdminFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.PasswordDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserPasswordFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.PasswordResetToken;
@@ -97,6 +98,12 @@ public class UserService {
 
             return true;
         }
+    }
+
+    @Transactional
+    public void resetUserPassword(User user, PasswordDto form){
+        user.setPassword( passwordEncoder.encode( form.getPassword() ) );
+        userRepository.save( user );
     }
 
 

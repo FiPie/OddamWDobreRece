@@ -1,9 +1,11 @@
 package com.f.piechowiak.spring.OddamWDobreRece.dto;
 
+import javax.validation.constraints.Email;
+
 public class UserFormDto {
 
     private Long id;
-
+    @Email
     private String email;
 
     private String firstName;
