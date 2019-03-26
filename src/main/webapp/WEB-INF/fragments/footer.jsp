@@ -25,8 +25,8 @@
     <div class="bottom-line">
         <span class="bottom-line--copy">Copyright &copy; 2018</span>
         <div class="bottom-line--icons">
-            <a href="https://www.facebook.com" class="btn btn--small"><img src="images/icon-facebook.svg"/></a> <a href="https://www.instagram.com/?hl=pl"
-                                                                                                                   class="btn btn--small"><img
-                src="images/icon-instagram.svg"/></a>
+            <a href="https://www.facebook.com" class="btn btn--small"><img src="../../images/icon-facebook.svg" alt="facebook"/></a> <a href="https://www.instagram.com/?hl=pl"
+                                                                                                                   class="btn btn--small">
+            <img src="../../images/icon-instagram.svg" alt="instagram"/></a>
         </div>
     </div>
