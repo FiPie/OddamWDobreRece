@@ -1,4 +1,14 @@
 # OddamWDobreRece
+
+A simple application for offering donations to charitable foundations or institutions.
+The aim of the project is to create a safe space where everyone can easily donate things (ex. no longer used) to trusted charity institutions. It feels good too.
+
+- The user often has things at home that he/she does not need any more. The items are in good condition and he/she wants to pass them on to people to whom they can be of good use - but he/she does not know how to do it in a simple way.
+- There are many solutions available, but many of them require additional effort or they do not inspire confidence.
+Either you have to go to verified places but you simply have no time to do it or there is no easy way for you to get there and transport everything. While the containers under the house or local collections are readily accessible they are unverified and you cannot be sure if the items you decided to part with would actually reach those in need.
+#
+
+
 Aplikacja do ofiarowywania darowizn na fundacje charytatywne.
 Celem projektu jest stworzenie miejsca, w którym każdy będzie mógł oddać niepotrzebne rzeczy zaufanym instytucjom.
 
