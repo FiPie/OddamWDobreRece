@@ -45,6 +45,14 @@ public class UserController {
         String firstName = user.getFirstName();
         session.setAttribute( "userFirstName", firstName );
         model.addAttribute( "LoggedUser", user );
+
+        Long bagsQuantity = donationRepository.sumBagsQuantityForUserId( user.getId() );
+        model.addAttribute( "bagsQuantity", bagsQuantity );
+        Long supportedCharitiesQuantity = donationRepository.sumOfSupportedCharitiesByUserId( user.getId() );
+        model.addAttribute( "supportedCharitiesQuantity", supportedCharitiesQuantity );
+        Long donationsQuantity = donationRepository.sumOfDonationsMadeByUserId( user.getId() );
+        model.addAttribute( "donationsQuantity", donationsQuantity );
+
         return "user/userDashboard";
     }
 
