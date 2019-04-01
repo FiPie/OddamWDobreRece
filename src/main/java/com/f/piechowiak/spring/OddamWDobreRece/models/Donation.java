@@ -39,6 +39,8 @@ public class Donation {
     private Charity charity;
 
     @Column
+    private LocalDateTime creationDate;
+    @Column
     private boolean giftPickedUp;   //status daru odebrany/nieodebrany
     @Column
     @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -55,7 +57,7 @@ public class Donation {
     @Column
     private String phone;
     @Column
-    private LocalDateTime statusChangeDate;         //data zminay statusu daru odebrany/nieodebrany
+    private LocalDateTime statusChangeDate;         //data zminay statusu daru np: utowrzenie, odebrany/nieodebrany
     @Column
     private String notes;
 
@@ -205,5 +207,13 @@ public class Donation {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }

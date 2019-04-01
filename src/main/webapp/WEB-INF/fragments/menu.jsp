@@ -37,7 +37,7 @@
                     <sec:authorize access="hasRole('ROLE_USER')">
                         <li><a href="/user/settings">Ustawienia</a></li>
                         <li><a href="/user/donations/formStep1">Oddaj rzeczy</a></li>
-                        <li><a href="/user/donations">Moje zbiórki</a></li>
+                        <li><a href="/user/listOfDonations">Moje zbiórki</a></li>
                     </sec:authorize>
                     <li><a href="/logout">Wyloguj</a></li>
                 </ul>

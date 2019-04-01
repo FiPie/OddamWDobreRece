@@ -20,7 +20,7 @@ public class DonationDto {
 
     private Long id;
     private Long quantity;                      //ilość worków 60L
-
+    private LocalDateTime creationDate;
 
     private List<GiftType> giftTypeList;        //Rodzaje przekazanych darów
     private User user;                          //Benefaktor
@@ -36,7 +36,7 @@ public class DonationDto {
     private String street;                      //adres odbioru darowizny (ulica)
     private String postCode;                    //adres odbioru darowizny (kod pocztowy)
     private String phone;                       //numer telefonu kontaktowego z userem
-    private LocalDateTime statusChangeDate;     //data zminay statusu daru odebrany/nieodebrany
+    private LocalDateTime statusChangeDate;     //data zmiany statusu daru odebrany/nieodebrany
     private String notes;                       //nota opcjonalna, uwagi dla kuriera/obiorcy darowizny
 
 
@@ -154,5 +154,13 @@ public class DonationDto {
     }
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }

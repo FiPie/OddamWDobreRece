@@ -3,6 +3,7 @@ package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserPasswordFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.models.Donation;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.DonationRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
@@ -11,14 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -54,6 +53,24 @@ public class UserController {
         model.addAttribute( "donationsQuantity", donationsQuantity );
 
         return "user/userDashboard";
+    }
+
+    @GetMapping("/listOfDonations")
+    public String prepareUserListOfDonations(Model model, Principal principal){
+        User user = userRepository.findByEmail( principal.getName() );
+        model.addAttribute( "user", user );
+        Long userId = user.getId();
+
+        List<Donation> userDonations = donationRepository.findAllDonationsByUserId( userId );
+        model.addAttribute( "userDonations",userDonations );
+
+        return "user/userDonationsList";
+    }
+
+    @GetMapping("/donationDetails/{id:[1-9]*[0-9]+}")
+    public String userDonationDetails(@PathVariable Long id, Model model){
+
+        return "user/userDonationDetails";
     }
 
     @GetMapping("/settings")

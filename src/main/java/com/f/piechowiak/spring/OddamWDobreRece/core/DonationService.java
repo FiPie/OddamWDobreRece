@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional
 public class DonationService {
@@ -37,6 +39,7 @@ public class DonationService {
     public boolean createDonation(DonationDto form) {
         Donation donation = new Donation();
 
+        donation.setCreationDate( LocalDateTime.now() );        //recent change
         donation.setQuantity( form.getQuantity() );
         donation.setGiftTypeList( form.getGiftTypeList() );
         donation.setUser( form.getUser() );
@@ -44,6 +47,7 @@ public class DonationService {
         donation.setGiftPickedUp( form.isGiftPickedUp() );
         donation.setPickUpDate( form.getPickUpDate() );
         donation.setPickUpHour( form.getPickUpHour() );
+        donation.setStatusChangeDate( LocalDateTime.now() );    //recent change
         donation.setCity( form.getCity() );
         donation.setStreet( form.getStreet() );
         donation.setPostCode( form.getPostCode() );
@@ -82,7 +86,7 @@ public class DonationService {
         donation.setStreet( form.getStreet() );
         donation.setPostCode( form.getPostCode() );
         donation.setPhone( form.getPhone() );
-        donation.setStatusChangeDate( form.getStatusChangeDate() );
+        donation.setStatusChangeDate( LocalDateTime.now());     //recent change
         donation.setNotes( form.getNotes() );
         donation = donationRepository.save( donation );
 
