@@ -1,7 +1,7 @@
 # OddamWDobreRece
 
 A simple application for offering donations to charitable foundations or institutions.
-The aim of the project is to create a safe space where everyone can easily donate things (ex. no longer used) to trusted charity institutions. It feels good too.
+The aim of the project is to create a safe space where everyone can easily donate things (ex. no longer used clothing, toys etc.) to trusted charity institutions. By donating items one can reclaim much needed living space, show others one's environmental awarness and act as a citizen example of decency. Not to mention that it feels good too!
 
 - The user often has things at home that he/she does not need any more. The items are in good condition and he/she wants to pass them on to people to whom they can be of good use - but he/she does not know how to do it in a simple way.
 - There are many solutions available, but many of them require additional effort or they do not inspire confidence.
