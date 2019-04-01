@@ -92,11 +92,27 @@ public class DonationService {
 
         return true;
     }
+    @Transactional
+    public boolean updateDonationDeliveryStatus(DonationDto form){
+
+        Donation donation = donationRepository.findById( form.getId() ).orElse( null );
+        if (donation == null){
+            return false;
+        }
+
+        donation.setGiftPickedUp( form.isGiftPickedUp() );
+        donation.setStatusChangeDate( LocalDateTime.now());     //recent change
+
+        donation = donationRepository.save( donation );
+
+        return true;
+    }
+
+
      public DonationDto findDonationByIdAndFillDonationDto(Long id){
         DonationDto donationDto = new DonationDto();
         Donation donation = donationRepository.findById( id ).orElse( null );
 
-        if (donation != null){
             donationDto.setId( donation.getId() );
             donationDto.setQuantity( donation.getQuantity() );
             donationDto.setGiftTypeList( donation.getGiftTypeList() );
@@ -111,9 +127,9 @@ public class DonationService {
             donationDto.setPhone( donation.getPhone() );
             donationDto.setStatusChangeDate( donation.getStatusChangeDate() );
             donationDto.setNotes( donation.getNotes() );
-        }
+            return donationDto;
 
-        return donationDto;
+
      }
 
     public DonationDto fillPartiallyDonationDto(DonationDto form){

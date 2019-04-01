@@ -1,6 +1,8 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
+import com.f.piechowiak.spring.OddamWDobreRece.core.DonationService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.DonationDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserPasswordFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Donation;
@@ -33,6 +35,8 @@ public class UserController {
     DonationRepository donationRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    DonationService donationService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -56,26 +60,43 @@ public class UserController {
     }
 
     @GetMapping("/listOfDonations")
-    public String prepareUserListOfDonations(Model model, Principal principal){
+    public String prepareUserListOfDonations(Model model, Principal principal) {
         User user = userRepository.findByEmail( principal.getName() );
         model.addAttribute( "user", user );
         Long userId = user.getId();
 
         List<Donation> userDonations = donationRepository.findAllDonationsByUserId( userId );
-        model.addAttribute( "userDonations",userDonations );
+        model.addAttribute( "userDonations", userDonations );
 
         return "user/userDonationsList";
     }
 
     @GetMapping("/donationDetails{id:[1-9]*[0-9]+}")
-    public String userDonationDetails(@PathVariable Long id, Model model, Principal principal){
+    public String userDonationDetails(@PathVariable Long id, Model model, Principal principal) {
         Donation donation = donationRepository.findById( id ).orElse( null );
         model.addAttribute( "donation", donation );
         User user = userRepository.findByEmail( principal.getName() );
         model.addAttribute( "user", user );
+        DonationDto donationDto = new DonationDto();
+        donationDto.setId( id );
+        model.addAttribute( "donationDto", donationDto );
 
         return "user/userDonationDetails";
     }
+
+    @PostMapping("/donationDetails")
+    public String userDonationDeliveryStatusChange(@ModelAttribute("donationDto") @Valid DonationDto form, BindingResult result){
+
+        boolean success = donationService.updateDonationDeliveryStatus( form );
+        if (success){
+            return "redirect:/user/donationDetails"+form.getId();
+        }
+        else {
+            result.rejectValue( "giftPickedUp", null, "Something wrong with delivery status" );
+        }
+        return "user/donationDetails"+form.getId();
+    }
+
 
     @GetMapping("/settings")
     public String prepareUserSettingsPage(Model model, Principal principal) {

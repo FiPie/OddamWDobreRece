@@ -49,9 +49,7 @@
                 <p>${gifts.giftType.toString()}</p>
             </c:forEach>
         </div>
-    <%--</div>
 
-    <div class="container container--85">--%>
         <div class="stats--item">
             <em style="font-size: medium">Number of 60l bags</em>
             <p>${donation.quantity}</p>
@@ -73,8 +71,19 @@
         </div>
 
         <div class="stats--item">
+            <em style="font-size: medium">last modification</em>
+            <p>${donation.statusChangeDate}</p>
+        </div>
+
+        <div class="stats--item">
             <em style="font-size: medium">already delivered?</em>
             <p>${donation.giftPickedUp}</p>
+            <form:form modelAttribute="donationDto" method="post" action="/user/donationDetails">
+                <form:hidden path="id"/><form:errors path="id"/>
+                <form:checkbox path="giftPickedUp" label="check if picked up"/><form:errors path="giftPickedUp"/>
+
+                <button type="submit">change status!</button>
+            </form:form>
         </div>
 
     </div>

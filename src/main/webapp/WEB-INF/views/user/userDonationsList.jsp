@@ -50,7 +50,7 @@
         <div class="stats--item">
             <table>
                 <thead>
-                <em>Donation</em>
+                <em style="font-size: xx-large">Donation date</em>
                 </thead>
 
                 <td>
@@ -64,7 +64,7 @@
         <div class="stats--item">
             <table>
                 <thead>
-                <em>Organizacja</em>
+                    <em style="font-size: xx-large">Organization Name</em>
                 </thead>
                 <td>
                     <c:forEach var="donation" items="${userDonations}">
@@ -77,7 +77,7 @@
         <div class="stats--item">
             <table>
                 <thead>
-                <em>Odbr?</em>
+                    <em style="font-size: xx-large">Delivered?</em>
                 </thead>
                 <td>
                     <c:forEach var="donation" items="${userDonations}">
@@ -90,7 +90,7 @@
         <div class="stats--item">
             <table>
                 <thead>
-                <em>Kiedy?</em>
+                    <em style="font-size: xx-large">Delivery date:</em>
                 </thead>
                 <td>
                     <c:forEach var="donation" items="${userDonations}">
@@ -103,11 +103,11 @@
         <div class="stats--item">
             <table>
                 <thead>
-                <em>Szczegóły</em>
+                    <em style="font-size: xx-large">Details</em>
                 </thead>
                 <td>
                     <c:forEach var="donation" items="${userDonations}">
-                        <tr><p><a href="/user/donationDetails${donation.id}">details</a></p></tr>
+                        <tr><p><a href="/user/donationDetails${donation.id}" class="btn--without-border">details</a></p></tr>
                     </c:forEach>
                 </td>
             </table>
