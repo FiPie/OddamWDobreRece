@@ -67,8 +67,12 @@ public class UserController {
         return "user/userDonationsList";
     }
 
-    @GetMapping("/donationDetails/{id:[1-9]*[0-9]+}")
-    public String userDonationDetails(@PathVariable Long id, Model model){
+    @GetMapping("/donationDetails{id:[1-9]*[0-9]+}")
+    public String userDonationDetails(@PathVariable Long id, Model model, Principal principal){
+        Donation donation = donationRepository.findById( id ).orElse( null );
+        model.addAttribute( "donation", donation );
+        User user = userRepository.findByEmail( principal.getName() );
+        model.addAttribute( "user", user );
 
         return "user/userDonationDetails";
     }

@@ -107,7 +107,7 @@
                 </thead>
                 <td>
                     <c:forEach var="donation" items="${userDonations}">
-                        <tr><p><a href="/user/donationDetails/${donation.id}">details</a></p></tr>
+                        <tr><p><a href="/user/donationDetails${donation.id}">details</a></p></tr>
                     </c:forEach>
                 </td>
             </table>
