@@ -30,54 +30,54 @@
 
         <div class="stats--item">
             <em style="font-size: medium">id</em>
-            <p>${donation.id}</p>
+            <b style="font-size: large"><br><br><br>${donation.id}</b>
         </div>
 
         <div class="stats--item">
             <em style="font-size: medium">charity name</em>
-            <p>${donation.charity.charityName}</p>
+            <b style="font-size: medium"><br><br>${donation.charity.charityName}</b>
         </div>
 
         <div class="stats--item">
             <em style="font-size: medium">charity type</em>
-            <p>${donation.charity.charityActivityType.organizationActivity}</p>
+            <b style="font-size: medium"><br><br><br>${donation.charity.charityActivityType.organizationActivity}</b>
         </div>
 
         <div class="stats--item">
             <em style="font-size: medium">List of gifts</em>
             <c:forEach items="${donation.giftTypeList}" var="gifts">
-                <p>${gifts.giftType.toString()}</p>
+                <b style="font-size: medium"><br><br>${gifts.giftType.toString()}</b>
             </c:forEach>
         </div>
 
         <div class="stats--item">
             <em style="font-size: medium">Number of 60l bags</em>
-            <p>${donation.quantity}</p>
+            <b style="font-size: large"><br>${donation.quantity}</b>
         </div>
 
         <div class="stats--item">
             <em style="font-size: medium">donation creation date</em>
-            <p>${donation.creationDate}</p>
+            <b style="font-size: medium"><br><br><br>${donation.creationDate}</b>
         </div>
 
         <div class="stats--item">
             <em style="font-size: medium">pickup day</em>
-            <p>${donation.pickUpDate}</p>
+            <b style="font-size: medium"><br><br><br>${donation.pickUpDate}</b>
         </div>
 
         <div class="stats--item">
             <em style="font-size: medium">pickup hour</em>
-            <p>${donation.pickUpHour}</p>
+            <b style="font-size: large"><br><br>${donation.pickUpHour}</b>
         </div>
 
         <div class="stats--item">
             <em style="font-size: medium">last modification</em>
-            <p>${donation.statusChangeDate}</p>
+            <b style="font-size: medium"><br><br><br>${donation.statusChangeDate}</b>
         </div>
 
         <div class="stats--item">
             <em style="font-size: medium">already delivered?</em>
-            <p>${donation.giftPickedUp}</p>
+            <b style="font-size: medium"><br><br>${donation.giftPickedUp}</b>
             <form:form modelAttribute="donationDto" method="post" action="/user/donationDetails">
                 <form:hidden path="id"/><form:errors path="id"/>
                 <form:checkbox path="giftPickedUp" label="check if picked up"/><form:errors path="giftPickedUp"/>
