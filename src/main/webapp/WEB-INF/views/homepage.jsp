@@ -39,9 +39,15 @@
             </h1>
 
             <ul class="slogan--buttons">
-                <sec:authorize access="hasRole('ROLE_USER')"><li><a href="/user/donations/formStep1" class="btn btn--large">Oddaj rzeczy</a></li></sec:authorize>
-                <sec:authorize access="hasRole('ROLE_ADMIN')"><li><a href="/admin/donations" class="btn btn--large">Oddaj rzeczy</a></li></sec:authorize>
-                <sec:authorize access="isAnonymous()"><li><a href="/login" class="btn btn--large">Oddaj rzeczy</a></li></sec:authorize>
+                <sec:authorize access="hasRole('ROLE_USER')">
+                    <li><a href="/user/donations/formStep1" class="btn btn--large">Oddaj rzeczy</a></li>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <li><a href="/admin/donations" class="btn btn--large">Oddaj rzeczy</a></li>
+                </sec:authorize>
+                <sec:authorize access="isAnonymous()">
+                    <li><a href="/login" class="btn btn--large">Oddaj rzeczy</a></li>
+                </sec:authorize>
                 <li><a href="#" class="btn btn--large">Zorganizuj zbiórkę</a></li>
             </ul>
         </div>
@@ -271,7 +277,27 @@
     </div>
 </section>
 
+
 <footer>
+    <div class="contact">
+        <h2>Skontaktuj się z nami</h2>
+        <h3>Formularz kontaktowy</h3>
+
+        <form:form class="form--contact" modelAttribute="message" method="post" action="/">
+            <div class="form-group form-group--50"><form:input path="firstName2" type="text" name="name"
+                                                               placeholder="Imię"/></div>
+            <div class="form-group form-group--50"><form:input path="lastName2" type="text" name="surname"
+                                                               placeholder="Nazwisko"/></div>
+
+            <div class="form-group"><form:textarea path="content" name="message" required="true" placeholder="Wiadomość"
+                                                   rows="4"/></div>
+
+            <div class="form-group"><form:input path="email2" type="email" required="true" placeholder="Email address"/></div>
+            <button class="btn" type="submit">Wyślij</button>
+        </form:form>
+
+    </div>
+
     <jsp:include page="../fragments/footer.jsp"/>
 </footer>
 

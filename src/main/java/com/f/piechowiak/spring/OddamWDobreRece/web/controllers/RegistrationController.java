@@ -1,6 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
 import com.f.piechowiak.spring.OddamWDobreRece.core.RegistrationService;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.MessageDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.RegistrationFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.email.EmailSender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class RegistrationController {
 
     @GetMapping
     public String prepareRegistrationForm(Model model) {
+        model.addAttribute( "message", new MessageDto() );
         model.addAttribute( "registrationForm", new RegistrationFormDto() );
 
         return "register";

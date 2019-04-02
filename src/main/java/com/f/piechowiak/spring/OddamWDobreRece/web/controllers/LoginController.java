@@ -1,6 +1,7 @@
 package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 
 import com.f.piechowiak.spring.OddamWDobreRece.dto.LoginFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.MessageDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class LoginController {
     @GetMapping
     public String prepareLoginForm(Model model){
         model.addAttribute( "loginFormDto", new LoginFormDto() );
+        model.addAttribute( "message", new MessageDto() );
         return "login";
     }
 

@@ -3,10 +3,7 @@ package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 import com.f.piechowiak.spring.OddamWDobreRece.core.ISecurityUserService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserSecurityService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
-import com.f.piechowiak.spring.OddamWDobreRece.dto.PasswordDto;
-import com.f.piechowiak.spring.OddamWDobreRece.dto.RegistrationFormDto;
-import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
-import com.f.piechowiak.spring.OddamWDobreRece.dto.UserPasswordFormDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.*;
 import com.f.piechowiak.spring.OddamWDobreRece.email.EmailSender;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
@@ -75,25 +72,47 @@ public class HomepageController {
         }
 
         Long donatedBagsQuantity = donationRepository.sumAllBagsGivenToCharities();
-        model.addAttribute( "bags",donatedBagsQuantity );
+        model.addAttribute( "bags", donatedBagsQuantity );
         Long numberOfCharitiesDonatedToAlready = donationRepository.countAllCharitiesDonatedTo();
-        model.addAttribute( "charities",numberOfCharitiesDonatedToAlready );
+        model.addAttribute( "charities", numberOfCharitiesDonatedToAlready );
         Long numberOfDonationsMadeByAllUsers = donationRepository.countAllDonations();
-        model.addAttribute( "donations",numberOfDonationsMadeByAllUsers );
+        model.addAttribute( "donations", numberOfDonationsMadeByAllUsers );
+
+
+        model.addAttribute( "message", new MessageDto() );
 
         return "homepage";
 
     }
 
+    @PostMapping
+    public String footerMessageSender(@ModelAttribute("message") @Valid MessageDto form, BindingResult result) {
+        String email = "filipiusz@gmail.com";                                                                               //Enter admin email address here for simple page messages from users/visitors
+        System.err.println("Message content: "+form.getContent());
+
+        if (!form.getContent().equals( "" )) {
+            emailSender.sendEmail( email, "Message from the homepage from " + form.getFirstName2() + " " + form.getLastName2(), form.getContent()+"<br><br>"+" Sent from: "+form.getEmail2() );
+            return "redirect:/";
+        }
+        else {
+            result.rejectValue( "content", null, "Tresc wiadomosci pusta!" );
+            return "homepage";
+        }
+
+    }
+
+
     @GetMapping("/orgList")
     public String publicOrgList(Model model) {
         List<Charity> organizationList = charityRepository.findAll();
         model.addAttribute( "organizationList", organizationList );
+        model.addAttribute( "message", new MessageDto() );
         return "charity/charityList";
     }
 
     @GetMapping("/contact")
-    public String contactView() {
+    public String contactView(Model model) {
+        model.addAttribute( "message", new MessageDto() );
         return "contact";
     }
 
@@ -126,7 +145,7 @@ public class HomepageController {
     public String showChangePassword(final Locale locale, final HttpServletRequest request, final Model model, @RequestParam("id") final long id, @RequestParam("token") final String token) {
         final String result = securityUserService.validatePasswordResetToken( id, token );
         if (result != null) {
-            System.err.println("Coś nie tak z : validatePasswordResetToken");
+            System.err.println( "Coś nie tak z : validatePasswordResetToken" );
             model.addAttribute( "message", messages.getMessage( "auth.message." + result, null, locale ) );
             return "redirect:/login/";
         }
@@ -143,7 +162,7 @@ public class HomepageController {
             User user = userRepository.findById( userId ).orElse( null );
             if (user != null) {
                 userService.resetUserPassword( user, form );
-                System.err.println("Udało się zmienić hasło, I guess?");
+                System.err.println( "Udało się zmienić hasło, I guess?" );
             }
         }
         return "redirect:/login/";

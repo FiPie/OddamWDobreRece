@@ -3,6 +3,7 @@ package com.f.piechowiak.spring.OddamWDobreRece.web.controllers;
 import com.f.piechowiak.spring.OddamWDobreRece.core.DonationService;
 import com.f.piechowiak.spring.OddamWDobreRece.core.UserService;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.DonationDto;
+import com.f.piechowiak.spring.OddamWDobreRece.dto.MessageDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.dto.UserPasswordFormDto;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Donation;
@@ -44,6 +45,7 @@ public class UserController {
 
     @GetMapping("/dashboard")
     public String prepareUserDashboard(Model model, Principal principal) {
+        model.addAttribute( "message", new MessageDto() );
         User user = userRepository.findByEmail( principal.getName() );
         String firstName = user.getFirstName();
         session.setAttribute( "userFirstName", firstName );
@@ -64,6 +66,7 @@ public class UserController {
 
     @GetMapping("/listOfDonations")
     public String prepareUserListOfDonations(Model model, Principal principal) {
+        model.addAttribute( "message", new MessageDto() );
         User user = userRepository.findByEmail( principal.getName() );
         model.addAttribute( "user", user );
         Long userId = user.getId();
@@ -76,6 +79,7 @@ public class UserController {
 
     @GetMapping("/donationDetails{id:[1-9]*[0-9]+}")
     public String userDonationDetails(@PathVariable Long id, Model model, Principal principal) {
+        model.addAttribute( "message", new MessageDto() );
         Donation donation = donationRepository.findById( id ).orElse( null );
         model.addAttribute( "donation", donation );
         User user = userRepository.findByEmail( principal.getName() );

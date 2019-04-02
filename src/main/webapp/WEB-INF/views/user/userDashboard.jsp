@@ -70,6 +70,21 @@
 </section>
 
 <footer>
+    <div class="contact">
+        <h2>Skontaktuj się z nami</h2>
+        <h3>Formularz kontaktowy</h3>
+
+        <form:form class="form--contact" modelAttribute="message" method="post" action="/">
+            <div class="form-group form-group--50"><form:input readonly="true" value="${LoggedUser.firstName}" path="firstName2" type="text" name="name"/></div>
+            <div class="form-group form-group--50"><form:input readonly="true" value="${LoggedUser.lastName}" path="lastName2" type="text" name="surname"/></div>
+
+            <div class="form-group"><form:textarea path="content" name="message" placeholder="Wiadomość" rows="4"/></div>
+            <form:hidden path="email2" value="${LoggedUser.email}"/>
+            <button class="btn" type="submit">Wyślij</button>
+        </form:form>
+
+    </div>
+
     <jsp:include page="../../fragments/footer.jsp"/>
 </footer>
 </body>
