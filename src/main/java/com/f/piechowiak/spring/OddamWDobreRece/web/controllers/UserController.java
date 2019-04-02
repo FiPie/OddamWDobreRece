@@ -50,6 +50,9 @@ public class UserController {
         model.addAttribute( "LoggedUser", user );
 
         Long bagsQuantity = donationRepository.sumBagsQuantityForUserId( user.getId() );
+        if (bagsQuantity == null){
+            bagsQuantity = 0L;
+        }
         model.addAttribute( "bagsQuantity", bagsQuantity );
         Long supportedCharitiesQuantity = donationRepository.sumOfSupportedCharitiesByUserId( user.getId() );
         model.addAttribute( "supportedCharitiesQuantity", supportedCharitiesQuantity );

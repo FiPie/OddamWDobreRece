@@ -11,6 +11,7 @@ import com.f.piechowiak.spring.OddamWDobreRece.email.EmailSender;
 import com.f.piechowiak.spring.OddamWDobreRece.models.Charity;
 import com.f.piechowiak.spring.OddamWDobreRece.models.User;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.CharityRepository;
+import com.f.piechowiak.spring.OddamWDobreRece.repositories.DonationRepository;
 import com.f.piechowiak.spring.OddamWDobreRece.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -49,7 +50,8 @@ public class HomepageController {
     private MessageSource messages;
     @Autowired
     private UserSecurityService securityUserService;
-
+    @Autowired
+    DonationRepository donationRepository;
 
     @GetMapping
     public String getHomepage(Principal principal, Model model) {
@@ -71,6 +73,14 @@ public class HomepageController {
                 session.setAttribute( "userId", userId );
             }
         }
+
+        Long donatedBagsQuantity = donationRepository.sumAllBagsGivenToCharities();
+        model.addAttribute( "bags",donatedBagsQuantity );
+        Long numberOfCharitiesDonatedToAlready = donationRepository.countAllCharitiesDonatedTo();
+        model.addAttribute( "charities",numberOfCharitiesDonatedToAlready );
+        Long numberOfDonationsMadeByAllUsers = donationRepository.countAllDonations();
+        model.addAttribute( "donations",numberOfDonationsMadeByAllUsers );
+
         return "homepage";
 
     }
