@@ -139,18 +139,24 @@
             zajmują, komu pomagają i czego potrzebują.</p>
 
         <ul class="help--slides-items">
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja "Dbam o Zdrowie"</div>
-                    <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>
-                </div>
+            <c:forEach items="${charityList}" var="charity">
+                <li>
+                    <div class="col">
+                        <div class="title">${charity.charityName} </div>
+                        <div class="subtitle"> Cel i misja: ${charity.charityActivityType.organizationActivity}
+                        </div>
+                    </div>
 
-                <div class="col">
-                    <div class="text">ubrania, jedzenie, sprzęt AGD, meble, zabawki</div>
-                </div>
-            </li>
-
-            <li>
+                    <div class="col">
+                        <div class="text">
+                            <c:forEach items="${charity.acceptedGiftTypes}" var="gift">
+                                ${gift.giftType},
+                            </c:forEach>
+                        </div>
+                    </div>
+                </li>
+            </c:forEach>
+            <%--<li>
                 <div class="col">
                     <div class="title">Fundacja “Dla dzieci"</div>
                     <div class="subtitle">Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji życiowej.</div>
@@ -170,7 +176,7 @@
                 <div class="col">
                     <div class="text">ubrania, jedzenie, ciepłe koce</div>
                 </div>
-            </li>
+            </li>--%>
         </ul>
 
         <ul class="help--slides-pagination">
@@ -292,7 +298,8 @@
             <div class="form-group"><form:textarea path="content" name="message" required="true" placeholder="Wiadomość"
                                                    rows="4"/></div>
 
-            <div class="form-group"><form:input path="email2" type="email" required="true" placeholder="Email address"/></div>
+            <div class="form-group"><form:input path="email2" type="email" required="true"
+                                                placeholder="Email address"/></div>
             <button class="btn" type="submit">Wyślij</button>
         </form:form>
 

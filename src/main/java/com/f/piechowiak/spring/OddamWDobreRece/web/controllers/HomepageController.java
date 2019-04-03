@@ -81,6 +81,11 @@ public class HomepageController {
 
         model.addAttribute( "message", new MessageDto() );
 
+
+        List<Charity> charityList=charityRepository.findAll();
+        model.addAttribute( "charityList", charityList );
+
+
         return "homepage";
 
     }
