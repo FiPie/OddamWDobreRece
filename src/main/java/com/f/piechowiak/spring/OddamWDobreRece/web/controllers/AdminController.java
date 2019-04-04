@@ -38,6 +38,8 @@ public class AdminController {
     private final GiftTypeService giftTypeService;
     private final CharityActivityService charityActivityService;
     private final CharityTypeService charityTypeService;
+    private final DonationRepository donationRepository;
+    private final DonationService donationService;
 
 
     @Autowired
@@ -51,7 +53,7 @@ public class AdminController {
             , UserService userService
             , CharityService charityService
             , GiftTypeService giftTypeService
-            , CharityActivityService charityActivityService, CharityTypeService charityTypeService) {
+            , CharityActivityService charityActivityService, CharityTypeService charityTypeService, DonationRepository donationRepository, DonationService donationService) {
         this.userRepository = userRepository;
         this.session = session;
         this.charityRepository = charityRepository;
@@ -63,6 +65,8 @@ public class AdminController {
         this.giftTypeService = giftTypeService;
         this.charityActivityService = charityActivityService;
         this.charityTypeService = charityTypeService;
+        this.donationRepository = donationRepository;
+        this.donationService = donationService;
     }
 
 
@@ -542,5 +546,38 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/donations")
+    public String listOfDonation(Model model){
+
+        List<Donation> donations = donationRepository.findAll();
+        model.addAttribute( "donations", donations );
+
+        return  "admin/adminDonationList";
+    }
+
+    @GetMapping("/donationDetails{id:[1-9]*[0-9]+}")
+    public String adminDonationDetails(@PathVariable Long id, Model model) {
+        model.addAttribute( "message", new MessageDto() );
+        Donation donation = donationRepository.findById( id ).orElse( null );
+        model.addAttribute( "donation", donation );
+        DonationDto donationDto = new DonationDto();
+        donationDto.setId( id );
+        model.addAttribute( "donationDto", donationDto );
+
+        return "admin/adminDonationDetails";
+    }
+
+    @PostMapping("/donationDetails")
+    public String adminDonationDeliveryStatusChange(@ModelAttribute("donationDto") @Valid DonationDto form, BindingResult result){
+
+        boolean success = donationService.updateDonationDeliveryStatus( form );
+        if (success){
+            return "redirect:/admin/donationDetails"+form.getId();
+        }
+        else {
+            result.rejectValue( "giftPickedUp", null, "Something wrong with delivery status" );
+        }
+        return "admin/donationDetails"+form.getId();
+    }
 
 }
