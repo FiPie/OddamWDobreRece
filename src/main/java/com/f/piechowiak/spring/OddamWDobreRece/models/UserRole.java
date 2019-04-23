@@ -29,7 +29,6 @@ public class UserRole {
         return new StringJoiner( ", ", UserRole.class.getSimpleName() + "[", "]" )
                 .add( "id=" + id )
                 .add( "role='" + role + "'" )
-                /*.add( "user=" + user )*/        //wiesza się z jakiegoś powodu...
                 .toString();
     }
 

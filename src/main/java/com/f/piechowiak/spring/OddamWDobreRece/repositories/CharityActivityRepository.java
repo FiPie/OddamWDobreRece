@@ -12,6 +12,4 @@ public interface CharityActivityRepository extends JpaRepository<CharityActivity
 
     List<CharityActivity> findAll();
 
-    /*List<Long> findAllByCharityActivityType_OrganizationActivityIn(List<CharityActivity> charityActivityList);*/
-
 }

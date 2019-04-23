@@ -39,8 +39,6 @@ public class User {
     private List<Donation> userDonationsList;
 
     private String uuid;
-    /*@OneToMany(mappedBy = "order", cascade = {CascadeType.ALL} , targetEntity = Donation.class)
-    private List<Donation> orders;*/
 
 
 

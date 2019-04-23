@@ -21,33 +21,33 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column                         //ilość worków 60L
+    @Column                                                                                     //ilość worków 60L
     private Long quantity;
 
-    @ManyToMany /*(cascade = {CascadeType.ALL},*/ (fetch = FetchType.EAGER)                    //Rodzaje przekazanych darów
+    @ManyToMany /*(cascade = {CascadeType.ALL},*/ (fetch = FetchType.EAGER)                     //Rodzaje przekazanych darów
     @JoinTable( name = "donation_gift_type_id",
     joinColumns = @JoinColumn( name = "donation_id"),
     inverseJoinColumns = @JoinColumn( name = "gift_type_id"))
     private List<GiftType> giftTypeList;
 
-    @ManyToOne (cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.EAGER)    //Darczyńca
+    @ManyToOne (cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.EAGER)   //Darczyńca
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne                      //Beneficjent
+    @ManyToOne                                                                                  //Beneficjent
     @JoinColumn(name = "charity_id")
     private Charity charity;
 
     @Column
     private LocalDateTime creationDate;
     @Column
-    private boolean giftPickedUp;   //status daru odebrany/nieodebrany
+    private boolean giftPickedUp;                                                               //status daru odebrany/nieodebrany
     @Column
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate pickUpDate;   //data odbioru daru
+    private LocalDate pickUpDate;                                                               //data odbioru daru
     @Column
     @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime pickUpHour;   //godzina odbioru
+    private LocalTime pickUpHour;                                                               //godzina odbioru
     @Column
     private String city;
     @Column
@@ -57,7 +57,7 @@ public class Donation {
     @Column
     private String phone;
     @Column
-    private LocalDateTime statusChangeDate;         //data zminay statusu daru np: utowrzenie, odebrany/nieodebrany
+    private LocalDateTime statusChangeDate;                                                     //data zminay statusu daru np: utowrzenie, odebrany/nieodebrany
     @Column
     private String notes;
 
@@ -67,7 +67,6 @@ public class Donation {
                 .add( "id=" + id )
                 .add( "quantity=" + quantity )
                 .add( "giftTypeList=" + giftTypeList )
-                /*.add( "user=" + user )*/          //wiesza się z jakiegoś powodu...
                 .add( "charity=" + charity )
                 .add( "giftPickedUp=" + giftPickedUp )
                 .add( "pickUpDate=" + pickUpDate )

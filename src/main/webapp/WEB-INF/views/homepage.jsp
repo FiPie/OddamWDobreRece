@@ -116,11 +116,9 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
             optio esse quisquam illo omnis.</p>
         <img src="images/signature.svg" alt="Signature">
-        <%--<img src="/WEB-INF/views/images/signature.svg" class="about-us--text-signature" alt="Signature"/>--%>
     </div>
     <div class="about-us--image">
         <img src="images/about-us.jpg" alt="People in circle">
-        <%--<img src="images/about-us.jpg" alt="People in circle"/>--%>
     </div>
 </section>
 
@@ -156,27 +154,6 @@
                     </div>
                 </li>
             </c:forEach>
-            <%--<li>
-                <div class="col">
-                    <div class="title">Fundacja “Dla dzieci"</div>
-                    <div class="subtitle">Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji życiowej.</div>
-                </div>
-
-                <div class="col">
-                    <div class="text">ubrania, meble, zabawki</div>
-                </div>
-            </li>
-
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja “Bez domu”</div>
-                    <div class="subtitle">Cel i misja: Pomoc dla osób nie posiadających miejsca zamieszkania</div>
-                </div>
-
-                <div class="col">
-                    <div class="text">ubrania, jedzenie, ciepłe koce</div>
-                </div>
-            </li>--%>
         </ul>
 
         <ul class="help--slides-pagination">
