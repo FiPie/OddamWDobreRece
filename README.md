@@ -20,12 +20,12 @@ W zweryfikowane miejsca trzeba pojechać, a nie ma na to czasu lub nie ma jak ta
 **Note:** Keep the project file structure
 
 
-You can preview this project [here](https://fipie.github.io/canvasFloatingCircles/)
+You can preview this project [here](https://oddamwdobrerece.herokuapp.com/)
 
 <hr>
 <div text-align="center">
-<img src="./images/01.png" width="400" height="400">
-<img src="./images/02.png" width="400" height="400"><br>
-<img src="./images/03.png" width="400" height="400">
-<img src="./images/04.png" width="400" height="400"><br>
+<img src="./images/01.png" width="100%"><br>
+<img src="./images/02.png" width="100%"><br>
+<img src="./images/03.png" width="100%"><br>
+<img src="./images/04.png" width="100%"><br>
 <div>
