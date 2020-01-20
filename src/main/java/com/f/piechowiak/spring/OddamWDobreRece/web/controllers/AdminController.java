@@ -489,7 +489,7 @@ public class AdminController {
             return "redirect:/admin/adminList";
         } else {
             result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/" + form.getId() + "admin/adminEdit";
+            return "/admin/" + form.getId() + "/editAdmin";
         }
     }
 
@@ -542,7 +542,7 @@ public class AdminController {
             return "redirect:/admin/userList";
         } else {
             result.rejectValue( "email", null, "Cos poszło źle, spróbuj jeszcze raz" );
-            return "/" + form.getId() + "admin/adminUserEdit";
+            return "/admin/" + form.getId() + "/editUser";
         }
     }
 
